@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.web.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="t2go.FXMLDocumentController">
+    <children>
+      <ToolBar prefHeight="55.0" prefWidth="905.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <SplitMenuButton fx:id="btnProjects_Menu" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionProjects" prefHeight="40.0" styleClass="buttonSplitMenu" stylesheets="@Style.css" text="Projects" wrapText="true">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </SplitMenuButton>
+            <Pane prefHeight="30.0" prefWidth="5.0" />
+            <ImageView fx:id="imgArrow" disable="true" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/tbArrowOff.png" />
+               </image>
+            </ImageView>
+            <Pane prefHeight="30.0" prefWidth="5.0" />
+            <SplitMenuButton fx:id="btnTGData_Menu" disable="true" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionData" prefHeight="40.0" styleClass="buttonSplitMenu" stylesheets="@Style.css" text="Data">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onActionTGDataTrans" text="View Transcripts" />
+                  <MenuItem mnemonicParsing="false" onAction="#onActionTGDataProtein" text="View Proteins" />
+                  <MenuItem mnemonicParsing="false" onAction="#onActionTGDataGene" text="View Genes" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#onActionTGDataExpMatrix" text="View Expression Matrix" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="itemProject_InputData" mnemonicParsing="false" onAction="#onActionLoadInputData" text="Load Input Data..." />
+               </items>
+            </SplitMenuButton>
+            <Pane prefHeight="30.0" prefWidth="5.0" />
+            <SplitMenuButton fx:id="btnMA_Menu" disable="true" mnemonicParsing="false" onAction="#onActionMA" prefHeight="40.0" styleClass="buttonSplitMenu" stylesheets="@Style.css" text="Diversity" wrapText="true">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <items>
+                  <MenuItem fx:id="itemMA_RunFDA" mnemonicParsing="false" onAction="#onActionMARunFDA" text="Run Functional Diversity Analysis..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="itemMA_ViewStatsFDA" mnemonicParsing="false" onAction="#onActionMAStatsFDA" text="View Diversity Results" />
+                  <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                  <MenuItem fx:id="itemMA_ClearFDA" disable="true" mnemonicParsing="false" onAction="#onActionMAClearDFDA" text="Clear Diversity Results" />
+               </items>
+            </SplitMenuButton>
+            <Pane prefHeight="30.0" prefWidth="5.0" />
+            <SplitMenuButton fx:id="btnDA_Menu" disable="true" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionDAResults" prefHeight="40.0" styleClass="buttonSplitMenu" stylesheets="@Style.css" text="Differential" wrapText="true">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <items>
+                  <Menu fx:id="menuDA_RunAnalysis" mnemonicParsing="false" text="Run Analysis">
+                    <items>
+                        <MenuItem fx:id="itemDA_RunDEA" mnemonicParsing="false" onAction="#onActionDARunDEA" text="Diffferential Expression Analysis..." />
+                        <MenuItem fx:id="itemDA_RunDSA" mnemonicParsing="false" onAction="#onActionDARunDSA" text="Differential Splicing Analysis..." />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="itemDA_Results" disable="true" mnemonicParsing="false" onAction="#onActionDAResults" text="View Combined Results" />
+                  <Menu fx:id="menuDA_DEAResults" disable="true" mnemonicParsing="false" text="View DEA Results">
+                    <items>
+                        <MenuItem fx:id="itemDA_StatsDEATrans" disable="true" mnemonicParsing="false" onAction="#onActionDAStatsDEATrans" text="Transcripts" />
+                        <MenuItem fx:id="itemDA_StatsDEAProteins" disable="true" mnemonicParsing="false" onAction="#onActionDAStatsDEAProteins" text="Proteins" />
+                        <MenuItem fx:id="itemDA_StatsDEAGenes" disable="true" mnemonicParsing="false" onAction="#onActionDAStatsDEAGenes" text="Genes" />
+                    </items>
+                  </Menu>
+                  <Menu fx:id="menuDA_DSAResults" mnemonicParsing="false" text="View DSA Results">
+                    <items>
+                      <MenuItem fx:id="itemDA_StatsDSATrans" mnemonicParsing="false" onAction="#onActionDAStatsDSATrans" text="Transcripts" />
+                      <MenuItem fx:id="itemDA_StatsDSAProteins" disable="true" mnemonicParsing="false" onAction="#onActionDAStatsDSAProteins" text="Proteins" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu fx:id="menuDA_ClearDEA" disable="true" mnemonicParsing="false" text="Clear DEA Results">
+                     <items>
+                        <MenuItem fx:id="itemDA_ClearDEATrans" disable="true" mnemonicParsing="false" onAction="#onActionDAClearDEATrans" text="Transcripts" />
+                        <MenuItem fx:id="itemDA_ClearDEAProteins" disable="true" mnemonicParsing="false" onAction="#onActionDAClearDEAProteins" text="Proteins" />
+                        <MenuItem fx:id="itemDA_ClearDEAGenes" disable="true" mnemonicParsing="false" onAction="#onActionDAClearDEAGenes" text="Genes" />
+                      <MenuItem fx:id="itemDA_ClearDEAAll" disable="true" mnemonicParsing="false" onAction="#onActionDAClearDEA" text="All DEA Results" />
+                     </items>
+                  </Menu>
+                  <Menu fx:id="menuDA_ClearDSA" mnemonicParsing="false" text="Clear DSA Results">
+                    <items>
+                        <MenuItem fx:id="itemDA_ClearDSATrans" disable="true" mnemonicParsing="false" onAction="#onActionDAClearDSATrans" text="Transcripts" />
+                      <MenuItem fx:id="itemDA_ClearDSAProteins" mnemonicParsing="false" onAction="#onActionDAClearDSAProteins" text="Proteins" />
+                    </items>
+                  </Menu>
+                  <MenuItem fx:id="itemDA_ClearAll" disable="true" mnemonicParsing="false" onAction="#onActionDAClearAll" text="Clear All Results" />
+               </items>
+            </SplitMenuButton>
+            <Pane prefHeight="30.0" prefWidth="5.0" />
+            <SplitMenuButton fx:id="btnFA_Menu" disable="true" mnemonicParsing="false" onAction="#onActionFA" prefHeight="40.0" styleClass="buttonSplitMenu" stylesheets="@Style.css" text="Features" wrapText="true">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <items>
+                  <MenuItem fx:id="itemFA_RunFDSA" mnemonicParsing="false" onAction="#onActionFARunFDSA" text="Run Feature-Level Differential Splicing Analysis..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="itemFA_StatsFDSA" disable="true" mnemonicParsing="false" onAction="#onActionFAStatsFDSA" text="View FDSA Results" />
+                  <MenuItem fx:id="itemFA_SummaryFDSA" mnemonicParsing="false" onAction="#onActionFASummaryFDSA" text="View FDSA Results Summary" />
+                  <MenuItem fx:id="itemFA_AssociationFDSA" mnemonicParsing="false" onAction="#onActionFAAssociationFDSA" text="View FDSA Gene Associations" />
+                  <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                  <MenuItem fx:id="itemFA_ClearAll" disable="true" mnemonicParsing="false" onAction="#onActionFAClearAll" text="Clear All Results" />
+               </items>
+            </SplitMenuButton>
+            <Pane prefHeight="30.0" prefWidth="5.0" />
+            <SplitMenuButton fx:id="btnEA_Menu" disable="true" mnemonicParsing="false" onAction="#onActionEA" prefHeight="40.0" styleClass="buttonSplitMenu" stylesheets="@Style.css" text="Enrichment" wrapText="true">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <items>
+                  <Menu fx:id="menuEA_RunAnalysis" mnemonicParsing="false" text="Run Analysis">
+                    <items>
+                        <MenuItem fx:id="itemEA_RunFEA" mnemonicParsing="false" onAction="#onActionRunFEA" text="Run Functional Enrichment Analysis..." />
+                        <MenuItem fx:id="itemEA_RunGSEA" mnemonicParsing="false" onAction="#onActionRunGSEA" text="Run Gene Set Enrichment Analysis..." />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                  <Menu fx:id="menuEA_FEAResults" disable="true" mnemonicParsing="false" text="View FEA Results" />
+                  <Menu fx:id="menuEA_GSEAResults" disable="true" mnemonicParsing="false" text="View GSEA Results" />
+                  <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                  <Menu fx:id="menuEA_ClearFEA" disable="true" mnemonicParsing="false" text="Clear FEA Results" />
+                  <Menu fx:id="menuEA_ClearGSEA" disable="true" mnemonicParsing="false" text="Clear GSEA Results" />
+                  <MenuItem fx:id="itemEA_ClearAll" disable="true" mnemonicParsing="false" onAction="#onActionEAClearAll" text="Clear All Results" />
+               </items>
+            </SplitMenuButton>
+            <Pane prefHeight="30.0" prefWidth="5.0">
+               <children>
+                  <Pane layoutY="1.0" prefHeight="30.0" prefWidth="5.0" />
+               </children></Pane>
+            <Separator orientation="VERTICAL" prefHeight="43.0">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Separator>
+            <SplitMenuButton fx:id="btnTGDataViz_Menu" disable="true" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="40.0" styleClass="buttonSplitMenu" stylesheets="@Style.css" text="Graphs">
+               <items>
+                  <MenuItem fx:id="itemTGDataViz_AF" mnemonicParsing="false" onAction="#onActionTGDV_AF" text="View Annotation Features graphs/charts..." />
+                  <MenuItem fx:id="itemTGDataViz_Data" mnemonicParsing="false" onAction="#onActionTGDV_Data" text="View Data graphs/charts..." />
+                  <MenuItem fx:id="itemTGDataViz_DA" mnemonicParsing="false" onAction="#onActionTGDV_DA" text="View Differential Analysis graphs/charts..." />
+                  <MenuItem fx:id="itemTGDataViz_EA" mnemonicParsing="false" onAction="#onActionTGDV_EA" text="View Enrichment Analysis graphs/charts..." />
+                  <MenuItem fx:id="itemTGDataViz_EM" mnemonicParsing="false" onAction="#onActionTGDV_EM" text="View Expression Matrix graphs/charts..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="itemTGDataViz_Tool_VennDiag" mnemonicParsing="false" onAction="#onActionTool_VennDiag" text="Create a Venn diagram..." />
+               </items></SplitMenuButton>
+            <Separator orientation="VERTICAL" prefHeight="43.0">
+               <padding>
+                  <Insets left="8.0" right="5.0" />
+               </padding>
+            </Separator>
+            <Pane fx:id="paneSearch" prefHeight="43.0" prefWidth="148.0">
+               <children>
+                  <TextField fx:id="txtSearch" prefHeight="20.0" prefWidth="148.0" promptText="Search ID/Name" styleClass="search-box" stylesheets="@Style.css">
+                     <font>
+                        <Font size="11.0" />
+                     </font></TextField>
+                  <CheckBox fx:id="chkHideUnselected" disable="true" layoutX="2.0" layoutY="27.0" mnemonicParsing="false" text="Hide unselected rows " textFill="#404040">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </Pane>
+         </items>
+      </ToolBar>
+      <ToolBar prefHeight="55.0" prefWidth="202.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <Pane fx:id="paneSeeAppLog" onMouseClicked="#onSeeAppLog" prefHeight="42.0" prefWidth="75.0" style="-fx-border-width: 1; -fx-border-color: maroon; -fx-background-color: orange; -fx-border-radius: 4; -fx-background-radius: 4;" visible="false">
+               <children>
+                  <Label alignment="CENTER" layoutY="21.0" onMouseClicked="#onSeeAppLog" prefHeight="11.0" prefWidth="75.0" text="App Log">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutY="6.0" minWidth="75.0" onMouseClicked="#onSeeAppLog" text="See">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane prefHeight="30.0" prefWidth="20.0">
+               <children>
+                  <Separator layoutX="7.0" orientation="VERTICAL" prefHeight="43.0" />
+               </children>
+            </Pane>
+            <MenuButton maxWidth="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Menu">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onActionViewAppInformation" text="View App Information" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#onActionAbout" text="About t2go..." />
+              </items>
+            </MenuButton>
+         </items>
+      </ToolBar>
+      <SplitPane dividerPositions="0.5" layoutX="237.0" layoutY="137.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="160.0">
+               <children>
+                  <TabPane fx:id="tabPaneMain" onMouseClicked="#tabPaneOnMouseClicked" prefHeight="400.0" prefWidth="900.0" styleClass="tabHolder" stylesheets="@Style.css" tabMinHeight="37.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TabPane>
+                  <WebView fx:id="webStart" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="160.0">
+               <children>
+                  <TabPane fx:id="tabPaneBottom" onMouseClicked="#tabPaneOnMouseClicked" prefHeight="400.0" prefWidth="900.0" styleClass="tabHolder" stylesheets="@Style.css" tabMinHeight="37.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TabPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <VBox fx:id="vboxApp" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: rgba(135,206,235,0.5);" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0">
+               <children>
+                  <Pane prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: steelblue; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: black; -fx-border-width: 4;">
+                     <children>
+                        <Label alignment="CENTER" layoutY="15.0" prefWidth="400.0" text="Loading Project Data..." textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>
