@@ -1,0 +1,77 @@
+#
+# All values must be provided but you may set them to N/A,
+# if your annotation file does not provide the data,
+# as long as they are NOT specified as REQUIRED in the description below.
+# For example:
+#              ATTR_DESCRIPTION = N/A
+#              SAF_DOMAIN = N/A, N/A
+#
+# WARNING: All values are CASE SENSITIVE
+#
+
+# --------------------------------------------------------------------------------
+# Annotation source and feature that application must know by name
+# Special attributes and values are defined where relevant
+# --------------------------------------------------------------------------------
+
+# Transcript - start of transcript annotation area - REQUIRED
+SAF_TRANSCRIPT = tappAS, transcript
+
+# Protein - start of protein annotation area - REQUIRED for proteins
+SAF_PROTEIN = tappAS, protein
+
+# Genomic - start of genomic annotation area
+SAF_GENOMIC = tappAS, genomic
+
+# Gene - REQUIRED
+SAF_GENE = tappAS, gene
+
+# CDS region - REQUIRED for proteins
+SAF_CDS = tappAS, CDS
+
+# Exon - needed to display aligned transcripts, etc.
+SAF_EXON = tappAS, exon
+
+# Splice junctions - needed to display splice junctions in data visualization
+SAF_SPLICEJUNCTION = tappAS, splice_junction
+
+# Novel splice junction identification - used for novel splice junctions display
+# (novel splice junctions are displayed by the application in a different color in the data visualization)
+ATTR_SPLICEJUNCTION = ID
+NOVEL_SPLICEJUNCTION = novel
+
+# Gene ontology source
+SRC_GO = GeneOntology
+
+# Gene ontology feature
+GO_P = P
+GO_F = F
+GO_C = C
+
+# Protein domain
+SAF_DOMAIN = pfam, DOMAIN; PFAM, DOMAIN
+
+# Protein variation score
+SAF_PROTEINSCORE = Provean, FunctionalImpact
+ATTR_PROTEINSCORE = Score
+
+# ------------------------------------------------------
+# General annotation attributes used by the application
+# ------------------------------------------------------
+
+# identifies the annotation feature, may or may not be unique - REQUIRED
+ATTR_ID = ID
+
+# name for the annotation feature, may or may not be unique
+ATTR_NAME = Name
+
+# description for the annotation feature
+ATTR_DESCRIPTION = Desc
+
+# chromosome where annotation feature is located
+ATTR_CHROMOSOME = Chr
+
+# Structural classification
+ATTR_PRICLASS = primary_class
+ATTR_SECCLASS = secondary_class
+
