@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="AnchorPane" prefHeight="615.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="10.0" layoutY="261.0" prefHeight="275.0" prefWidth="530.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="305.0">
+         <children>
+            <GridPane prefHeight="230.0" prefWidth="510.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TreeView fx:id="tvFeaturesPos" editable="true" prefHeight="135.0" prefWidth="550.0" />
+                  <TreeView fx:id="tvFeaturesPresence" editable="true" prefHeight="135.0" prefWidth="550.0" />
+               </children>
+               <padding>
+                  <Insets left="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+            <Hyperlink fx:id="lnkClearAll" layoutX="370.0" layoutY="240.0" text="Clear All" />
+            <Hyperlink fx:id="lnkCheckAll" layoutX="445.0" layoutY="240.0" text="Check All" />
+            <Label layoutX="12.0" layoutY="-10.0" styleClass="textDlgSection" stylesheets="@../Style.css" text="Select Annotation Feature(s)">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Label fx:id="lblMsg" alignment="CENTER" layoutX="5.0" layoutY="506.0" textFill="ORANGERED" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <Pane layoutX="10.0" layoutY="28.0" prefHeight="105.0" prefWidth="530.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="10.0">
+         <children>
+            <Label layoutX="15.0" layoutY="26.0" prefHeight="18.0" prefWidth="65.0" text="Test list:" />
+            <CheckBox fx:id="chkAutoName" layoutX="575.0" layoutY="23.0" mnemonicParsing="false" text="Auto generate Name" visible="false" />
+            <Label fx:id="lblItemsList" layoutX="12.0" layoutY="-10.0" styleClass="textDlgSection" stylesheets="@../Style.css" text="List of genes">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtTestFile" disable="true" layoutX="88.0" layoutY="66.0" prefHeight="25.0" prefWidth="387.0" promptText="Use button on right or type in full file path and name" />
+            <Button fx:id="btnTestFile" disable="true" layoutX="485.0" layoutY="66.0" mnemonicParsing="false" text="..." />
+            <Label fx:id="lblTestSelection" layoutX="16.0" layoutY="71.0" text="List file:" />
+            <ChoiceBox fx:id="cbTestLists" layoutX="88.0" layoutY="23.0" prefHeight="25.0" prefWidth="427.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="10.0" layoutY="155.0" prefHeight="130.0" prefWidth="530.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="155.0">
+         <children>
+            <Label layoutX="15.0" layoutY="95.0" prefHeight="18.0" prefWidth="92.0" text="Check Using:" />
+            <CheckBox fx:id="chkAutoName1" layoutX="575.0" layoutY="23.0" mnemonicParsing="false" text="Auto generate Name" visible="false" />
+            <Label fx:id="lblItemsList1" layoutX="12.0" layoutY="-10.0" styleClass="textDlgSection" stylesheets="@../Style.css" text="Analysis Parameters">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="cbUsing" layoutX="112.0" layoutY="93.0" prefHeight="25.0" prefWidth="400.0" />
+            <RadioButton fx:id="rbCat" layoutX="112.0" layoutY="60.0" mnemonicParsing="false" selected="true" text="Category">
+               <toggleGroup>
+                  <ToggleGroup fx:id="DataType" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="rbId" layoutX="220.0" layoutY="60.0" mnemonicParsing="false" selected="true" text="Id">
+               <toggleGroup>
+                  <ToggleGroup fx:id="DataType1" />
+               </toggleGroup>
+            </RadioButton>
+            <Label layoutX="15.0" layoutY="60.0" prefHeight="18.0" prefWidth="92.0" text="Analyze by:" />
+            <TextField fx:id="txtName" layoutX="112.0" layoutY="21.0" prefHeight="25.0" prefWidth="400.0" promptText="Enter Functional Diversity Analysis name" />
+            <Label fx:id="lblName" layoutX="15.0" layoutY="25.0" text="Name:" />
+         </children>
+      </Pane>
+   </children>    
+</AnchorPane>

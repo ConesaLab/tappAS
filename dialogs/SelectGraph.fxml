@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="AnchorPane" prefHeight="410.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblMsg" alignment="CENTER" layoutX="14.0" layoutY="164.0" textFill="ORANGERED" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <Pane layoutX="1.0" layoutY="102.0" prefHeight="325.0" prefWidth="750.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+      <Label layoutX="10.0" layoutY="92.0" styleClass="textDlgSection" stylesheets="@../Style.css" text="Graphs, Charts, and Summaries" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <GridPane maxHeight="150.0" maxWidth="450.0" prefHeight="30.0" prefWidth="400.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
+         <children>
+            <Label fx:id="lblItemGroups" text="Data Type:" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="286.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <AnchorPane fx:id="paneProject" prefHeight="34.0" prefWidth="200.0" styleClass="dlgProjectTitle" stylesheets="@../Style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="lblProjectName" alignment="CENTER" prefHeight="15.0" prefWidth="510.0" text="..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="9.0" />
+         </children>
+      </AnchorPane>
+      <ComboBox fx:id="cbItemGroups" layoutX="313.0" layoutY="128.0" prefWidth="150.0" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="83.0" />
+      <ListView fx:id="lvGraphs" layoutX="35.0" layoutY="145.0" prefHeight="230.0" prefWidth="730.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="145.0" />
+      <Label layoutX="40.0" layoutY="389.0" text="Select graph, chart, or summary to view:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="125.0" />
+   </children>    
+</AnchorPane>

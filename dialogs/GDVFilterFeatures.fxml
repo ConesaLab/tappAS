@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="AnchorPane" prefHeight="460.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblMsg" alignment="CENTER" layoutX="14.0" layoutY="164.0" textFill="ORANGERED" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <Pane maxWidth="550.0" minWidth="550.0" prefHeight="370.0" prefWidth="550.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <Label layoutX="10.0" layoutY="19.0" text="Select annotation features to display:" />
+            <TreeView fx:id="tvFeatures" editable="true" layoutX="10.0" layoutY="40.0" prefHeight="300.0" prefWidth="530.0" />
+            <Hyperlink fx:id="lnkClearAll" layoutX="476.0" layoutY="341.0" text="Clear All" />
+            <Hyperlink fx:id="lnkSetAll" layoutX="400.0" layoutY="341.0" text="Select All" />
+         </children></Pane>
+      <Label fx:id="lblFeatures" styleClass="textDlgSection" stylesheets="@../Style.css" text="Annotation Features" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="paneProject" prefHeight="34.0" prefWidth="200.0" styleClass="dlgProjectTitle" stylesheets="@../Style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="lblProjectName" alignment="CENTER" prefHeight="15.0" prefWidth="510.0" text="..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="9.0" />
+         </children>
+      </AnchorPane>
+   </children>    
+</AnchorPane>
