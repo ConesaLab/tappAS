@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="H. del Risco & P. Salguero García">
+    <title>tappAS GO Clusters</title>
+    <<filebase>>
+    <style>
+        body {
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+        .rect {
+          stroke: transparent;
+          stroke-width: .5px;
+          stroke-opacity: 1;
+          opacity: 0.25;
+          fill: transparent;
+        }
+        .node {
+          stroke: black;
+          stroke-width: .5px;
+          stroke-opacity: 1;
+        }
+        .nodeHi {
+          stroke: red;
+          stroke-width: 2px;
+          stroke-opacity: 1;
+        }
+        .link {
+          stroke: gray;
+          stroke-opacity: .25;
+          stroke-width: 1px;
+        }
+        .linkMulti {
+          stroke: darkorange;
+          stroke-opacity: .25;
+          stroke-width: 1px;
+        }
+        .linkHi {
+          stroke: red;
+          stroke-opacity: 1;
+          stroke-width: 1.25px;
+        }
+        .linkHidden {
+          stroke: gray;
+          stroke-opacity: 0.15;
+          stroke-width: 1px;
+        }
+        .label {
+          font-family: arial;
+          font-size: 8;
+          stroke: black;
+          stroke-width: 0.35px;
+          stroke-opacity: 0.75;
+        }
+        .labelHidden {
+          stroke: black;
+          stroke-width: 0.35px;
+          fill-opacity: 0.2;
+          stroke-opacity: 0.2;
+        }
+        .kappaLabel {
+          stroke: black;
+          stroke-width: .35px;
+          stroke-opacity: 0.75;
+        }
+        /* http://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js */
+        .svg-container {
+            display: inline-block;
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            vertical-align: top;
+            overflow: hidden;
+        }
+        .svg-content-responsive {
+            display: inline-block;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    </style>
+    <!-- WARNING: You must change the code to use the new version 4 of d3.js - namespaces, etc. have changed -->
+    <!--          If you decide to update, must also make sure it does not break the dagre-d3 code -->
+    <script src="d3.min.js" charset="utf-8"></script>
+    <script>
+        // note: array will be sorted in ascending order
+        function getMedian(vals) {
+            var vlen = vals.length;
+            var median = 0.0;
+            vals.sort(function(a, b){return a-b});
+            if(vlen == 0)
+                median = 0.0;
+            else if(vlen == 1)
+                median = vals[0];
+            else {
+                var pos = Math.trunc(vlen/2);
+                if((vlen & 1) != 0)
+                    median = vals[pos];
+                else
+                    median = (vals[pos] + vals[pos-1]) / 2;
+            }
+            return median;
+        }
+        function getMin(vals) {
+            var min = vals.length > 0? vals[0] : 0;
+            for(var i = 1; i < vals.length; i++)
+                min = Math.min(min, vals[i]);
+            return min;
+        }
+        function getMax(vals) {
+            var max = vals.length > 0? vals[0] : 0;
+            for(var i = 1; i < vals.length; i++)
+                max = Math.max(max, vals[i]);
+            return max;
+        }
+        function getMean(vals) {
+            var mean = 0.0;
+            for(var i = 0; i < vals.length; i++)
+                mean += vals[i];
+            mean /= vals.length;
+            return mean;
+        }
+        // get 1st, 2nd or 3rd quartile, qt = 1 to 3
+        // note: array will be sorted in ascending order
+        function getQuartile(vals, qt) {
+            if(qt == 2)
+                return getMedian(vals);
+            else if(qt != 1 && qt != 3)
+                return -1.0;
+
+            var qtile = 0.0;
+            var vlen = vals.length;
+            vals.sort(function(a, b){return a-b});
+            if(vlen == 0)
+                qtile = 0.0;
+            else if(vlen == 1)
+                qtile = vals[0];
+            else if(vlen == 2) {
+                if(qt == 1)
+                    qtile = vals[0];
+                else
+                    qtile = vals[1];
+            }
+            else if(vlen == 3) {
+                if(qt == 1)
+                    qtile = vals[0];
+                else
+                    qtile = vals[2];
+            }
+            else {
+                var idx = Math.trunc(vlen/2);
+                if((vlen & 1) == 0)
+                    idx--;
+                var idx1start = 0;
+                var idx1end = idx - 1;
+                var idx3start = idx + 1;
+                var idx3end = vlen - 1;
+                if((vlen & 1) == 0)
+                    idx1end++;
+                var qtlen, qoffset;
+                if(qt == 1) {
+                    qoffset = 0;
+                    qtlen = idx1end - idx1start + 1;
+                }
+                else {
+                    qoffset = idx + 1;
+                    qtlen = idx3end - idx3start + 1;
+                }
+                var pos = qoffset + Math.trunc(qtlen/2);
+                if((qtlen & 1) != 0)
+                    qtile = vals[pos];
+                else
+                    qtile = (vals[pos] + vals[pos-1]) / 2;
+            }
+            return qtile;
+        }
+    </script>
+</head>
+
+<body style="width:100%; height:100%; padding: 0px; margin: 0px;">
+<!-- <textarea id="msg" style="width:100%; height:30px;">Message</textarea> -->
+<div id="svgOuterDiv"></div>
+</body>
+<script type="text/javascript">
+var contextNode = "";
+var memberType = "<<memberType>>";
+<<d3arrays>>
+<<d3positions>>
+var row = [];
+var col = [];
+for(var i = 0; i <= nClusters; i++) {
+    row.push(0); col.push(0);
+}
+var dsizes = [];
+for(var i = 0; i <= nClusters; i++)
+    dsizes.push(0);
+for(var i = 0; i < dlinks.length; i++)
+    dsizes[dnodes[dlinks[i].source].group] += getRadius(dnodes[dlinks[i].source]);
+var maxItems = 1;
+for(var i = 0; i <  dnodes.length; i++) {
+    var d = dnodes[i];
+    if(((d.isos > 0)? d.isos : d.genes) > maxItems)
+        maxItems = (d.isos > 0)? d.isos : d.genes;
+    d.x = posx[d.group] + row[d.group] * delta;
+    d.y = posy[d.group] + col[d.group] * delta;
+    if(row[d.group] > col[d.group])
+	col[d.group]++;
+    else
+	row[d.group]++;
+}
+var width = <<width>>,
+    height = <<height>>;
+var color = d3.scale.category20();
+var force = d3.layout.force()
+    .charge(-400)
+    .gravity(0.25)
+    .linkDistance(function(d) {
+        if(dgroups[dnodes[d.source.index].group] < 4)
+            return 50;
+        else if(dgroups[dnodes[d.source.index].group] < 8) {
+            if(dsizes[dnodes[d.source.index].group] < 100)
+                return 70;
+            else
+                return 90;
+        }
+        else if(dgroups[dnodes[d.source.index].group] < 20) {
+            if(dsizes[dnodes[d.source.index].group] < 200)
+                return 100;
+            else
+                return 130;
+        }
+        else if(dgroups[dnodes[d.source.index].group] < 30) {
+            if(dsizes[dnodes[d.source.index].group] < 300)
+                return 150;
+            else
+                return 200;
+        }
+        else
+            return 200;
+     })
+     .size([width, height]);
+var svg = d3.select("div#svgOuterDiv")
+   .append("div")
+   .classed("svg-container", true)
+   .append("svg")
+   .attr("preserveAspectRatio", "xMinYMin meet")
+   .attr("viewBox", "0 0 " + width + " " + height)
+   .classed("svg-content-responsive", true);
+var vis = svg.append('svg:g');
+var zoomListener = d3.behavior.zoom().scaleExtent([0.67, 1.5]).on("zoom", zoom);
+function zoom() {
+    if(d3.event.scale > 0.1 && d3.event.scale < 10)
+        zoomListener.scaleExtent([d3.event.scale/1.5, d3.event.scale*1.5]);
+  vis.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+svg.call(zoomListener);
+var data_nodes = dnodes,
+    data_links = dlinks;
+force
+    .nodes(data_nodes)
+    .links(data_links)
+    .on("end", forceOnEnd)
+    .start();
+ 
+function getLinkClass(srcIdx, tarIdx) {
+    var classname = "link";
+    if(dnodes[srcIdx].group != dnodes[tarIdx].group)
+        classname = "linkMulti";
+    return classname;
+}
+var links = vis.selectAll(".link")
+    .data(data_links);
+var link =links
+    .enter().append("svg:path")
+    .attr("class", function(d) { return getLinkClass(d.source.index, d.target.index); })
+    .attr("id", function(d) { return d.source.index + "_" + d.target.index; })
+    //.style("stroke-width", function(d) { return Math.sqrt(d.value); });
+    .attr("d", function(d) { return moveto(d) + lineto(d); });
+var textPath = link.append("svg:path")
+    .attr("id", function(d) { return d.source.index + "_" + d.target.index; })
+    .attr("class", "textpath");
+function moveto (d) {
+    return "M"+d.source.x+","+d.source.y;
+};
+function lineto (d) {
+    return " L"+d.target.x+","+d.target.y;
+};
+function makeline (d, id) {
+    if(d.source.index == id)
+        return "M"+ d.source.x + "," + d.source.y + " L"+ d.target.x + "," + d.target.y;
+    else
+        return "M"+ d.target.x + "," + d.target.y + " L"+ d.source.x + "," + d.source.y;
+};
+var node_drag = d3.behavior.drag()
+    .on("dragstart", dragstart)
+    .on("drag", dragmove)
+    .on("dragend", dragend);
+
+function dragstart(d, i) {
+    d3.event.sourceEvent.stopPropagation();
+    force.stop(); // stops the force auto positioning before you start dragging
+}
+
+function dragmove(d, i) {
+    d.px += d3.event.dx;
+    d.py += d3.event.dy;
+    d.x += d3.event.dx;
+    d.y += d3.event.dy;
+    tick();
+}
+
+function dragend(d, i) {
+   d.fixed = true;
+   tick();
+}
+function getRadius(d) {
+    r = (((d.isos > 0)? d.isos : d.genes) / maxItems).toPrecision(4) * 40;
+    return Math.max(r, 5);
+}
+var arc = d3.svg.arc()
+    .outerRadius(function(d) { return getRadius(d.data); })
+    .innerRadius(0);
+var circle = vis.append("svg:g").selectAll("circle")
+    .data(force.nodes().filter(function(d) { return d.grpcnt <= 1; }))
+    .enter().append("svg:circle")
+    .attr("id", function(d) { return "node_" + d.idx;})
+    .attr("class", "node")
+    .attr("r", function(d) { return getRadius(d); })
+    .style("fill", function(d) { if(d.group == 0) return "white"; else return color(d.group); })
+    .call(node_drag);
+circle.append("title").text(function(d) { return getToolTip(d); });
+circle.on("mouseover", showHighlighted).on("mouseout", showNormal);
+var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.size; });
+var pies = [];
+for(var i = 0; i < dnodes.length; i++) {
+    var o = dnodes[i];
+    if(o.grpcnt > 1) {
+        var piegs = vis.append("svg:g").selectAll(".node" + o.idx)
+            .data(force.nodes().filter(function(d) { return d.idx == o.idx; }))
+            .enter().append("svg:g")
+            .attr("id", function(d) { return "node_" + d.idx; })
+            .attr("class", "node")
+            .call(node_drag);
+        piegs.on("mouseover", showHighlighted).on("mouseout", showNormal);
+        pies.push(piegs);
+        var pieData = [];
+        var pct = 1 / o.grpcnt;
+        var grps = o.groups.split(",");
+        for(var j = 0; j < o.grpcnt; j++)
+            pieData.push({idx: o.idx, size: pct, isos: ((o.isos > 0)? o.isos : o.genes), group: grps[j]});
+        var g = piegs.selectAll(".node")
+            .data(pie(pieData))
+            .enter().append("svg:g");
+        g.append("svg:path")
+            .attr("d", arc)
+            .style("fill", function(d) { if(d.data.group == 0) return "white"; else return color(d.data.group); });
+        piegs.append("title").text(function(d) { return getToolTip(d); });
+    }
+}
+var labels = vis.append("svg:g").selectAll("text")
+    .data(force.nodes())
+    .enter().append("text")
+    .attr("class", "label")
+    .attr("dx", function(d) {return (getRadius(d) + 2); })
+    .attr("dy", ".35em")
+    .attr("font-size", 8)
+    .attr("font-weight", "200")
+    .attr("font-family", "arial")
+    .text(function(d) { return d.label; });  
+labels.append("title").text(function(d) { return getToolTip(d); });
+labels.on("mouseover", showHighlighted).on("mouseout", showNormal);
+var kappaLabels = vis.append("svg:g").selectAll("text")
+    .data(force.nodes())
+    .enter().append("text")
+    .attr("class", "kappaLabel")
+    .attr("dx", function(d) { return (getRadius(d) + 2); })
+    .attr("dy", "1.35em")
+    .attr("font-size", 8)
+    .attr("font-weight", "200")
+    .attr("font-family", "arial")
+    .text(function(d) { return "" });
+
+force.on("tick", tick);
+var clusterTitles = null;
+var ctArray = [];
+var forceEnded = false;
+function forceOnEnd() {
+    forceEnded = true;
+    showClusterTitles();
+    centerClusterTitles();
+    tick();
+}
+function showClusterTitles() {
+    if(clusterTitles === null) {
+        clusterTitles = vis.append("svg:g").selectAll("text")
+        .data(dclusters)
+        .enter().append("text")
+        .attr("x", function(d) { return d.x;})
+        .attr("y", function(d) { return d.y;})
+        .attr("font-size", 18)
+        .attr("text-anchor", "middle")
+        .attr("font-weight", "bold")
+        .attr("font-family", "arial")
+        .attr("stroke", "black")
+        .attr("stroke-width", "0.5px")
+        .style("fill", function(d) { if(d.group == 0) return "black"; else return color(d.idx); })
+        .text(function(d) { return d.text; })
+        .call(node_drag);
+    }
+}
+function centerClusterTitles() {
+    if(!(clusterTitles === null)) {
+        var n = dclusters.length;
+        for(var i = 1; i <= n; i++) {
+            var xp = [];
+            var yp = [];
+            for(var j = 0; j < dnodes.length; j++) {
+                if(dnodes[j].group == i) {
+                    xp.push(dnodes[j].x);
+                    yp.push(dnodes[j].y);
+                }
+            }
+            var fmult = 1.5;
+            var xq1 = getQuartile(xp, 1);
+            var xq3 = getQuartile(xp, 3);
+            var xiqr = xq3 - xq1;
+            var xlowerFence = xq1 - fmult * xiqr;
+            var xupperFence = xq3 + fmult * xiqr;
+            var yq1 = getQuartile(yp, 1);
+            var yq3 = getQuartile(yp, 3);
+            var yiqr = yq3 - yq1;
+            var ylowerFence = yq1 - fmult * yiqr;
+            var yupperFence = yq3 + fmult * yiqr;
+            var xvals = [];
+            var yvals = [];
+            for(var k = 0; k < xp.length; k++) {
+                if(xp[k] >= xlowerFence && xp[k] <= xupperFence && yp[k] >= ylowerFence && yp[k] <= yupperFence) {
+                    xvals.push(xp[k]);
+                    yvals.push(yp[k]);
+                }
+            }
+            var xMean = getMean(xvals);
+            var yMean = getMean(yvals);
+            dclusters[i-1].x = xMean;
+            dclusters[i-1].y = yMean;
+        }
+    }
+}
+var tickCnt = 0;
+function tick() {
+    tickCnt++;
+    link.attr("d", function(d) { return moveto(d) + lineto(d); });
+    textPath.attr("d", function(d) { return moveto(d) + lineto(d); });
+    for(var i = 0; i < pies.length; i++)
+        pies[i].attr("transform", function(d) {  return "translate(" + d.x + "," + d.y + ")"; });
+    circle.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+    labels.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+    kappaLabels.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+    if((clusterTitles === null)) {
+        if(tickCnt > 25)
+            showClusterTitles();
+    }
+    if(!(clusterTitles === null)) {
+        // center cluster titles only while the force is going
+        if(!forceEnded)
+            centerClusterTitles();
+        
+        // translate - I must be missing the obvious since I'm having to manually adjust the translation
+        // revisit sometime and also look at the centering function, probably not setting some variable
+        clusterTitles.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+        for(cn = 0; cn < dclusters.length; cn++) {
+            var el = d3.select(clusterTitles[0][cn]);
+            var x = el.attr("x") + dclusters[cn].x;
+            var y = el.attr("y") + dclusters[cn].y;
+            el.attr("x", x);
+            el.attr("y", y);
+        }
+    }
+}
+function showHighlighted(d)
+{
+    contextNode = d.label;
+    var ids = [];
+    for(var i = 0; i < pies.length; i++) {
+        pies[i].attr("class", function(o) {
+            var classname = "node";
+            if(o.id == d.id)
+                classname = "nodeHi";
+            else {
+                for(var i = 0; i < dlinks.length; i++) {
+                    var lnk = dlinks[i];
+                    if(lnk.source.index == d.id && lnk.target.index == o.id) {
+                        classname = "nodeHi";
+                        ids.push(o.id);
+                    }
+                    else if(lnk.target.index == d.id && lnk.source.index == o.id) {
+                        classname = "nodeHi";
+                        ids.push(o.id);
+                    }
+                }
+            }
+            return classname;
+        });
+    }
+    circle.attr("class", function(o) {
+        var classname = "node";
+        if(o.id == d.id)
+            classname = "nodeHi";
+        else {
+            for(var i = 0; i < dlinks.length; i++) {
+                var lnk = dlinks[i];
+                if(lnk.source.index == d.id && lnk.target.index == o.id) {
+                    classname = "nodeHi";
+                    ids.push(o.id);
+                }
+                else if(lnk.target.index == d.id && lnk.source.index == o.id) {
+                    classname = "nodeHi";
+                    ids.push(o.id);
+                }
+            }
+        }
+        return classname;
+    });
+    svg.style("cursor","pointer");
+    links.attr("class", function(o) {
+	      return o.source.index == d.index || o.target.index == d.index ? "linkHi" : "linkHidden";  });
+    labels.attr("class", function(o) { 
+	      return (ids.indexOf(o.id) != -1 || o.id == d.id)? "label" : "labelHidden";  });
+    kappaLabels.text(function(o) {
+        var kappa = ""; 
+        var linked = (ids.indexOf(o.id) != -1)? true : false;
+        if(linked) {
+            for(var i = 0; i < dlinks.length; i++) {
+                if((dlinks[i].source.index == d.id || dlinks[i].target.index == d.id) && (dlinks[i].source.index == o.id || dlinks[i].target.index == o.id)) {
+                    kappa = "shared: " + dlinks[i].shared + ", kappa: " + dlinks[i].value;
+                    break;
+                }
+            }
+        }
+        return linked? "" + kappa : "";
+    });
+}
+function showNormal(d) {
+    contextNode = "";
+    svg.style("cursor","default");
+    links.attr("class", function(o) { return getLinkClass(o.source.index, o.target.index); });
+    for(var i = 0; i < pies.length; i++)
+        pies[i].attr("class", function(o) { return "node"; });
+    circle.attr("class", function(o) { return "node"; });
+    labels.attr("class", function(o) { return "label"; });
+    kappaLabels.text(function(o) { return ""; });
+}
+function svgResize(w, h) { svg.attr("width", w); svg.attr("height", h); svg.attr("viewBox", "0 0 " + w + " " + h); }
+function getContextMenuNode() { return contextNode; }
+function getToolTip(d) {
+    return (groupNames[d.group] + ((groupNames[d.group] == "")? "" : "\n") + d.term + "\n" + d.namespace + "\n" + d.name + "\nPresent in " + d.genes + " " + memberType);
+}
+</script>

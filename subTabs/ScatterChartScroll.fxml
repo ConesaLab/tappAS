@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="paneContents" prefHeight="300.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane fx:id="grdMain" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane fx:id="spScatChart" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <content>
+                  <ScatterChart fx:id="scatChart" animated="false" legendSide="RIGHT" prefHeight="200.0" prefWidth="200.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                    <xAxis>
+                      <NumberAxis animated="false" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <CategoryAxis animated="false" side="LEFT" />
+                    </yAxis>
+                  </ScatterChart>
+               </content>
+            </ScrollPane>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="600.0" prefWidth="600.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="200.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>
