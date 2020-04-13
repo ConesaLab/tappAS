@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Data and Filtering</title>
+	<meta charset="UTF-8">
+	<meta name="author" content="H. del Risco">
+	<link rel="stylesheet" type="text/css" href="css/web.css">
+	<script src="scripts/scripts.js"></script>
+	<script src="scripts/slides.js"></script>
+	<script src="scripts/maps.js"></script>
+	<script src="scripts/ebook.js"></script>
+	<script src="scripts/overview.js"></script>
+</head>
+
+<body style="padding-top:0px; margin-left:0px; margin-right:0px; margin-top:0px; height:100%; min-width:620px; width:100%; overflow:auto;" onresize="onResize()" onload="init(false, 'pageProjects', 'Projects')" onhashchange="onHashChanged()">
+
+
+  <section id="mainSection" style="position:fixed; left:0px; top:0px; right:0; bottom:0px; display:block; overflow:auto;">
+	<section id="contentSection" style="float:left; margin:auto; width:400px; min-width:725px; display:inline-block;">
+<div id="Top" style="height:12px;"></div>
+<table style="width:100%; vertical-align:middle;">
+  <tr>
+    <td style="text-align:left;"><span id="contentTitle" class="contentTitle">Introduction</span></td>
+    <td style="width:25px;">
+        <div id="pagePrev" class="contentButtonOff" onclick="ebook.pagePrev()">&lt;</div>
+    </td>
+    <td style="width:25px;">
+        <div id="pageNext" class="contentControl contentButton" onclick="ebook.pageNext()">&gt;</div>
+    </td>
+    <td id="tdContentControl" style="width:140px; text-align:right;">
+        <div id="contentControl" class="contentControl" style="padding-left:5px; padding-right:5px;" onclick="toggleContents()">Hide Contents &gt;&gt;</div>
+    </td>
+  </tr>
+</table>
+
+		<section id="pageProjects" class="contentPage">
+<p id="Projects">The tappAS application is project based: you create a project, input  your data, and work with it. Each project has a corresponding file folder where all its data and analyses results are stored. All the necessary project management functions - create, open, rename, and  delete - are provided in the application.
+To create a project, you must provide the following information:</p>
+<ul>
+    <li>A unique project name</li>
+    <li>The biological species associated with the RNA-seq data</li>
+    <li>The file location for the annotation features file or select one of the application provided annotation files</li>
+    <li>The experiment type</li>
+    <li>The file location for your experiment design file</li>
+    <li>The file location for your transcript level raw counts expression matrix file</li>
+    <li>Optionally, but recommended, the low count and coefficient of variation filtering parameter</li>
+    <li>Optionally, the inclusion or exclusion transcripts list file location for filtering</li>
+</ul><br/>
+<div id="InputData"><span class="contentTitle">Input Data and Filtering</span></div>
+<p>There are three input data files required to create a project: an experiment design file, a transcript level raw counts expression matrix, and a corresponding annotation file. The input data and optional filtering block diagram is shown below:<br/><br/></p>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/projectData.png" style="max-width:100%; max-height:100%;" alt="Project Data"/>
+    <div>Input data and filtering</div>
+</div>
+<br/><br/>
+<div style="padding-right:40px; padding-left:40px;">
+    <span class="marker">A. Experiment Design</span>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">An experiment design file defining the experimental groups, time slots, for time course experiments, and replicates. <span class="attention">The first experimental group is considered the control group</span>.
+        See <a href="#DesignFileFormat">Experiment Design File Format</a> for details.<br/></div>
+    <span class="marker">B. Expression Matrix</span>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">A data file containing transcript level raw counts for one or more experimental groups and one or more time points with at least two replicates each. <span class="attention">You must provide raw counts in the expression matrix</span>; they are required for some statistical analyses. Internally, the application maintains a copy of the original raw counts matrix as well as a normalized copy.
+        See <a href="#ExpMatrixFileFormat">Expression Matrix File Format</a> for details.<br/></div>
+    <span class="marker">C. Annotation Features</span>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">A data file containing annotation features for all expressed transcripts. <span class="attention">Any transcript in the expression matrix that is not included in this file will be filtered out.</span>
+        You may use one of the annotation files provided by the application or use your own.
+		The application currently provides the following annotation files:
+		<ul>
+			<li>Homo sapiens - Ensembl and RefSeq</li>
+			<li>Mus musculus - Ensembl and RefSeq</li>
+			<li>Arabidopsis thaliana - Ensembl</li>
+			<li>Zea mays - Ensembl</li>
+		</ul>
+        See <a href="#AnnotationFileFormat">Annotation Features File Format</a> for details.<br/></div>
+    <span class="marker">D. Low Counts and Coefficient of Variation Filter</span><br/>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">An optional filter for removing transcripts with low expression levels and inconsistent expression values across samples.<br/>
+    </div>
+    <span class="marker">E. Transcripts Filter</span><br/>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+        An optional transcripts filter for removing unwanted transcripts. You may provide an inclusion list, for transcripts to include, or an exclusion list for transcripts to filter out. You may, for example, initially bring in all the data into a project and then use the application's ad hoc queries, or analysis results, to generate, and export, a transcripts list. You may then reinput the data into the project applying the exported transcript list as a filter.<br/>
+	</div>
+    <span class="marker">F. Project Data</span><br/>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+        The project data consists of all the transcripts that remain after filtering, along with their corresponding annotation features.
+        Transcripts that are filtered out are no longer part of the project data.
+        For example, if a gene contains 5 isoforms and two of them are filtered out, the application data will only have 3 isoforms for the gene.
+        If all isoforms for a gene are filtered out, the gene will no longer be part of the project data.
+		It is important that you understand that from the application's perspective, the data included in the project represents the 'universe' for the project.
+		<span class="attention">Genes and transcripts that are not part of the project data are not taken into account in any way by the application</span>. 
+		For example, when using 'All genes' in a data analysis, it refers to all genes in the project data not all genes for the species or all genes in the annotation file.
+		<span class="attention">You may reinput the data for a project at any time; however, all existing analysis results will be cleared.</span>
+    </div>
+</div>
+<br/><br/>
+<div id="Normalization"><span class="contentTitle">Expression Matrix Data Normalization</span></div>
+<p>As previously stated, the application offers users the option of working with their raw counts or previously-normalized expression matrix, as well as to perform normalization upon project creation.
+   The Trimmmed Mean of M (TMM) normalization procedure by 
+<a href="https://doi.org/10.1186/gb-2010-11-3-r25" target="_blank">Robinson and Oshlack</a>, provided in the R package NOISeq, is used to normalize the data.
+</p>
+You may view the NOISeq documentation and installation instructions at:<br/>
+<div style="padding-top:7px;">
+    <a href="https://www.bioconductor.org/packages/release/bioc/html/NOISeq.html" target="_blank" style="padding-left:30px;">https://www.bioconductor.org/packages/release/bioc/html/NOISeq.html</a>
+</div>
+<br/><br/>
+
+
+		  <div id="DesignFileFormat">
+<div><span class="contentTitle">Experiment Design File Format</span></div>
+<p>The experiment design file defines the relationship between the expression matrix data and the various experimental groups, time slots, and replicates. There are three experiment types supported by the application:
+<ul>
+    <li>Two-Group Comparison</li>
+    <li>Time-Course Single Series</li>
+    <li>Time-Course Multiple Series</li>
+</ul> 
+<p>The design file will change depending on the experiment type. However, regardless of experiment type, it is possible to use the same expression matrix and just modify the design file. By doing so, you have the option to run case-control analysis, and time-course single series analysis using the data from a time-course multiple series experiment. You may also, leave out replicates, time slots, etc. without having to make any changes to the expression matrix.</p>
+<p><span class="attention">Regardless of what data you use from the expression matrix, the first experimental group is treated as the control group where relevant.</span>
+The following format rules apply to all design files:</p>
+<ul>
+    <li>The data must be in Tab Separated Values (TSV) format and must contain a single line header</li>
+    <li>Comment lines are not allowed</li>
+    <li>The first experimental group is considered the control group where relevant</li>
+    <li>All samples for an experimental group must be grouped together</li>
+    <li>All samples for a given time slot, within an experimental group, must be grouped together</li>
+    <li>All time slots for a given group must be specified in chronological order</li>
+    <li>Time values must be specified using numbers only - no time units</li>
+    <li>Sample column names must be unique</li>
+    <li>Sample column names are case-sensitive and must match the expression matrix</li>
+</ul>
+<br/>
+<span class="contentTitle">Two-Group Comparison Design File</span>
+<p>The case-control design file must contain two experimental groups. Each group must contain at least two replicates.</p>
+Sample design file:<br/><br/>
+<table class="matrix">
+    <tr><th>Sample</th><th>Group</th></tr>
+    <tr><td>NPC1</td><td>NPC</td></tr>
+    <tr><td>NPC2</td><td>NPC</td></tr>
+    <tr><td>OLD1</td><td>OLD</td></tr>
+    <tr><td>OLD2</td><td>OLD</td></tr>
+</table>
+<br/>
+<span class="contentTitle">Single Series Time-Course Design File</span>
+<p>The single series time-course design file must contain a single experimental group. The group must contain at least two time slots with a minimum of two replicates per time slot.</p>
+Sample design file:<br/><br/>
+<table class="matrix">
+    <tr><th>Sample</th><th>Time</th><th>Group</th></tr>
+    <tr><td>NPC1</td><td>0</td><td>NPC</td></tr>
+    <tr><td>NPC2</td><td>0</td><td>NPC</td></tr>
+    <tr><td>NPC3</td><td>3</td><td>NPC</td></tr>
+    <tr><td>NPC4</td><td>3</td><td>NPC</td></tr>
+</table>
+<br/>
+<span class="contentTitle">Multiple Series Time-Course Design File</span>
+<p>The multiple series time-course design file must contain at least two experimental groups. Each group must contain at least two time slots with a minimum of two replicates per time slot.</p>
+Sample design file:<br/><br/>
+<table class="matrix">
+    <tr><th>Sample</th><th>Time</th><th>Group</th></tr>
+    <tr><td>NPC1</td><td>0</td><td>NPC</td></tr>
+    <tr><td>NPC2</td><td>0</td><td>NPC</td></tr>
+    <tr><td>NPC3</td><td>3</td><td>NPC</td></tr>
+    <tr><td>NPC4</td><td>3</td><td>NPC</td></tr>
+    <tr><td>OLD1</td><td>0</td><td>OLD</td></tr>
+    <tr><td>OLD2</td><td>0</td><td>OLD</td></tr>
+    <tr><td>OLD3</td><td>3</td><td>OLD</td></tr>
+    <tr><td>OLD4</td><td>3</td><td>OLD</td></tr>
+</table>
+<br/><br/>
+
+		  </div>
+		  <div id="ExpMatrixFileFormat">
+<div><span class="contentTitle">Expression Matrix File Format</span></div>
+<p>The expression matrix file <span class="attention">must contain raw expression counts</span> for one or more experimental groups. Each group may have one or more time slots with each time slot having at least two replicates. The following format rules apply:</p>
+<ul>
+    <li>The data must be in Tab Separated Values (TSV) format and must contain a single line header</li>
+    <li>A unique transcript id identifies each row and must match one of the transcripts provided in the annotation file or it will be discarded</li>
+    <li>Sample column names must be unique</li>
+    <li>Sample column names are case-sensitive and must match the experiment design file</li>
+    <li>The columns do not need to be in any specific order - the experiment design file will provide grouping information</li>
+</ul> 
+Expression matrix file partial contents sample:<br/><br/>
+<table class="matrix">
+    <tr><th>&nbsp;</th><th>NPC1</th><th>NPC2</th><th>OLD1</th><th>OLD2</th></tr>
+    <tr><td>PB.1.1</td><td>7275</td><td>3602</td><td>3707</td><td>3485</td></tr>
+    <tr><td>PB.10.1</td><td>358.64</td><td>206.58 </td><td>2056.72</td><td>2094.65</td></tr>
+    <tr><td>PB.10.2</td><td>332.44</td><td>329.38</td><td>1529.46</td><td>1318.57</td></tr>
+    <tr><td>PB.10.3</td><td>46.92</td><td>13.03</td><td>20.82</td><td>33.78</td></tr>
+</table>
+
+		  </div>
+		  <br/><br/>
+		  <div id="AnnotationFileFormat">
+        <div><span class="contentTitle">Annotation Features File Format</span></div>
+        <p>The annotation file must follow the basic <a target="_blank" href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md">Generic Feature Format 3 (GFF3)</a>. 
+            However, it has been slightly modified to suit the application:
+            the "score" and "phase" columns are not used and some of the attributes may not fully abide by the formal specifications.
+            The file consists of a set of annotation features for each transcript. Each set of features is divided into sections as follows:
+		</p>
+        <div style="padding-left:15px;"><b>Transcript 1</b>
+            <br/>&nbsp;&nbsp;Transcript Level Feature Annotations - basic transcript information, UTR motifs, microRNAs, etc.
+            <br/>&nbsp;&nbsp;Genomic Level Feature Annotations - exons, splice junctions, etc.
+            <br/>&nbsp;&nbsp;Protein Level Feature Annotations - gene ontology features, domains, phosphorylation sites, etc.
+            <br/><b>Transcript 2</b>
+            <br/>&nbsp;&nbsp;...
+            <br/><b>Transcript 3</b>
+            <br/>&nbsp;&nbsp;...
+        </div>
+        <p>Some of the annotation features must be named as expected by the application, see sample annotation file below:</p>
+        <table class="matrix">
+            <tr><th>Source</th><th>Feature</th><th>Description</th></tr>
+            <tr><td>TAPPAS</td><td>transcript</td><td>Start of transcript features</td></tr>
+            <tr><td>TAPPAS</td><td>gene</td><td>Gene information</td></tr>
+            <tr><td>TAPPAS</td><td>CDS</td><td>CDS information</td></tr>
+            <tr><td>TAPPAS</td><td>genomic</td><td>Start of genomic features</td></tr>
+            <tr><td>TAPPAS</td><td>exon</td><td>Exon</td></tr>
+            <tr><td>TAPPAS</td><td>splice_junction</td><td>Splice junction</td></tr>
+            <tr><td>TAPPAS</td><td>protein</td><td>Start of protein features</td></tr>
+        </table>
+        <br/>
+        <p>In addition, the following attributes must be named as required by the application, see sample annotation file below:</p>
+        <table class="matrix">
+            <tr><th>Attribute</th><th>Description</th></tr>
+            <tr><td>ID</td><td>Feature ID</td></tr>
+            <tr><td>Name</td><td>Feature name</td></tr>
+            <tr><td>Desc</td><td>Feature description</td></tr>
+            <tr><td>Chr</td><td>Feature chromosome</td></tr>
+        </table>
+        <br/>
+        Annotation file partial contents sample:<br/><br/>
+        <table class="matrix" style="font-size:xx-small;">
+            <tr><th>SeqName</th><th>Source</th><th>Feature</th><th>Start</th><th>End</th><th>Score</th><th>Strand</th><th>Phase</th><th>Attributes</th></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>transcript</td><td>1</td><td>1399</td><td>.</td><td>+</td><td>.</td><td>ID=XM_006524897.1; primary_class=full_splice_match</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>gene</td><td>1</td><td>1399</td><td>.</td><td>+</td><td>.</td><td>ID=Qpct; Name=Qpct; Desc=glutaminyl-peptide cyclotransferase (glutaminyl cyclase)</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>CDS</td><td>10</td><td>951</td><td>.</td><td>+</td><td>.</td><td>ID=XP_006524960.1</td></tr>
+            <tr><td>PB.3189.4</td><td>UTRsite</td><td>3'UTRmotif</td><td>1288</td><td>1295</td><td>.</td><td>+</td><td>.</td><td>ID=U0023; Name=K-BOX; Desc=K-Box</td></tr>
+            <tr><td>PB.3189.4</td><td>UTRsite</td><td>PAS</td><td>1380</td><td>1399</td><td>.</td><td>+</td><td>.</td><td>ID=U0043; Name=PAS; Desc=Polyadenylation Signal</td></tr>
+            <tr><td>PB.3189.4</td><td>mirWalk</td><td>miRNA</td><td>986</td><td>993</td><td>.</td><td>+</td><td>.</td><td>ID=mmu-miR-495-5p; Name=mmu-miR-495-5p; Desc=UTR3</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>genomic</td><td>1</td><td>1</td><td>.</td><td>+</td><td>.</td><td>Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>exon</td><td>79052257</td><td> 79052388</td><td>.</td><td>+</td><td>.</td><td>Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>exon</td><td>79070673</td><td> 79070951</td><td>.</td><td>+</td><td>.</td><td>Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>exon</td><td>79077482</td><td> 79077658</td><td>.</td><td>+</td><td>.</td><td>Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>exon</td><td>79079467</td><td> 79079566</td><td>.</td><td>+</td><td>.</td><td>Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>exon</td><td>79081747</td><td> 79081863</td><td>.</td><td>+</td><td>.</td><td>Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>exon</td><td>79089623</td><td> 79090216</td><td>.</td><td>+</td><td>.</td><td>Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>splice_junction</td><td>79052388</td><td>79070673</td><td>.</td><td>+</td><td>.</td><td>ID=known_canonical; Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>splice_junction</td><td>79070951</td><td>79077482</td><td>.</td><td>+</td><td>.</td><td>ID=known_canonical; Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>splice_junction</td><td>79077658</td><td>79079467</td><td>.</td><td>+</td><td>.</td><td>ID=known_canonical; Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>splice_junction</td><td>79079566</td><td>79081747</td><td>.</td><td>+</td><td>.</td><td>ID=known_canonical; Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>splice_junction</td><td>79081863</td><td>79089623</td><td>.</td><td>+</td><td>.</td><td>ID=known_canonical; Chr=chr17</td></tr>
+            <tr><td>PB.3189.4</td><td>TAPPAS</td><td>protein</td><td>1</td><td>313</td><td>.</td><td>+</td><td>.</td><td>ID=XP_006524960.1</td></tr>
+            <tr><td>PB.3189.4</td><td>Provean</td><td>FunctionalImpact</td><td> .</td><td>.</td><td>.</td><td>.</td><td>.</td><td>ID=&lt;-2.5; Score=-111.14</td></tr>
+            <tr><td>PB.3189.4</td><td>GeneOntology</td><td>C</td><td>.</td><td>.</td><td>.</td><td>.</td><td>.</td><td>ID=GO:0070062; Name=extracellular exosome</td></tr>
+            <tr><td>PB.3189.4</td><td>GeneOntology</td><td>F</td><td>.</td><td>.</td><td>.</td><td>.</td><td>.</td><td>ID=GO:0008270; Name=zinc ion binding</td></tr>
+            <tr><td>PB.3189.4</td><td>GeneOntology</td><td>P</td><td>.</td><td>.</td><td>.</td><td>.</td><td>.</td><td>ID=GO:0017186; Name=peptidyl-pyroglutamic acid biosynthetic process, using glutaminyl-peptide cyclotransferase</td></tr>
+            <tr><td>PB.3189.4</td><td>pfam</td><td>DOMAIN</td><td> 74</td><td>306</td><td>.</td><td>.</td><td>.</td><td>ID=PF04389; Name=Peptidase_M28; Desc=Peptidase family M28</td></tr>
+            <tr><td>PB.3189.4</td><td>pfam</td><td>clan</td><td>.</td><td>.</td><td>.</td><td>.</td><td>.</td><td>ID=CL0035.15; Name=Peptidase_MH; Desc=Peptidase clan MH/MC/MF</td></tr>
+            <tr><td>PB.3189.4</td><td>Swissprot_Phosphosite</td><td>PTM</td><td>29</td><td>29</td><td>.</td><td>.</td><td>.</td><td>ID=Glycosylation; Name=Glycosylation; Desc=CARBOHYD__N-linked (GlcNAc...)._SwissProt</td></tr>
+            <tr><td>PB.3189.4</td><td>Swissprot_Phosphosite</td><td>BINDING</td><td>111</td><td>111</td><td>.</td><td>.</td><td>.</td><td>ID=Metal; Name=Metal; Desc=METAL__Zinc. catalytic._Swissprot</td></tr>
+            <tr><td>PB.3189.4</td><td>Swissprot_Phosphosite</td><td>ACT_SITE</td><td> 153</td><td>153</td><td>.</td><td>.</td><td>.</td><td>ID=Act_Site; Name=Act_Site; Desc=ACT_SITE__Proton acceptor._SwissProt</td></tr>
+        </table>
+
+		  </div>
+		  <br/><p>Generating an annotation file is not a trivial task and it's not recommended unless you have a good programming background and knowledge of annotation features. If possible, use one of the annotation files provided by the application. If no annotation file is provided for the species you are interested in, you may contact us &lt;to be added&gt;.</p>
+		  <br/><br/>
+
+		</section>
+	</section>
+<aside id="contentItems" class="contentMenuApp">
+    <div style="height:19px;"></div>
+    <span style="color:slategray; font-size:medium; font-weight:bold;">Contents<br/></span>
+    <div style="height:3px;"></div>
+    <div id="pageIntro_Top" class="contentItem"><a href="pageIntro.html#Top" class="notSelected">Introduction</a></div>
+    <div id="pageIntro_subitems" class="contentSubItems">
+            <div id="pageIntro_Reqs" class="contentItem" style="padding-left:10px;"><a href="pageIntro.html#Reqs" class="notSelected">Application Requirements</a></div>
+    </div>
+    <div id="pageProjects_Top" class="contentItem"><a href="pageProjects.html#Top" class="notSelected">Projects</a></div>
+    <div id="pageProjects_subitems" class="contentSubItems">
+            <div id="pageProjects_InputData" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#InputData" class="notSelected">Input Data and Filtering</a></div>
+            <div id="pageProjects_Normalization" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#Normalization" class="notSelected">Expression Data Normalization</a></div>
+            <div id="pageProjects_DesignFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#DesignFileFormat" class="notSelected">Experiment Design File Format</a></div>
+            <div id="pageProjects_ExpMatrixFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#ExpMatrixFileFormat" class="notSelected">Expression Matrix File Format</a></div>
+            <div id="pageProjects_AnnotationFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#AnnotationFileFormat" class="notSelected">Annotation File Format</a></div>
+    </div>
+    <div id="pageAppXface_Top" class="contentItem"><a href="pageAppXface.html#Top" class="notSelected">Application Interface</a></div>
+    <div id="pageAppXface_subitems" class="contentSubItems">
+            <div id="pageAppXface_Layout" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Layout" class="notSelected">GUI Layout</a></div>
+            <div id="pageAppXface_Menus" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Menus" class="notSelected">Context-Sensitive Menus</a></div>
+            <div id="pageAppXface_Tabs" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tabs" class="notSelected">Tab Panels, Tabs, and Subtabs</a></div>
+            <div id="pageAppXface_SubtabMenuBar" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#SubtabMenuBar" class="notSelected">Subtabs Menu Bar</a></div>
+            <div id="pageAppXface_Tables" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tables" class="notSelected">Tables</a></div>
+            <div id="pageAppXface_Visual" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Visual" class="notSelected">Visual Display Controls</a></div>
+    </div>
+    <div id="pageAppTips_Top" class="contentItem"><a href="pageAppTips.html#Top" class="notSelected">Application Tips</a></div>
+    <div id="pageDataViz_Top" class="contentItem"><a href="pageDataViz.html#Top" class="notSelected">Data Visualization</a></div>
+    <div id="pageDataViz_subitems" class="contentSubItems">
+            <div id="pageDataViz_DVAccess" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#DVAccess" class="notSelected">Accessing Data Visualizations</a></div>
+            <div id="pageDataViz_GeneDV" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#GeneDV" class="notSelected">Gene Data Visualization</a></div>
+    </div>
+    <div id="pageDrillDown_Top" class="contentItem"><a href="pageDrillDown.html#Top" class="notSelected">Data Drill Down</a></div>
+    <div id="pageExport_Top" class="contentItem"><a href="pageExport.html#Top" class="notSelected">Export Data and Images</a></div>
+    <div id="pageQuery_Top" class="contentItem"><a href="pageQuery.html#Top" class="notSelected">Ad Hoc Query</a></div>
+    <div id="pageQuery_subitems" class="contentSubItems">
+            <div id="pageQuery_Search" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Search" class="notSelected">Simple Search</a></div>
+            <div id="pageQuery_Query" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Query" class="notSelected">Row Selection Query</a></div>
+    </div>
+    <div id="pageAFA_Top" class="contentItem"><a href="pageAFA.html#Top" class="notSelected">Functional Diversity Analysis</a></div>
+    <div id="pageAFA_subitems" class="contentSubItems">
+            <div id="pageAFA_Gene" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Gene" class="notSelected">Gene-Level FDA</a></div>
+            <div id="pageAFA_ID" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#ID" class="notSelected">ID-Level FDA</a></div>
+            <div id="pageAFA_Combined" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Combined" class="notSelected">ID-Level FDA Combined Results</a></div>
+    </div>
+    <div id="pageDEA_Top" class="contentItem"><a href="pageDEA.html#Top" class="notSelected">Differential Expression Analysis</a></div>
+    <div id="pageDIU_Top" class="contentItem"><a href="pageDIU.html#Top" class="notSelected">Differential Isoform Usage Analysis</a></div>
+    
+    <div id="pageEA_Top" class="contentItem"><a href="pageEA.html#Top" class="notSelected">Enrichment Analysis</a></div>
+    <div id="pageEA_subitems" class="contentSubItems">
+            <div id="pageEA_FEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEA" class="notSelected">Functional Enrichment Analysis</a></div>
+            <div id="pageEA_FEAClusters" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEAClusters" class="notSelected">Enriched Features Clusters</a></div>
+            <div id="pageEA_GSEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#GSEA" class="notSelected">Gene Set Enrichment Analysis</a></div>
+    </div>
+</aside>
+<div style="clear:both;"></div>
+
+  </section>
+
+</body>
+</html>
