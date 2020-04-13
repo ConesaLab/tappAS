@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GSEA Enriched Features Display Filter</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco & Ángeles Arzalluz Luque">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>GSEA Enriched Features Display Filter</b></span></div>
+    <p>The GSEA enriched features filter allows you to select which features to display so that you can see the ones that you are interested in.
+        To select which enriched features to display, two display options are provided:
+    </p>
+    <div style="padding-top:7px; padding-left:20px; font-weight: normal; color:black;"><b>Top 'n' enriched feature IDs for each feature - </b>
+        select to display the top 'n' feature IDs for each feature.
+        <div style="padding-top:7px; padding-left:20px; font-weight: normal; color:black;"><b>n - </b>specify the value for 'n' (1 to 50)
+        </div>
+    </div>
+    <div style="padding-top:7px; padding-left:20px; font-weight: normal; color:black;"><b>All manually selected enriched features - </b>
+        select to manually specify, in the tree control, which feature IDs to display.
+        <div style="padding-top:7px; padding-left:20px; font-weight: normal; color:black;"><b>Select Enriched Feature(s) to display - </b>
+            select the enriched features to include in the display.
+            Note that the tree contains one branch per feature and each branch can be expanded to show all the feature IDs it contains.
+            You may select all feature IDs for a given feature or expand and select specific feature IDs only.
+            Feature IDs are sorted by descending adjusted p-value, with the lowest value on top.
+        </div>
+        <div style="padding-top:7px; padding-left:20px; font-weight: normal; color:black;"><b>Clear All - </b>click to clear all selected features
+        </div>
+        <div style="padding-top:7px; padding-left:20px; font-weight: normal; color:black;"><b>Check All - </b>click to check, select, all features
+        </div>
+    </div>
+    <div style="padding-top:7px; padding-left:20px; font-weight: normal; color:black;"><b>Select enriched features by list - </b>
+        provide a list of feature IDs (as a single-column .tsv file) to show in the chart. You may select non-significant features for the purpose of comparison.
+    </div>
+
+    <p>Note: The total number of feature IDs to display on the chart is limited to 100 for both display options.</p>
+    <!-- AddHelp:fea,gui,tips -->
+    <br/><br/>
+</body>
+</html>
+

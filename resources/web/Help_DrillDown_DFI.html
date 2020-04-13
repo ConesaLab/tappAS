@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DFI Gene Feature ID Data Visualization</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body>
+<div><span class="contentTitle">DFI Gene Feature ID Data Visualization</span></div>
+<p>The DFI gene feature ID data visualization displays a line chart with the expression levels for the selected gene and feature ID based on the original row where the drill down was requested. 
+    The chart displays the two conditions on the x-axis and the corresponding expression levels on the y-axis.
+    Two lines are displayed in the chart:</p>
+    <ul>
+        <li>With Feature ID - sum of expression levels, for each condition, for all gene transcripts containing the feature ID</li>
+        <li>Without Feature ID - sum of expression levels, for each condition, for all gene transcripts NOT containing the feature ID</li>
+    </ul>
+The DS status for the gene feature ID and condition favored, for 'with feature ID', information are also displayed on the chart.
+Note that the mouseover feature for line charts only works on the endpoints of the line.<br/>
+<!-- SubtabMenuBar:export -->
+<!-- AddHelp:dfi,visual,gui,tips -->
+</body>
+</html>
+

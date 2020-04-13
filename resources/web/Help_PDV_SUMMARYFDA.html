@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Functional Diversity Analysis (FDA) Summary</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco & Ángeles Arzalluz-Luque">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>Project Data Visualization: Functional Diversity Analysis (FDA) Summary</b></span></div>
+    <p>The FDA Summary subtab contains visual display controls summarizing the analysis results.
+    The display controls are described below by position, left to right.</p>
+    <div style="padding-left:25px;">
+        <p><b>Gene Level Functional Diversity (Presence/Position)</b> horizontal bar chart (Presence/Position indicated depending on the method used to assess diversity) - 
+	    Each horizontal bar displays the percentage of multi-isoform genes annotated for the corresponding feature category.
+            Each bar broken is down based on the % of feature-annotated genes that present variation for this category in at least one of their isoforms. See explanation below for details.</p>
+        <p><b>Pairwise Isoforms Level Diversity</b> horizontal bar chart (Presence/Position indicated depending on the method used to assess diversity) - 
+	    Displays the percentage of pairwise isoform comparisons performed for genes containing the corresponding feature annotation.
+            Each bar is broken down based on the % pairwise isoforms that presented variation. See explanation below for details.</p>
+    </div>
+    <p>The following requirements apply to this analysis:</p>
+    <ul>
+        <li>For a gene to be included in this analysis, it must have multiple isoforms and contain at least one instance of the selected annotation feature categories.</li>
+        <li>For any given feature, only the genes with at least one isoform containing that feature are included in the specific feature category part of the analysis.</li>
+    </ul>
+    <p>The feature names on the y-axis are followed by an identifier for the corresponding annotation feature section, which is also indicated by bar color:</p>
+    <ul>
+        <li>(T) - transcript section annotation feature (red).</li>
+        <li>(P) - protein section annotation feature (blue).</li>
+    </ul>
+    <p>The gene level diversity is computed as follows:</p>
+    <ul>
+        <li>The total bar length, percentage of genes with feature category annotated, is determined by dividing the number of genes containing the feature by
+            the total number of genes with multiple isoforms.</li>
+        <li>The diverse and not-diverse percentages, colored sections of the bar, are determined at the gene level.
+            If there are any feature differences in at least one of the isoforms for a given gene, then the whole gene is considered diverse for that feature.
+            The number of diverse genes is then divided by the total number of genes containing the feature category to obtain the diverse and not-diverse percentages.
+	    Total numbers of genes represented in each bar area are shown interactively when browsing through the bars.
+        </li>
+    </ul>
+    <p>The pairwise isoform-level diversity is computed as follows:</p>
+    <ul>
+        <li>The total bar length is determined by dividing the total number of isoform pairs corresponding to genes annotated for each the feature by
+            the total number of isoform pairs belonging to genes with multiple isoforms.</li>
+        <li>The diverse and not-diverse percentages, colored sections of the bar, are determined at the pairwise isoforms level.
+            For each gene, the number of pairwise isoform comparisons having diversity is determined by comparing all possible isoform pairs within the gene.
+            If a pair of isoforms in the gene is different then the pair is considered diverse for that feature, instead of the whole gene.</li>
+        <li>Add up the isoform pairs, having diversity for a given feature, and divide by the total number of possible isoform pairs, for all genes containing that feature, to get the percentage.
+        This is the value that determines the colored divisions on the feature's bar.</li>
+    </ul>
+    <p>As you probably already noticed, because of the way the percentages are computed, the gene level diverse percentages are typically higher than the pairwise isoforms level percentages.</p>
+
+    <div><span class="contentTitle"><b>Project Data Visualization: Combined Results ID-level FDA Summary</b></span></div>
+    <p>The FDA Combined Results Summary subtab contains a barplot indicating the number of features labeled as varying for the
+	analyzed annotation category, comparing the genomic position and presence/absence analysis results. Only the top-15 most
+	significantly varying features (i.e., IDs) are displayed. The y axis indicates the number of genes for which each
+	feature is differentially annotated between isoforms, considering both analysis approaches (see FDA analysis window 
+	help for details).</p>
+    <!-- DVReminders -->
+    <!-- SubtabMenuBar:export -->
+    <!-- AddHelp:fda,visual,menus,gui,tips -->
+</body>
+</html>
+

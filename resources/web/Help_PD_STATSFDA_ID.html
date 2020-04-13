@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ID-Level Functional Diversity Analysis Results</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Ángeles Arzalluz-Luque">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>ID-Level Functional Diversity Analysis Results</b></span></div>
+    <p>Analyzing Functional Diversity at the ID level generates a results table for each annotated element within the
+	selected feature category (for instance, PFAM domains). One row per ID is displayed (for example, PF00009). 
+	The columns contain the following:</p>
+    <ul>
+	<li>Feature ID: contains the ID of the feature as a composed name, integrated by the source (i.e. the database) from 
+	which the annotation was retrieved, the annotation category name, and the feature name, separated by a bar. 
+	Example: PFAM/DOMAIN/PF00009.</li>
+    </ul>
+    <ul>
+        <li>Feature Description: a more detailed description of the annotated feature, if available.</li>
+    </ul>
+    <ul>
+	<li>P-Value: significance of a Fisher's Exact test performed on varying/not varying status of the feature ID
+	vs the annotation variation in the entire feature category.</li>
+    </ul>
+    <ul>
+	<li>AdjP-Value: adjusted p-value using the Benjamini-Hochberg method.</li>
+    </ul>
+    <ul>
+	<li>VARYING/NOT VARYING: number of genes for which the feature is detected as varying and not. The sum of these 
+	two fields corresponds to the number of genes in the annotation that contain that specific feature in at least one isoform.</li>
+    </ul>
+    <!-- RowColumns -->
+    <!-- HiddenColumns -->
+    <!-- SubtabMenuBar:optlog,select,export,dataViz,rerun -->
+    <!-- AddHelp:fda,tables,query,gui,tips -->
+</body>
+</html>
+

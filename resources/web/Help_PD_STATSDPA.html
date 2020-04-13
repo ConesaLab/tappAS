@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Differential PolyAdenylation results</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Ángeles Arzalluz-Luque">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>Differential PolyAdenylation results</b></span></div>
+    <p>The DPA results data table displays the statistical analysis results combined with expression and annotation data. 
+        The following table columns are displayed by default:</p>
+    <ul>
+        <li>Gene - gene identifier as provided in the annotation file.</li>
+        <li>DPA Result - DPA for differential included, NOT DPA otherwise.</li>
+        <li>Q-Value - adjusted significance value obtained via the combination of p-values from DEXSeq.</li>
+        <li>Distal Condition - condition or time-point numbers (as named in the design file), where usage of the distal polyA site is favored.</li>
+        <li>Distal and Proximal Expression values per Condition - for each of the conditions or time-points, the distal and proximal polyA expression values are displayed.
+		Expression in these cases results from the sum of expression values of all the isoforms contributing to the distal or proximal polyA sites, respectively.
+		Check documentation at tappas.org for further information on polA site definition.</li>
+        <li>PolyA switching - polyA switching is called when the predominant polyA site used changes between conditions or time points, i.e. when the sum of expression of distal-expressing 
+		isoforms is higher than the sum of proximal-expressing isoforms in one condition but not in the other, or vice-versa.</li>
+        <li>ΔDistal PolyA Site Usage (ΔDPAU) - proportion of change in distal polyA site usage across conditions or time-points (absolute value).</li>
+    </ul>
+    <!-- RowColumns -->
+    <!-- HiddenColumns -->
+    <ul>
+        <li>Gene Description - gene description, if any, as provided in the annotation file.</li>
+        <li>Distal and Proximal mean expression - average expression for distal or proximal polyA sites across conditions or time points.</li>
+        <li>Chr - chromosome.</li>
+        <li>Strand - chromosome strand.</li>
+        <li>Isoforms - number of isoforms for this gene.</li>
+        <li>Coding - protein coding status: YES, if there are any coding transcripts, NO otherwise.</li>
+    </ul>
+    <!-- SubtabMenuBar:optlog,select,export,dataViz,sigLevel,rerun -->
+    <!-- AddHelp:fdsa,tables,query,gui,tips,edger,dexseq, -->
+</body>
+</html>
+

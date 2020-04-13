@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Data: Expression Matrix</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">Project Data: Expression Matrix</span></div>
+    <p>The Expression Matrix data table displays the original transcript-level expression data along with transcript specific filtering information. 
+        The following table columns are displayed by default:</p>
+    <ul>
+        <li>Id - transcript Id as provided in the expression matrix</li>
+        <li>Filtered - transcript filtered status:<br/>'NO' if not filtered,
+            <br/>'YES - LowCount/COV' if filtered as a result of low counts or exceeding the coefficient of variation cutoff,
+            <br/>'YES - Transcripts List' if filtered as a result of the transcripts list,
+            <br/>'YES - No Annotation' if filtered as a result of having no annotation in the annotation file</li>
+    </ul>
+    <span style="padding-left:25px; font-weight:bold;">Condition 1 Samples Section</span>
+    <ul>
+        <li>1 - expression level for first sample</li>
+        <li>...</li>
+        <li>n - expression level for last sample</li>
+    </ul>
+    <span style="padding-left:25px; font-weight:bold;">Condition 2 Samples Section</span>
+    <ul>
+        <li>1 - expression level for first sample</li>
+        <li>...</li>
+        <li>n - expression level for last sample</li>
+    </ul>
+    <!-- RowColumns -->
+    <!-- HiddenColumns -->
+    <ul>
+        <li>Annotation Feature Columns - use the 'Add annotation feature column...' menu selection</li>
+    </ul>
+    <!-- SubtabMenuBar:select,export,dataViz -->
+    <!-- AddHelp:tables,query,gui,tips -->
+</body>
+</html>
+

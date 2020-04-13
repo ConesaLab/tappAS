@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GSEA Enriched Features</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco & Ángeles Arzalluz-Luque">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>Project Data Visualization: GSEA Enriched Features</b></span></div>
+    <p>The GSEA Enriched Features chart displays a graphical summary of functional features enrichment. 
+        <li>The initial chart displays the top 5 more significantly enriched feature IDs for each feature category. 
+        This display can be changed using the left hand-side Options menu, either changing the number of top features within
+        the category, manually selecting the enriched feature IDs to be shown, or providing an enriched features list. On the latter,
+        users may select non-significant features for the purpose of comparison.</li>
+        <li>The chart plot shows Feature IDs on the y-axis, and the number of genes in the test list containing a given feature ID on the x-axis.</li>
+        <li>The feature ID dot properties convey additional information, reflected on the chart legend. Namely,
+        dot color reflects the feature category to which the feature ID belongs to, 
+        and the size is determined by -log10(adjusted p-value), i.e. smaller p-values result in bigger the circles, 
+        indicating higher significance.</li>
+        </p>
+    <p>Don't forget to take advantage of mouseover and context-sensitive menus for additional information and functionality.</p>
+    <!-- SubtabMenuBarHeader -->
+    <table>
+        <tr><td  style="vertical-align:top;">
+            <div class="subtabButton"><img src="images/optionsButton.png" width="28" height="28" alt="Menu selections..."/></div>
+        </td><td>
+            &nbsp;- menu with the following selections:
+            <ul>
+                <li>Enriched Features Display Filter... - filter enriched features included in the display</li>
+            </ul>
+        </td>
+    </table>
+    <!-- SubtabMenuBarNoHeader:export -->
+    <!-- AddHelp:fea,visual,menus,gui,tips -->
+</body>
+</html>
+

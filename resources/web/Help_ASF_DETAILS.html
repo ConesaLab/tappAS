@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Annotation Source Details</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">Project Data Visualization: Annotation Source Details</span></div>
+    <p>The Annotation Source Details subtab displays additional information for any given annotation source. 
+        There are two tables displayed: the Features table on the left and the Feature IDs table on the right.
+        When you highlight a feature on the Features table, by clicking on the corresponding row, the Feature IDs for that feature
+        are shown in the Feature IDs table. <span class="standout">Note that you may hold the Shift-key down and select multiple features</span>.</p>
+    <div style="padding-left:25px;">
+        <p><b>Features</b> data table - displays features summary information for given annotation source.
+            The following table columns are displayed:</p>
+        <ul>
+            <li>Feature - annotation feature as specified in the annotation file</li>
+            <li>Feature IDs - number of unique annotation feature IDs for the given source:feature</li>
+            <li>Entries - total number of entries in the annotation file for the given source:feature</li>
+            <li>Transcripts - total number of transcript containing the given source:feature</li>
+        </ul>
+        <p><b>Feature IDs</b> data table - displays feature IDs summary information for selected annotation feature(s) in the Features table.
+            The following table columns are displayed:</p>
+        <ul>
+            <li>Feature - annotation feature as specified in the annotation file</li>
+            <li>Feature ID - feature ID as specified in the annotation file</li>
+            <li>Entries - total number of entries in the annotation file for the given source:feature:featureID</li>
+            <li>Transcripts - total number of transcript containing the given source:feature:featureID</li>
+        </ul>
+    </div>
+    <p>Don't forget to take advantage of mouseover and context-sensitive menus for additional information and functionality.</p>
+    <!-- SubtabMenuBar:export -->
+    <!-- AddHelp:visual,menus,tables,gui,tips -->
+</body>
+</html>
+

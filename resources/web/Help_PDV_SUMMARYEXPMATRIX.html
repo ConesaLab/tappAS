@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expression Matrix Summary</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">Project Data Visualization: Expression Matrix Summary</span></div>
+    <p>The Expression Matrix Summary subtab contains multiple tables and visual display controls summarizing the transcripts expression matrix data.
+    The display controls are described below by position, left to right.</p>
+    <div style="padding-left:25px;">
+        <p><b>Conditions</b> data table - displays the expression matrix conditions and corresponding number of samples.
+            The table displays the following columns for each condition and the total:</p>
+        <ul>
+            <li>Condition - condition name as defined in the original expression matrix file</li>
+            <li>Samples - number of samples for given condition</li>
+        </ul>
+        <p><b>Filtering</b> pie chart and data table - the pie chart displays the proportions for filtered and not filtered transcripts.
+            Filtered transcripts are further divided into:</p>
+        <ul>
+            <li>No Annotation - transcripts filtered for having no annotations in the annotation file</li>
+            <li>LowCount/COV - transcripts filtered due to expression levels being too low or coefficient of variation limit exceeded</li>
+            <li>Transcripts List - transcripts filtered for not being in inclusion filter list or for being in exclusion filter list</li>
+        </ul>
+        <p>The table displays the following columns for filtered, not filtered, and total transcripts:</p>
+        <ul>
+            <li>Filtering - filtering type or not filtered</li>
+            <li>Count - number of transcripts of given type</li>
+            <li>% - percentage of total transcripts</li>
+        </ul>
+    </div>
+    <!-- DVReminders -->
+    <!-- SubtabMenuBar:export -->
+    <!-- AddHelp:inpdata,visual,menus,gui,tips -->
+</body>
+</html>
+

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GSEA Summary</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco & Ángeles Arzalluz-Luque">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>Project Data Visualization: GSEA Summary</b></span></div>
+    <p>he FEA Summary subtab contains multiple plots, along with supporting tables, summarizing the GSEA results.
+    GSEA can be run using genes, CDS, or transcript data (hence the word <b>Item</b> is used refer to features, depending
+    on the data type used). Note that enrichment can be tested for multiple functional categories simultaneously, all
+    ow which will appear in both the tables and the summary plots. 
+    
+    The display controls are described below by position, left to right.</p>
+    <div style="padding-left:25px;">
+        <p><b>Left panel: Items Summary</b> data table - the table displays the total number of items included in the analysis.
+            The number of ranked items is determined by the number of items contained in the specified ranked list.
+            The following table columns are displayed for ranked and total items:</p>
+        <ul>
+            <li>Item - item type</li>
+            <li>Count - number of items of given type</li>
+            <li>% - percent of total items of given type</li>
+        </ul>
+        <p>Note that all ranked items in the list are included in this analysis so the values in both table rows will always be the same.
+           They are both shown for consistency in using the total row.</p>
+           
+        <p><b>Middle panel: Enriched Feature Count</b> table -  the table displays the total number of significantly enriched feature IDs
+        in the test list per functional feature category.
+            The following table columns are displayed:</p>
+        <ul>
+            <li>Feature - feature category name.</li>
+            <li>Enriched Feature IDs - number of significantly enriched feature IDs for a given feature category.</li>
+            <li>Total Feature IDs - total number of feature IDs for given feature.</li>
+        </ul>
+        
+        <p><b>Right panel: Enriched Feature Percentages</b> horizontal bar chart - the horizontal bar chart displays the percentage of 
+        enriched feature IDs (x axis) for each feature on the y axis. The total number of feature IDs tested for each functional feature category 
+        is used to calculate the percentages (i.e. data in the table in the middle panel).</p>
+    </div>
+    <!-- DVReminders -->
+    <!-- SubtabMenuBar:export -->
+    <!-- AddHelp:gsea,visual,tables,menus,gui,tips -->
+</body>
+</html>
+
