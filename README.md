@@ -2,8 +2,11 @@
 
 This repository contains the source code of the tappAS application, version 1.0.0. TappAS is a bioinformatics application
 featuring a Graphical User Interface, developed in Java and R. 
+
 To obtain the compiled, user-ready version of the application and consult related documentation, 
-visit  https://app.tappas.org/.
+visit  https://app.tappas.org/, or go to the Release section to download the tappAS.jar file.
+
+[![DOI](https://zenodo.org/badge/255313071.svg)](https://zenodo.org/badge/latestdoi/255313071)
 
 
 ### License and copyright 
