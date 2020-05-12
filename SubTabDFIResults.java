@@ -571,10 +571,11 @@ public class SubTabDFIResults extends SubTabBase {
                                 lst.add("-r" + r);
                             }
                             lst.add("-s" + dfiParams.sigValue);
-                            lst.add("-x" + project.data.getMatrixDFIFilepath(analysisId));
                             lst.add("-c" + project.data.getDFITotalFeaturesFilepath(analysisId));
                             lst.add("-g1" + project.data.getDFITestFeaturesFilepath(analysisId));
                             lst.add("-g2" + project.data.getDFITestGenesFilepath(analysisId));
+
+                            lst.add("-x" + project.data.getMatrixDFIFilepath(analysisId));
                             lst.add("-lt" + trans);
                             lst.add("-lp" + proteins);
                     
