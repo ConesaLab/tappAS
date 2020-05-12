@@ -556,7 +556,7 @@ Favored_tappas <- function(exp, design)
 args = commandArgs(TRUE)
 cat("Differential Feature Inclusion Analysis script arguments: ", args, "\n")
 arglen = length(args)
-if(arglen != 14)
+if(arglen != 17)
   stop("Invalid number of arguments.")
 method = ""
 indir = ""
@@ -575,7 +575,7 @@ outputTestGenes = ""
 analysisId = ""
 indirDFI = ""
 
-for(i in 1:14) {
+for(i in 1:17) {
     if(length(grep("^-m", args[i])) > 0)
       method = substring(args[i], 3)
     else if(length(grep("^-i", args[i])) > 0)
@@ -604,12 +604,18 @@ for(i in 1:14) {
       outputTestGenes = substring(args[i], 4)
     else if(length(grep("^-a", args[i])) > 0)
       analysisId = substring(args[i], 3)
+    else if(length(grep("^-lt", args[i])) > 0)
+      transFeatures = substring(args[i], 4)
+    else if(length(grep("^-lp", args[i])) > 0)
+      proteinFeatures = substring(args[i], 4)
+    else if(length(grep("^-x", args[i])) > 0)
+      dfiMatrixTest = substring(args[i], 3)
     else {
       cat("Invalid command line argument: '", args[i], "'\n")
       stop("Invalid command line argument.")
     }
 }
-if(nchar(indirDFI) == 0 || nchar(analysisId) == 0 || nchar(outputTestFeatures) == 0 || nchar(outputTestGenes) == 0 || nchar(inFileCount) == 0 || nchar(sig) == 0 || nchar(outdir) == 0 || nchar(indir) == 0 || nchar(method) == 0 || nchar(degValue) == 0 || nchar(restrictType) == 0 || nchar(cmpType) == 0 || nchar(filterFC) == 0 || nchar(filteringType) == 0)
+if(nchar(dfiMatrixTest) == 0 || nchar(transFeatures) == 0 || nchar(proteinFeatures) == 0 || nchar(indirDFI) == 0 || nchar(analysisId) == 0 || nchar(outputTestFeatures) == 0 || nchar(outputTestGenes) == 0 || nchar(inFileCount) == 0 || nchar(sig) == 0 || nchar(outdir) == 0 || nchar(indir) == 0 || nchar(method) == 0 || nchar(degValue) == 0 || nchar(restrictType) == 0 || nchar(cmpType) == 0 || nchar(filterFC) == 0 || nchar(filteringType) == 0)
   stop("Missing command line argument.")
 
 #### determine what type of data to run DIU for
@@ -678,7 +684,6 @@ for(db in sources$db) {
         dbcatGenes[,1] <- NULL
         cat("\nRead ", nrow(dbcatGenes), " feature id map data rows")
         #print(head(dbcatGenes))
-        
 
         ### filter matrix
         cat("\nRead ", nrow(dbcatMatrix), " expression data rows")
@@ -799,12 +804,156 @@ if(len_zero & cont == 0){
   write.table(result_dfi, file.path(outdir, paste0("dfi_result.",as.character(analysisId),".tsv")), quote=FALSE, row.names=FALSE, sep="\t")
   
   # write completion file
-  cat("\nWriting DFInalysis completed file...")
+  cat("\nWriting DFI Analysis completed file...")
   filedone <- file(file.path(outdir, paste0("done.",as.character(analysisId),".txt")))
   writeLines("done", filedone)
   close(filedone)
 
-  
+
+  # write sub dfiMatrixTest (subversion just to get PValues in tables)
+  cat("\nWriting DFI Sub-Matrix file...")
+  getGeneName <- function(x){
+    res <- strsplit(as.character(x),";")[[1]][1]
+    return(res)
+  }
+
+  getFeatureName <- function(x){
+    res <- strsplit(as.character(x),";")[[1]][3]
+    return(res)
+  }
+
+  ## TESTS
+
+  lstTrans = strsplit(transFeatures, ",")
+  lstProtein = strsplit(proteinFeatures, ",")
+  dfi_total_count=read.table(file.path(inFileCount), sep="\t", header=TRUE, stringsAsFactors = F)
+
+  cat("\nBuilding P-Values tables...")
+  dfi_matrix = unique(result_dfi[,c("gene","adjPValue")])
+  dfi_matrix$Feature = sapply(dfi_matrix$gene, getFeatureName)
+  dfi_matrix$Gene = sapply(dfi_matrix$gene, getGeneName)
+
+  #dfi_matrix$DFI = ifelse(as.numeric(levels(dfi_matrix$adjPValue))[dfi_matrix$adjPValue]<=sig, "DFI", "Not DFI")
+  dfi_matrix$DFI = ifelse(dfi_matrix$adjPValue<=sig, "DFI", "Not DFI")
+
+  dfi_results = data.frame()
+  for(feature in unique(dfi_matrix$Feature)){
+    newRow = data.frame(Feature=feature,
+                        TotalCount=nrow(dfi_matrix[dfi_matrix$Feature==feature,]),
+                        DFICount=nrow(dfi_matrix[dfi_matrix$Feature==feature & dfi_matrix$DFI == "DFI",]),
+                        TotalAnnot=sum(dfi_total_count[dfi_total_count$Feature==feature,]$Total),
+                        Level=ifelse(feature %in% lstTrans, "Transcript","Protein"),
+                        Time="0")
+    dfi_results = rbind(dfi_results,newRow)
+  }
+
+  dfi_results["Freq1"] = dfi_results[,"TotalCount"]/sum(dfi_results[,"TotalCount"])*100
+  dfi_results["Freq2"] = dfi_results[,"TotalAnnot"]/sum(dfi_results[,"TotalAnnot"])*100
+  dfi_results$Feature = as.character(dfi_results$Feature)
+  dfi_results = dfi_results[order(dfi_results$Feature, method = ),]
+
+  #########
+  # TEST1 #
+  #########
+
+  # feature level
+  result_utrmotif = NULL
+  for(x in unique(dfi_results$Feature)){
+    xDFI = dfi_results[dfi_results$Feature==x,]$DFICount
+    xANNOT = dfi_results[dfi_results$Feature==x,]$TotalAnnot-xDFI
+    allDFI = sum(dfi_results[dfi_results$Feature!=x,]$DFICount)
+    allANNOT = sum(dfi_results[dfi_results$Feature!=x, ]$TotalAnnot)-allDFI
+
+    tbDFI <- matrix(c(xDFI,xANNOT,allDFI,allANNOT),ncol=2,byrow=TRUE)
+    colnames(tbDFI) <- c("DFI","ANNOT-DFI")
+    rownames(tbDFI) <- c("X","ALL")
+    tbDFI <- as.table(tbDFI)
+
+    result_utrmotif = rbind(result_utrmotif, c(x,fisher.test(x = tbDFI, alternative="less")$p.value, as.character(tbDFI)))
+  }
+  result_utrmotif_df = data.frame(result_utrmotif, stringsAsFactors = F)
+  result_utrmotif_df$X2 = as.numeric(result_utrmotif_df$X2)
+  result_utrmotif_df$adj = p.adjust(result_utrmotif_df$X2, method = "hochberg")
+  result_utrmotif_df = result_utrmotif_df[order(result_utrmotif_df$X1),]
+  colnames(result_utrmotif_df) = c("Feature","P-Value","feat_DFI","all_DFI","feat_ANNOT-DFI","all_ANNOT-DFI", "Adj.P-Value")
+  result_utrmotif_df$`P-Value` = signif(result_utrmotif_df$`P-Value`, digits = 5)
+  result_utrmotif_df$`Adj.P-Value` = signif(result_utrmotif_df$`Adj.P-Value`, digits = 5)
+
+  ##############
+  # SAVE TESTS #
+  ##############
+
+  write.table(result_utrmotif_df, file = outputTestFeatures, quote = FALSE, col.names = TRUE, row.names = FALSE, sep = "\t")
+
+  #########
+  # TEST2 #
+  #########
+
+  # gene level
+  cat("\nWriting DFI Test2 file...\n")
+
+  res_genes = NULL
+  dfi_matrix_genes = unique(dfi_matrix[,c("Gene","Feature","DFI")])
+  for(gene in unique(dfi_matrix_genes$Gene)){
+    for(feature in unique(dfi_matrix_genes[dfi_matrix_genes$Gene == gene,]$Feature)){
+      submatrix = dfi_matrix_genes[dfi_matrix_genes$Gene == gene & dfi_matrix_genes$Feature == feature,]
+      if(nrow(submatrix)>1) #a DFI and Not DFI
+        res_genes = rbind(res_genes, submatrix[submatrix$DFI == "DFI",])
+      else
+        res_genes = rbind(res_genes, submatrix)
+    }
+  }
+
+  dfi_results = data.frame()
+  for(feature in unique(res_genes$Feature)){
+    newRow = data.frame(Feature=feature,
+                        TotalCount=nrow(res_genes[res_genes$Feature==feature,]),
+                        DFICount=nrow(res_genes[res_genes$Feature==feature & res_genes$DFI == "DFI",]),
+                        TotalAnnot=sum(dfi_total_count[dfi_total_count$Feature==feature,]$ByGenes),
+                        Level=ifelse(feature %in% lstTrans, "Transcript","Protein"),
+                        Time="0")
+    dfi_results = rbind(dfi_results,newRow)
+  }
+
+  dfi_results["Freq1"] = dfi_results[,"TotalCount"]/sum(dfi_results[,"TotalCount"])*100
+  dfi_results["Freq2"] = dfi_results[,"TotalAnnot"]/sum(dfi_results[,"TotalAnnot"])*100
+  dfi_results$Feature = as.character(dfi_results$Feature)
+  dfi_results = dfi_results[order(dfi_results$Feature, method = ),]
+
+  #########
+  # TEST2 #
+  #########
+
+  # gene level
+  result_utrmotif = NULL
+  for(x in unique(dfi_results$Feature)){
+    xDFI = dfi_results[dfi_results$Feature==x,]$DFICount
+    xANNOT = dfi_results[dfi_results$Feature==x,]$TotalAnnot-xDFI
+    allDFI = sum(dfi_results[dfi_results$Feature!=x,]$DFICount)
+    allANNOT = sum(dfi_results[dfi_results$Feature!=x, ]$TotalAnnot)-allDFI
+
+    tbDFI <- matrix(c(xDFI,xANNOT,allDFI,allANNOT),ncol=2,byrow=TRUE)
+    colnames(tbDFI) <- c("DFI","ANNOT-DFI")
+    rownames(tbDFI) <- c("X","ALL")
+    tbDFI <- as.table(tbDFI)
+
+    result_utrmotif = rbind(result_utrmotif, c(x,fisher.test(x = tbDFI, alternative="less")$p.value, as.character(tbDFI)))
+  }
+  result_utrmotif_gene = data.frame(result_utrmotif, stringsAsFactors = F)
+  result_utrmotif_gene$X2 = as.numeric(result_utrmotif_gene$X2)
+  result_utrmotif_gene$adj = p.adjust(result_utrmotif_gene$X2, method = "hochberg")
+  result_utrmotif_gene = result_utrmotif_gene[order(result_utrmotif_gene$X1),]
+  colnames(result_utrmotif_gene) = c("Feature","P-Value","feat_DFI","all_DFI","feat_ANNOT-DFI","all_ANNOT-DFI", "Adj.P-Value")
+  result_utrmotif_gene$`P-Value` = signif(result_utrmotif_gene$`P-Value`, digits = 5)
+  result_utrmotif_gene$`Adj.P-Value` = signif(result_utrmotif_gene$`Adj.P-Value`, digits = 5)
+
+  ##############
+  # SAVE TESTS #
+  ##############
+
+  write.table(result_utrmotif_gene, file = outputTestGenes, quote = FALSE, col.names = TRUE, row.names = FALSE, sep = "\t")
+
+  cat("\nAll done.\n")
 
   cat("\nAll done.\n")
   
