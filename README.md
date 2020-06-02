@@ -41,6 +41,11 @@ If in need of further support, please contact:
 * **Ángeles Arzalluz-Luque:** information related to analysis/results interpretation and questions on 
 how to apply tappAS functionalities to your data: angeles.arzalluz@gmail.com
 
+### Reference
+
+tappAS is published and fully demonstrated in our Genome Biology manuscript. If you use tappAS for your study, please cite:
+
+de la Fuente, L., Arzalluz-Luque, Á., Tardáguila, M. et al. tappAS: a comprehensive computational framework for the analysis of the functional impact of differential splicing. Genome Biol 21, 119 (2020). https://doi.org/10.1186/s13059-020-02028-w
 
 ### License and copyright 
 Copyright (C) 2020, de la Fuente et al.
