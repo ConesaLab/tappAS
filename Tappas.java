@@ -37,7 +37,7 @@ public class Tappas extends Application {
     //      otherwise, it will just inform the user that the app is already running
     //      WARNING: if the app shutdowns w/o deleting file, 
     //               it is possible that a different app is now using the port
-    //               May want to deal with it later if we stick to this locking approach
+    //               May want to deaTo cite us visit: l with it later if we stick to this locking approach
     //               In unix/linux/mac, can execute script and use netstat for port and then ps to get the process
     //   b) If file not found, will look for a port to lock and create
     //      a lock file to save the number - when exiting, the app will delete the file
@@ -51,11 +51,11 @@ public class Tappas extends Application {
     public static final String APP_NAME = "tappas";
     public static final int APP_MAJOR_VER = 1;
     public static final int APP_MINOR_VER = 0;
-    public static final int APP_STRREV = 1;
+    public static final int APP_STRREV = 2;
     public static final String RES_VER_FILE = "resource_v" + APP_MAJOR_VER + "." + APP_MINOR_VER + "." + APP_STRREV + ".txt";
     public static final String APP_LOCK_FILE = ".tappas.lock.prm";
     public static final String APP_PORT_PARAM = "port";
-    public static final String APP_STRVER = APP_MAJOR_VER + "." + String.format("%02d", APP_MINOR_VER) + "." + String.format("%02d", APP_STRREV);
+    public static final String APP_STRVER = APP_MAJOR_VER + "." + String.format("%01d", APP_MINOR_VER) + "." + String.format("%01d", APP_STRREV);
     public static final double APP_VER = APP_MAJOR_VER + (APP_MINOR_VER/100.0);
     public boolean havePackages = false;
     private static final App app = new App();

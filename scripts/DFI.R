@@ -113,8 +113,17 @@ DEXSeq.DS <- function(raw.counts, feature_association, factors) {
     bp_param <- SnowParam(workers=4);
   }
   
-  ##CODE to prevent error (if only have one gene (with and without) doesn't work)
-  if(dim(dxd)[1]<=2){return(NULL)}
+  ##CODE to prevent error (if only have one gene (with and without) does not work)
+  if((dim(dxd)[1])/2<=1){return(NULL)}
+  
+  dxd <- tryCatch({estimateDispersions(dxd, BPPARAM = bp_param)}, #try
+                  error=function(cond){return(NA)} # error
+  )
+  
+  if(is.na(dxd)){
+    cat("It is possible you have a low number of genes/features and the method can not stimate the results.\n")
+    return(results) # low samples/genes and we can not calculate the results
+  } 
   
   dxd <- estimateDispersions(dxd, BPPARAM = bp_param);
   ## Run the test and get results for exon bins 
@@ -467,8 +476,6 @@ for(db in dbs$db) {
       ### end filter
       
       if(nrow(dbcatMatrixRaw) == 0){
-        print("1ºError")
-        print(nrow(dbcatMatrixRaw))
         cont_err = cont_err + 1
         next
       }
@@ -505,6 +512,8 @@ for(db in dbs$db) {
       }
       ### end filter
       
+      cat(paste0(nrow(dbcatMatrixRaw), " isoforms remain.\n"))
+      
       if(nrow(dbcatMatrixRaw) == 0){
         cont_err = cont_err + 1
         cat("For the category", as.character(category), "you have 0 transcripts to analyze.")
@@ -512,6 +521,7 @@ for(db in dbs$db) {
         catResults = DEXSeq.DS(dbcatMatrixRaw, dbcatGenes, myfactors)
       }
     }
+    
     if(is.null(catResults)){
       print("Your result matrix do not have results.")
       len_zero = T
@@ -523,13 +533,13 @@ for(db in dbs$db) {
 }
 # if we dont have trans and we dont processed any feature before 
 
-if(len_zero & cont_err == cont){
+if((len_zero & cont_err == cont) | is.null(results)){
 
   cat("Final output\n")
   if(!is.null(results))
   write.table(results, file.path(outdir, paste0("dfi_result.",as.character(analysisId),".tsv")), quote=FALSE, row.names=FALSE, sep="\t")
   # write completion file
-  cat("You have 0 transcripts to analyze with this feature.\n")
+  cat("You have 0 transcripts to analyze with this feature/s.\n")
 
 }else{
     cat("Preliminary final output\n")

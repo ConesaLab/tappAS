@@ -791,7 +791,7 @@ for(db in sources$db) {
 }
 
 # if we dont have trans and we dont processed any feature before 
-if(len_zero & cont == 0){
+if((len_zero & cont == 0) | is.null(result_dfi)){
   cat("Final output\n")
   write.table(result_dfi, file.path(outdir, paste0("dfi_result.",as.character(analysisId),".tsv")), quote=FALSE, row.names=FALSE, sep="\t")
   # write completion file
