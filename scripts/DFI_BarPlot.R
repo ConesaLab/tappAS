@@ -103,12 +103,13 @@ if(!length(which(featuresUsed == FALSE))==0)
 
 dfi_results = data.frame()
 for(feature in unique(dfi_matrix$Feature)){
-    newRow = data.frame(Feature=feature,
-    TotalCount=nrow(dfi_matrix[dfi_matrix$Feature==feature,]),
-    DFICount=nrow(dfi_matrix[dfi_matrix$Feature==feature & dfi_matrix$DFI == "DFI",]),
-    TotalAnnot=sum(dfi_total_count[dfi_total_count$Feature==feature,]$Total),
-    Level=ifelse(feature %in% lstTrans, "Transcript","Protein"),
-    Time="0")
+    newRow = data.frame(
+      Feature=feature,
+      TotalCount=nrow(dfi_matrix[dfi_matrix$Feature==feature,]),
+      DFICount=nrow(dfi_matrix[dfi_matrix$Feature==feature & dfi_matrix$DFI == "DFI",]),
+      TotalAnnot=sum(dfi_total_count[dfi_total_count$Feature==feature,]$Total),
+      Level=ifelse(feature %in% unlist(lstTrans), "Transcript","Protein"),
+      Time="0")
     dfi_results = rbind(dfi_results,newRow)
 }
 
@@ -188,7 +189,7 @@ for(feature in unique(res_genes$Feature)){
     TotalCount=nrow(res_genes[res_genes$Feature==feature,]),
     DFICount=nrow(res_genes[res_genes$Feature==feature & res_genes$DFI == "DFI",]),
     TotalAnnot=sum(dfi_total_count[dfi_total_count$Feature==feature,]$ByGenes),
-    Level=ifelse(feature %in% lstTrans, "Transcript","Protein"),
+    Level=ifelse(feature %in% unlist(lstTrans), "Transcript","Protein"),
     Time="0")
     dfi_results = rbind(dfi_results,newRow)
 }
