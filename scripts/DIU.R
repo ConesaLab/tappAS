@@ -288,6 +288,11 @@ if(method == "EDGER") {
     cat("\nUsing EdgeR\n")
     result = spliceVariant.DS(transMatrixRaw, genes, myfactors)
 } else {
+    # not NAs in transMatrixRaw
+    nas <- which(!rownames(transMatrixRaw) %in% rownames(genes))
+    if(length(nas)>0)
+      transMatrixRaw <- transMatrixRaw[-nas,]
+
     cat("\nUsing DEXSeq\n")
     result = DEXSeq.DS(transMatrixRaw, genes, myfactors)
 }
