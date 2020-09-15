@@ -27,12 +27,20 @@ In this case, due to major changes in the application functioning, you'll need t
 ### Documentation
 Documentation and videotutorials can be found at https://app.tappas.org/ (site under development).
 
+Users are welcome to follow our recorded [ISMB2020 tutorial](https://www.youtube.com/watch?reload=9&v=yUYlLOQmO1A), 
+in which we describe the tappAS application in detail, and demonstrate how to run 
+and interpret some of the analysis. Necessary data and slides can be downloaded [here](https://app.tappas.org/resources/downloads/tutorials/tappAS_projectData.zip).
+
 Comprehensive information about the methods and graphics implemented in tappAS,
 their interpretation and how to run them can be found within the application. Each window and panel
 contains a **Help Menu** as a source of built-in documentation. To access it, 
 click the [**?**] icon available in the different windows and panels.
 
 ### Contact
+If you have questions about how to best use tappAS with your data, 
+please check our [Frequently Asked Questions](https://app.tappas.org/faqs/) section for common use cases 
+(most of the questions we routinely receive from users have been answered in FAQs).
+
 If you encounter a bug or error using or installing tappAS, 
 please [open an Issue](https://github.com/ConesaLab/tappAS/issues) to report it.
 
@@ -45,7 +53,7 @@ how to apply tappAS functionalities to your data: angeles.arzalluz@gmail.com
 
 tappAS is published and fully demonstrated in our Genome Biology manuscript. If you use tappAS for your study, please cite:
 
-de la Fuente, L., Arzalluz-Luque, Á., Tardáguila, M. et al. tappAS: a comprehensive computational framework for the analysis of the functional impact of differential splicing. Genome Biol 21, 119 (2020). https://doi.org/10.1186/s13059-020-02028-w
+* de la Fuente, L., Arzalluz-Luque, Á., Tardáguila, M. et al. tappAS: a comprehensive computational framework for the analysis of the functional impact of differential splicing. Genome Biol 21, 119 (2020). https://doi.org/10.1186/s13059-020-02028-w
 
 ### License and copyright 
 Copyright (C) 2020, de la Fuente et al.
