@@ -767,13 +767,15 @@ public class SubTabFDASummary extends SubTabBase {
             if(project.data.isCaseControlExpType()){
                 dataText.setLayoutY(
                     Math.round(
-                        bounds.getMaxY() + bounds.getHeight() / 2 - barItemsCount/2
+                        bounds.getMaxY()-((bounds.getHeight()/2)) + barItemsCount*0.25
+                        //bounds.getMaxY() + bounds.getHeight() / 2 - barItemsCount/2  + 0.05
                     )
                 );
             }else{ // we have to create a new height because the barsize is different!
                 dataText.setLayoutY(
                     Math.round(
-                        bounds.getMaxY() + bounds.getHeight() / 2 - barItemsCount
+                        bounds.getMaxY()-((bounds.getHeight()/2)) + barItemsCount*0.25
+                        //bounds.getMaxY() + bounds.getHeight() / 2 - barItemsCount + 0.11
                     )
                 );
             }
@@ -1178,7 +1180,7 @@ public class SubTabFDASummary extends SubTabBase {
     }
     
     private void colorFeatureLegend(StackedBarChart bar){
-        //Change color - genomic = yellow / transcript = red / protein = blue / functional = green + 2 extra colors to dvierse and not diverse
+        //Change color - genomic = yellow / transcript = red / protein = blue / functional = green + 2 extra colors to diverse and not diverse
         //Color[] colors = new Color[]{Controls.chartColors[0], Controls.chartColors[1], Controls.chartColors[3]};
         Color[] colors = new Color[]{Controls.chartColors[0], Controls.chartColors[1]};
 
@@ -1233,9 +1235,21 @@ public class SubTabFDASummary extends SubTabBase {
             String s = db.get(i);//(String) series1.getData().get(i).getYValue().subSequence(0, l-3);
             String source = s.split(":")[0];
             String feature = s.split(":")[1];
-            
-            String group = hmType.get(source).get(feature);
-            
+            String group = "";
+
+            if(hmType.containsKey(source)) {
+                if (hmType.get(source).containsKey(feature))
+                    group = hmType.get(source).get(feature);
+                else { //feature is not in source
+                    if (hmType.get(source).size() == 1)
+                        group = hmType.get(source).get(hmType.get(source).keySet().toArray()[0]);
+                    else //not feature
+                        continue;
+                }
+            }else{ //not source
+                continue;
+            }
+
             if(AnnotationType.TRANS.name().startsWith(group)){ //TRANSCRIPT
                 trans1.getData().add(series1.getData().get(i));
                 db_sortedT.add(s);
@@ -1245,6 +1259,8 @@ public class SubTabFDASummary extends SubTabBase {
             }else if(AnnotationType.GENOMIC.name().startsWith(group)){ //GENOMIC
                 geno1.getData().add(series1.getData().get(i));
                 db_sortedG.add(s);
+            }else{ //not found it
+                continue;
             }
         }
         
