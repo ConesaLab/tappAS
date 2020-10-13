@@ -48,9 +48,10 @@ dpa_genes <- read_tsv(file.path(infile, "result.tsv")) %>% filter(qValue <= sig)
 
 # tappAS-retrieved DPAU levels for each sample
 dpau <- read_tsv(file.path(infile, "dpa_DPAU_ByCondition.tsv"))
+cn <- colnames(dpau)[2:(length(colnames(dpau))-1)]
 dpau <- dpau %>%
     filter(Gene %in% dpa_genes$gene) %>%
-    gather(key = CellType, value = DPAU, NSC, OLD, -Gene, -Switching) %>%
+    gather(key = CellType, value = DPAU, cn, -Gene, -Switching) %>%
     mutate(DPAU = DPAU / 100) %>%
     mutate(Switching_factor = ifelse(Switching, "Switching\n", "No Switching\n")) %>%
     arrange(CellType, desc(DPAU)) %>%

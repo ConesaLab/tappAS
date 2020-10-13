@@ -156,7 +156,6 @@ for(gene in unique(infoUTRL$Gene)){
 }
 
 #Tras filtrar, los porcentajes de expresión de cada isoforma no suman 100, deberías recalcularlos??
-
 utrWeight3 = NULL
 utrWeight5 = NULL
 for(i in unique(infoUTRL$Gene)){
@@ -184,10 +183,15 @@ for(i in colnames(aux3)){
 }
 
 aux3_group <- data.frame(
-group = rep(c(groupNames[1],groupNames[2]), ncol(aux3)),
-weight = vector,
-gene = gene
+  group = rep(c(groupNames[1],groupNames[2]), ncol(aux3)),
+  weight = vector,
+  gene = gene
 )
+
+#update NA to 0s
+if(length(aux3_group[which(is.na(aux3_group$weight)),"weight"])>0){
+  aux3_group[which(is.na(aux3_group$weight)),"weight"] <- 0
+}
 
 # run analysis
 if(method == "WILCOXON") {
@@ -215,10 +219,15 @@ for(i in colnames(aux5)){
 }
 
 aux5_group <- data.frame(
-group = rep(c(groupNames[1],groupNames[2]), ncol(aux5)),
-weight = vector,
-gene = gene
+  group = rep(c(groupNames[1],groupNames[2]), ncol(aux5)),
+  weight = vector,
+  gene = gene
 )
+
+#update NA to 0s
+if(length(aux5_group[which(is.na(aux5_group$weight)),"weight"])>0){
+  aux5_group[which(is.na(aux5_group$weight)),"weight"] <- 0
+}
 
 # run analysis
 if(method == "WILCOXON") {
