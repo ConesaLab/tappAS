@@ -84,6 +84,7 @@ public class DbAnnotation  extends DbBase {
     private final String sqlSelTrans = "SELECT DISTINCT(SeqName) FROM " + tblAnnotations;
     //private final String sqlSelTransStrand = "SELECT DISTINCT(SeqName), Strand FROM " + tblAnnotations + " WHERE Strand LIKE '+' OR Strand LIKE '-';";
     private final String sqlSelTransStrand = "SELECT DISTINCT(T1.SeqName), T1.Strand, T2.Start, T2.End FROM " +  tblAnnotations + " as T1 LEFT JOIN (SELECT * FROM " + tblAnnotations + " as T3 WHERE T3.Feature LIKE 'CDS') as T2 ON (T1.SeqName = T2.SeqName) WHERE T1.Strand LIKE '+' OR T1.Strand LIKE '-';";
+    private final String sqlSelTransWithCDS = "SELECT DISTINCT(SeqName), Strand, Start, End FROM " +  tblAnnotations + " WHERE Feature LIKE 'CDS' AND Start-End !=0;";
     private final String sqlSelTransLength = "SELECT SeqName, Length FROM " + tblAnnotations + " WHERE Feature = 'transcript'";
     private final String sqlSelLengthAnnotations = "SELECT max(rowId) FROM " + tblAnnotations + ";";
     private final String sqlSelExistStructural = "SELECT SeqName FROM " + tblAnnotations + " WHERE Source LIKE '" + STRUCTURAL_SOURCE + "' LIMIT 1";
@@ -386,7 +387,7 @@ public class DbAnnotation  extends DbBase {
     // 1=3UTR length, 2 = 5UTR length, 3=CDS length, 4=polyASite
     public boolean insertNewAnnot(int i){
         boolean result = false;
-        ResultSet rs = getRS(sqlSelTransStrand);
+        ResultSet rs = getRS(sqlSelTransWithCDS);
         String lstTrans = "";
         String feature = "";
         String length = null, start = null, end = null, desc = "", total = "";
@@ -418,6 +419,10 @@ public class DbAnnotation  extends DbBase {
 //                                eq = eq + 0.1;
 //                            }
                             count++;
+                            //check if is coding
+                            String seq = rs.getString("SeqName");
+
+
                             switch(i){
                                 case(1): length = genomicPos.get(rs.getString("SeqName"));
                                     total = totalLength.get(rs.getString("SeqName"));

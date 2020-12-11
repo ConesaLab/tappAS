@@ -821,9 +821,17 @@ public class DbProject extends DbBase {
                         result = true;
                     else
                         logger.logError("No DB gene ids records added." );
+                }else{
+                    logger.logInfo("No DB protein records added." ); //before was an error but can be data without proteins
+                    sql = sqlInsGenes.replace("<S>", project.data.getAnnotationFileDefs().gene.source);
+                    sql = sql.replace("<F>", project.data.getAnnotationFileDefs().gene.feature);
+                    rowcnt = stmt.executeUpdate(sql);
+                    System.out.println("Inserted " + rowcnt + " rows into " + tblGenes);
+                    if(rowcnt > 0)
+                        result = true;
+                    else
+                        logger.logError("No DB gene ids records added.");
                 }
-                else
-                    logger.logError("No DB protein records added." );
             } catch ( Exception e ) {
                 logger.logError(e.getClass().getName() + " Code Exception: " + e.getMessage() );
 
