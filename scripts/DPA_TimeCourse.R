@@ -515,20 +515,21 @@ Favored_tappas <- function(exp, design)
   }
   
   else{
-    
+
     #zz<-data[genes==geneUniq[i],,drop=F]
     time.M <- sort(tapply(edesign[,1],repvect,mean))
     zzm <- t(apply(data, 1, function(x){tapply(x, repvect, mean)}))
     zzm = zzm[order(genes),names(time.M)]
     zzmMotif = zzm[which(motif),]
     zzmNMotif = zzm[!motif,]
-    zzmMs = t(apply(zzmMotif, 1, function(x){sapply(2:ncol(zzmMotif),function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
-    zzmNMs = t(apply(zzmNMotif, 1, function(x){sapply(2:ncol(zzmNMotif),function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
-    
+    zzmMs = as.data.frame(apply(zzmMotif, 1, function(x){sapply(2:ncol(zzmMotif),function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
+    zzmNMs = as.data.frame(apply(zzmNMotif, 1, function(x){sapply(2:ncol(zzmNMotif),function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
+
     dif = zzmMs - zzmNMs
     rownames(dif) = unique(genes[order(genes)])
-    
-    LIST = apply(dif,1,function(x) paste(time.M[colnames(dif)[x>0]],collapse=","))
+    colnames(dif) = c("dif")
+
+    LIST = apply(dif,1,function(x) paste(ifelse(x>0,time.M[1],time.M[length(time.M)]),collapse=","))
     LIST[LIST==""] <- time.M[1]
     
   }
@@ -1066,6 +1067,19 @@ for(i in 1:12) {
 if(nchar(groupNames) == 0 || nchar(outdir) == 0 || nchar(indir) == 0 || nchar(method) == 0 || nchar(minLength) == 0 || nchar(degValue) == 0 || nchar(restrictType) == 0 || nchar(cmpType) == 0 || nchar(filterFC) == 0 || nchar(kvalue) == 0 || nchar(mvalue) == 0 || nchar(filteringType) == 0)
   stop("Missing command line argument.")
 
+#####
+# TEST VALUES
+#####
+
+#indir = "."
+#utrdir = "."
+#outdir = "."
+#minLength = "100"
+#filteringType = "PROP"
+#mff = 0.1
+#groupNames = c("NONOkoCT6", "NONOkoCT18")
+#degree = 1
+
 #### determine what type of data to run DPA for
 
 minLength = as.numeric(minLength)
@@ -1380,7 +1394,8 @@ for(i in 1:(ncol(design$edesign)-2)) {
     cmethod = "Mclust"
   cat("\nclusterMethod: ", cmethod, ", useMclust: ", usemclust)
   num_col = c(1,2,which(colnames(design$edesign)==gname))  
-  num_col_dis = c(1,seq(1+i,ncol(design$dis-1),groups))
+  #num_col_dis = c(1,seq(1+i,ncol(design$dis-1),groups))
+  num_col_dis = NULL
   clusters <- my.see.genes(b[,as.logical(design$edesign[,gname])], edesign=design$edesign[as.logical(design$edesign[,gname]),num_col], show.fit = F, dis=design$dis[as.logical(design$edesign[,gname]),num_col_dis], cluster.method=cmethod, cluster.data = 1, k=knum, k.mclust=usemclust, min.obs = 0.001, newX11 = FALSE, filepath = filepath)
   if(!is.null(clusters)) {
     if(!is.null(clusters$cluster.algorithm.used)) {

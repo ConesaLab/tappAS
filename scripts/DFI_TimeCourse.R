@@ -514,28 +514,44 @@ Favored_tappas <- function(exp, design)
   }
   
   else{
-    
+
+    # #zz<-data[genes==geneUniq[i],,drop=F]
+    # time.M <- sort(tapply(edesign[,1],repvect,mean))
+    # zzm <- t(apply(data, 1, function(x){tapply(x, repvect, mean)}))
+    # zzm = zzm[order(genes),names(time.M)]
+    # zzmMotif = zzm[which(motif),]
+    # zzmNMotif = zzm[!motif,]
+    # ## enter if just 1 vector for each one
+    # if(!is.matrix(zzmMotif)){
+    #   n = list()
+    #   zzmMotif = matrix(zzmMotif, nrow = 1, dimnames = list(rownames(zzm)[which(zzm==zzm[which(motif),])], colnames(zzm)))
+    #   zzmNMotif = matrix(zzmNMotif, nrow = 1, dimnames = list(rownames(zzm)[which(zzm==zzm[which(!motif),])], colnames(zzm)))
+    #   zzmMs = t(apply(zzmMotif, 1, function(x){sapply(2:length(zzmMotif), function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
+    #   zzmNMs = t(apply(zzmNMotif, 1, function(x){sapply(2:length(zzmNMotif), function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
+    # }else{
+    #   zzmMs = t(apply(zzmMotif, 1, function(x){sapply(2:ncol(zzmMotif),function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
+    #   zzmNMs = t(apply(zzmNMotif, 1, function(x){sapply(2:ncol(zzmNMotif),function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
+    # }
+    # dif = zzmMs - zzmNMs
+    # rownames(dif) = unique(genes[order(genes)])
+    #
+    # LIST = apply(dif,1,function(x) paste(time.M[colnames(dif)[x>0]],collapse=","))
+    # LIST[LIST==""] <- time.M[1]
+
     #zz<-data[genes==geneUniq[i],,drop=F]
     time.M <- sort(tapply(edesign[,1],repvect,mean))
     zzm <- t(apply(data, 1, function(x){tapply(x, repvect, mean)}))
     zzm = zzm[order(genes),names(time.M)]
     zzmMotif = zzm[which(motif),]
     zzmNMotif = zzm[!motif,]
-    ## enter if just 1 vector for each one
-    if(!is.matrix(zzmMotif)){
-      n = list()
-      zzmMotif = matrix(zzmMotif, nrow = 1, dimnames = list(rownames(zzm)[which(zzm==zzm[which(motif),])], colnames(zzm)))
-      zzmNMotif = matrix(zzmNMotif, nrow = 1, dimnames = list(rownames(zzm)[which(zzm==zzm[which(!motif),])], colnames(zzm)))
-      zzmMs = t(apply(zzmMotif, 1, function(x){sapply(2:length(zzmMotif), function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
-      zzmNMs = t(apply(zzmNMotif, 1, function(x){sapply(2:length(zzmNMotif), function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
-    }else{
-      zzmMs = t(apply(zzmMotif, 1, function(x){sapply(2:ncol(zzmMotif),function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
-      zzmNMs = t(apply(zzmNMotif, 1, function(x){sapply(2:ncol(zzmNMotif),function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
-    }
+    zzmMs = as.data.frame(apply(zzmMotif, 1, function(x){sapply(2:ncol(zzmMotif),function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
+    zzmNMs = as.data.frame(apply(zzmNMotif, 1, function(x){sapply(2:ncol(zzmNMotif),function(y) (x[y]-x[y-1])/(time.M[y]-time.M[y-1]))}))
+
     dif = zzmMs - zzmNMs
     rownames(dif) = unique(genes[order(genes)])
-    
-    LIST = apply(dif,1,function(x) paste(time.M[colnames(dif)[x>0]],collapse=","))
+    colnames(dif) = c("dif")
+
+    LIST = apply(dif,1,function(x) paste(ifelse(x>0,time.M[1],time.M[length(time.M)]),collapse=","))
     LIST[LIST==""] <- time.M[1]
   
   }

@@ -859,13 +859,26 @@ wUTR5 = transPropportion * infoUTRL$UTR5
 wUTR3gene = NULL
 wUTR5gene = NULL
 for(gene in unique(infoUTRL$Gene)){
+    #"Cdadc1"
     utrIsos3 = wUTR3[infoUTRL[infoUTRL$Gene==gene,]$Trans,]
     realUTR3 = infoUTRL[infoUTRL$Gene==gene,]$UTR3
-    wUTR3gene = rbind(wUTR3gene, colSums(utrIsos3) / nrow(utrIsos3))
+    if(!any(is.nan(colSums(utrIsos3) / sum(realUTR3)))) #can be 0
+      wUTR3gene = rbind(wUTR3gene, colSums(utrIsos3) / nrow(utrIsos3))
+    else{
+        aux <- colSums(utrIsos3) / sum(realUTR3)
+        aux[which(is.nan(aux))] <- 0
+        wUTR3gene = rbind(wUTR3gene, aux) #instead NaN keep 0s
+    }
 
     utrIsos5 = wUTR5[infoUTRL[infoUTRL$Gene==gene,]$Trans,]
     realUTR5 = infoUTRL[infoUTRL$Gene==gene,]$UTR5
-    wUTR5gene = rbind(wUTR5gene, colSums(utrIsos5) / sum(realUTR5))
+    if(!any(is.nan(colSums(utrIsos5) / sum(realUTR5)))) #can be 0
+      wUTR5gene = rbind(wUTR5gene, colSums(utrIsos5) / sum(realUTR5))
+    else{
+        aux <- colSums(utrIsos5) / sum(realUTR5)
+        aux[which(is.nan(aux))] <- 0
+        wUTR5gene = rbind(wUTR5gene, aux) #instead NaN keep 0s
+    }
 }
 
 rownames(wUTR3gene) <- unique(infoUTRL$Gene)
@@ -878,6 +891,23 @@ rownames(wUTR5gene) <- unique(infoUTRL$Gene)
 # run analysis UTR3 adn UTR5
 results3 <-  p.vector(data.frame(wUTR3gene), design, Q = sig, MT.adjust = "BH", counts = FALSE)
 results5 <-  p.vector(data.frame(wUTR5gene), design, Q = sig, MT.adjust = "BH", counts = FALSE)
+
+#get intersection results3 and 5
+eq <- nrow(results3$dat)==nrow(results5$dat)
+if(!eq){
+    cat("UTR3 and UTR5 have different lengths. Recalculating values...\n")
+    m5 <- nrow(results5$dat) < nrow(results3$dat) #5 is minor
+    if(m5){
+        #wUTR5gene <- wUTR5gene[rownames(results5$dat),]
+        wUTR3gene <- wUTR3gene[rownames(results5$dat),]
+        results3 <-  p.vector(data.frame(wUTR3gene), design, Q = sig, MT.adjust = "BH", counts = FALSE)
+
+    }else{
+        wUTR5gene <- wUTR5gene[rownames(results3$dat),]
+        #wUTR3gene <- wUTR3gene[rownames(results3$dat),]
+        results5 <-  p.vector(data.frame(wUTR5gene), design, Q = sig, MT.adjust = "BH", counts = FALSE)
+    }
+}
 
 results3$p.vector = signif(results3$p.vector, digits = 5)
 results3$p.adjusted = signif(results3$p.adjusted, digits = 5)
@@ -920,7 +950,11 @@ for(i in 1:(ncol(design$edesign)-2)) {
         cmethod = "Mclust"
     cat("\nclusterMethod: ", cmethod, ", useMclust: ", usemclust)
     num_col = c(1,2,which(colnames(design$edesign)==gname))
-    num_col_dis = c(1,seq(1+i,ncol(design$dis-1),n_groups))
+    print(n_groups)
+    print(1+i)
+    print(ncol(design$dis)-1)
+    #num_col_dis = c(1,seq(1+i,ncol(design$dis)-1, by = n_groups))
+    num_col_dis <- NULL
 
     cont = 1
     new_design = design
@@ -956,7 +990,8 @@ for(i in 1:(ncol(design$edesign)-2)) {
         cmethod = "Mclust"
     cat("\nclusterMethod: ", cmethod, ", useMclust: ", usemclust, "\n")
     num_col = c(1,2,which(colnames(design$edesign)==gname))
-    num_col_dis = c(1,seq(1+i,ncol(design$dis-1),n_groups))
+    #num_col_dis = c(1,seq(1+i,ncol(design$dis)-1, by = n_groups))
+    num_col_dis <- NULL
 
     cont = 1
     new_design = design
