@@ -164,7 +164,7 @@ public class ViewProtein extends ViewAnnotation {
         gc.setFill(Color.valueOf("white"));
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         double opacity = limitExceeded? 0.10 : 1.0;
-        gc.setFill(Color.web(limitExceeded? "darkorange" : ((args.prefs.hmNotFeatureIDs.isEmpty() && !args.prefs.showVaryingOnly)? "white" : "#FFFFF0"), opacity));
+        gc.setFill(Color.web(limitExceeded? "darkorange" : ((args.prefs.hmNotFeatureIDs.isEmpty() && !args.prefs.showVaryingOnly)? "white" : "white"), opacity));
         if(annotationList.isEmpty() || geneEntry == null) {
             double cwo = canvas.getWidth();
             double cyo = canvas.getHeight();

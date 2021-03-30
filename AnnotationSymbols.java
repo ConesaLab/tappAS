@@ -1097,7 +1097,13 @@ public class AnnotationSymbols extends AppObject {
                                      (int)Math.floor((seqAlign.getXlatedPos(sd.end)+2)/3)));
         }
         ArrayList<double[]> lstBlocks = new ArrayList<>();
-        
+
+        if(entry.source.equals("PAR-clip"))
+            System.out.println("strseg es demasiado grande comparado con utrsite");
+
+        if(entry.source.equals("UTRsite"))
+            System.out.println("Ver porqué todo 0s");
+
         int endseg;
         double x, width;
         double mult = viewer.getViewType(viewer.getClass().toString()).equals(ViewAnnotation.Views.PROTEIN)? 3.0 : 1.0;
@@ -1108,7 +1114,7 @@ public class AnnotationSymbols extends AppObject {
         boolean done = false;
         SymbolExtensionInfo sei = new SymbolExtensionInfo(0, 0, 0, 0);
         for(SeqAlign.Position pos : posList) {
-            if(!done && strseg >= pos.start && strseg <= pos.end) {
+            if((!done && strseg >= pos.start && strseg <= pos.end)){ // || entry.source.equals("PAR-clip")) {
                 done = true;
                 endseg = endpos;
                 if(endpos > pos.end) {
@@ -1136,6 +1142,25 @@ public class AnnotationSymbols extends AppObject {
                 // set for next segment if spanning across gap
                 if(!done)
                     strseg = (int)Math.floor(seqAlign.getAlignedPos((entry.strpos + totalWidth) * mult, tgexonsList)/mult);
+            }else{ //color blocks with other size
+                done = true;
+                totalWidth += (entry.dspendpos - entry.dspstrpos + 1);
+                width = entry.dspendpos - entry.dspstrpos + 1;
+                x = viewer.adjustX(xi + (entry.dspstrpos - geneEntry.strpos + 1) * ppb);
+                if(sei.minX == 0 || sei.minX > x)
+                    sei.minX = x;
+                width *= ppb;
+                double x2 = x + width;
+                if(sei.maxX == 0 || sei.maxX < x2)
+                    sei.maxX = x2;
+                double ys = viewer.adjustY(y);
+                ys += symdef.height/2;
+                sei.y = ys;
+                double[] block = new double[3];
+                block[0] = x;
+                block[1] = y;
+                block[2] = width;
+                lstBlocks.add(block);
             }
         }
         

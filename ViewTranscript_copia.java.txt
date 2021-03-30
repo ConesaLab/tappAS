@@ -152,7 +152,7 @@ public class ViewTranscript extends ViewAnnotation {
         gc.setFill(Color.valueOf("white"));
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         double opacity = limitExceeded? 0.10 : 1.0;
-        gc.setFill(Color.web(limitExceeded? "darkorange" : ((args.prefs.hmNotFeatureIDs.isEmpty() && !args.prefs.showVaryingOnly)? "white" : "white"), opacity));
+        gc.setFill(Color.web(limitExceeded? "darkorange" : ((args.prefs.hmNotFeatureIDs.isEmpty() && !args.prefs.showVaryingOnly)? "white" : "#FFFFF0"), opacity));
         if(annotationList.isEmpty() || geneEntry == null) {
             double cwo = canvas.getWidth();
             double cyo = canvas.getHeight();
@@ -276,8 +276,12 @@ public class ViewTranscript extends ViewAnnotation {
         for(AnnotationEntry entry : annotationList) {
             if(entry.source.equals(STRUCTURAL_SOURCE))
                 continue;
-            
-            AnnotFeature dbcatid = project.data.getRsvdAnnotFeature(entry.source, entry.feature);
+
+            if(entry.source.equals("PAR-clip"))
+                System.out.println("Estamos donde toca");
+
+
+                AnnotFeature dbcatid = project.data.getRsvdAnnotFeature(entry.source, entry.feature);
             if(seqEntry == null && dbcatid != AnnotFeature.TRANSCRIPT) {
                 logger.logError("Gene transcript annotations must have 'transcript' as first entry. Entry: " + entry.feature);
                 return;
@@ -561,6 +565,7 @@ public class ViewTranscript extends ViewAnnotation {
                                     SeqAlign.Position chkpos = new SeqAlign.Position(entry.strpos, entry.endpos);
                                     within = SeqAlign.isWithinExonsRegion(chkpos, genoexonsList);
 // is this right?
+
                                     if(args.prefs.alignment) {
                                         entry.dsppos = seqAlign.getGenomicXlatedPos(dsppos, negStrand);
                                         entry.dspstrpos = seqAlign.getGenomicXlatedPos(entry.strpos, negStrand);

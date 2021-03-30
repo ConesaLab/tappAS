@@ -825,7 +825,7 @@ protected void setTableSearchActive(TableView tbl, boolean value) {
     }
     else {
         tbl.getStyleClass().removeAll("search-active");
-        tbl.setStyle("-fx-background-color: #FFFFF0;");
+        tbl.setStyle("-fx-background-color: #FFFFF;");
     }
 }
     protected void setTableFiltered(TableView tbl, boolean filtered) {
