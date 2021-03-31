@@ -1098,12 +1098,6 @@ public class AnnotationSymbols extends AppObject {
         }
         ArrayList<double[]> lstBlocks = new ArrayList<>();
 
-        if(entry.source.equals("PAR-clip"))
-            System.out.println("strseg es demasiado grande comparado con utrsite");
-
-        if(entry.source.equals("UTRsite"))
-            System.out.println("Ver porqué todo 0s");
-
         int endseg;
         double x, width;
         double mult = viewer.getViewType(viewer.getClass().toString()).equals(ViewAnnotation.Views.PROTEIN)? 3.0 : 1.0;
@@ -1114,7 +1108,7 @@ public class AnnotationSymbols extends AppObject {
         boolean done = false;
         SymbolExtensionInfo sei = new SymbolExtensionInfo(0, 0, 0, 0);
         for(SeqAlign.Position pos : posList) {
-            if((!done && strseg >= pos.start && strseg <= pos.end)){ // || entry.source.equals("PAR-clip")) {
+            if((!done && strseg >= pos.start && strseg <= pos.end)){
                 done = true;
                 endseg = endpos;
                 if(endpos > pos.end) {

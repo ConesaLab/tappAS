@@ -114,25 +114,6 @@ public class ViewTranscript extends ViewAnnotation {
             if(!url.isEmpty())
                 Tappas.getHost().showDocument(url);
 
-            /*
-            switch(tipEntry.source) {
-                /* don't rely on db/cat names!!!
-                case "RefSeq":
-                    if(tipEntry.type.equals("gene"))
-                        url = "http://www.ncbi.nlm.nih.gov/gene/" + tipEntry.urlValue;
-                    else
-                        url = "http://www.ncbi.nlm.nih.gov/refseq/?term=" + tipEntry.urlValue;
-                    Tappas.getHost().showDocument(url);
-                    break;
-                case "UTRdb":
-                    url = "http://utrsite.ba.itb.cnr.it/index.php/UTRSite%20signal/Signal/action/view/frmUTRSiteID/" + tipEntry.urlValue;
-                    Tappas.getHost().showDocument(url);
-                    break;
-                case "RptMasker":
-                    url = "http://www.repeatmasker.org/cgi-bin/ViewRepeat?id=" + tipEntry.urlValue;
-                    Tappas.getHost().showDocument(url);
-                    break;*/
-            //}
         }
     }
     @Override

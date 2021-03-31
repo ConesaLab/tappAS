@@ -140,14 +140,7 @@ public class ViewProtein extends ViewAnnotation {
             }
             if(!url.isEmpty())
                 Tappas.getHost().showDocument(url);
-        
-            /*
-            switch(tipEntry.source) {
-                case "RefSeq":
-                    url = "http://www.ncbi.nlm.nih.gov/protein/" + tipEntry.urlValue;
-                    Tappas.getHost().showDocument(url);
-                    break;
-            }*/
+
         }
     }
     @Override

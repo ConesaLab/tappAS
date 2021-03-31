@@ -30,6 +30,7 @@ public class Tappas extends Application {
     // on the same project with multiple apps (could mess up the project data)
     // I think in the new Java 9 release there might be some relevant functionality
     //
+    //
     // The app will check if APP_LOCK_FILE exists:
     //   a) if it does, it will get the port number from the file and try to lock it
     //      (just in case the app aborted and did not delete the file)

@@ -816,6 +816,7 @@ public class SubTabBase extends AppObject {
             subTabInfo.lstSearchTables.add(tbl);
         }
     };
+    
 // remove use one below!
 protected void setTableSearchActive(TableView tbl, boolean value) {
     if(value) {
@@ -825,7 +826,7 @@ protected void setTableSearchActive(TableView tbl, boolean value) {
     }
     else {
         tbl.getStyleClass().removeAll("search-active");
-        tbl.setStyle("-fx-background-color: #FFFFF;");
+        tbl.setStyle("-fx-background-color: #FFFFF0;");
     }
 }
     protected void setTableFiltered(TableView tbl, boolean filtered) {
