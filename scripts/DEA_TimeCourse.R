@@ -32,9 +32,14 @@ time_analysis <- function(data, factors, degree, siglevel, r2cutoff, knum, usemc
         filepath=file.path(outdir, paste0("cluster_", dataType, "_", gname))
         cmethod = "hclust"
         if(isTRUE(usemclust))
-            cmethod = "Mclust"
+          cmethod = "Mclust"
         cat("\nclusterMethod: ", cmethod, ", useMclust: ", usemclust)
-        clusters <- my.see.genes(sigs$sig.genes[[gname]], show.fit = T, dis=design$dis, cluster.method=cmethod, cluster.data = 1, k=knum, k.mclust=usemclust, newX11 = FALSE, filepath=filepath)
+        if(is.null(sigs$sig.genes)){
+            clusters <- NULL
+        }else{
+            clusters <- my.see.genes(sigs$sig.genes[[gname]], show.fit = T, edesign = design$edesign, dis=design$dis, cluster.method=cmethod, cluster.data = 1, k=knum, k.mclust=usemclust, newX11 = FALSE, filepath=filepath)
+        }
+
         if(!is.null(clusters)) {
             if(!is.null(clusters$cluster.algorithm.used)) {
                 # create a data frame with cluster information and save
@@ -43,26 +48,26 @@ time_analysis <- function(data, factors, degree, siglevel, r2cutoff, knum, usemc
                 cat("\nSaving ", dtname, " DEA clusters data to file...")
                 write.table(dfc, file.path(outdir, paste0("cluster_", dataType, "_", gname, ".tsv")), quote=FALSE, row.names=TRUE, sep="\t")
             } else {
-                cat("\nWARNING: Unable to generate clusters (algo is.null).\n")
-            }   
+                cat("\nWARNING: Unable to generate clusters (some variable is.null).\n")
+            }
         } else {
-            cat("\nWARNING: Unable to generate clusters.\n")
+            cat(paste0("\nWARNING: Unable to generate clusters because we have not significant ", dataType,"s.\n"))
         }
     }
     return(sigs)
 }
 
 # code generates an Rplots.pdf file as a result of opening a device w/o specifying a name - layout(), par(), etc. functions will do it
-my.see.genes <- function (data, edesign = data$edesign, time.col = 1, repl.col = 2, 
-    group.cols = c(3:ncol(edesign)), names.groups = colnames(edesign)[3:ncol(edesign)], 
-    cluster.data = 1, groups.vector = data$groups.vector, k = 9, 
-    k.mclust = FALSE, cluster.method = "hclust", distance = "cor", 
-    agglo.method = "ward.D", show.fit = FALSE, dis = NULL, step.method = "backward", 
-    min.obs = 3, alfa = 0.05, nvar.correction = FALSE, show.lines = TRUE, 
-    iter.max = 500, summary.mode = "median", color.mode = "rainbow", 
-    cexlab = 1, legend = TRUE, newX11 = TRUE, ylim = NULL, main = NULL, filepath = NULL,
-    ...)
-{
+my.see.genes <- function (data, edesign = data$edesign, time.col = 1, repl.col = 2,
+                          group.cols = c(3:ncol(edesign)), names.groups = colnames(edesign)[3:ncol(edesign)],
+                          cluster.data = 1, groups.vector = data$groups.vector, k = 9,
+                          k.mclust = FALSE, cluster.method = "hclust", distance = "cor",
+                          agglo.method = "ward.D", show.fit = FALSE, dis = NULL, step.method = "backward",
+                          min.obs = 3, alfa = 0.05, nvar.correction = FALSE, show.lines = TRUE,
+                          iter.max = 500, summary.mode = "median", color.mode = "rainbow",
+                          cexlab = 1, legend = TRUE, newX11 = TRUE, ylim = NULL, main = NULL, filepath = NULL,
+                          ...)
+    {
     pdf(NULL)
 
     time = edesign[, time.col]
@@ -78,38 +83,38 @@ my.see.genes <- function (data, edesign = data$edesign, time.col = 1, repl.col =
         dat <- as.data.frame(data$sig.profiles)
     }
     if (nrow(dat) > 1) {
-        dat <- as.data.frame(dat[, (ncol(dat) - length(time) + 
-            1):ncol(dat)])
+        dat <- as.data.frame(dat[, (ncol(dat) - length(time) +
+          1):ncol(dat)])
         count.noNa <- function(x) (length(x) - length(x[is.na(x)]))
-        dat <- dat[which(apply(as.matrix(dat), 1, count.noNa) >= 
-            length(unique(repvect))), ]
+        dat <- dat[which(apply(as.matrix(dat), 1, count.noNa) >=
+                           length(unique(repvect))), ]
         clusterdata <- dat
         if (any(is.na(clusterdata))) {
-            if (cluster.method == "kmeans" || cluster.method == 
-                "Mclust") {
+            if (cluster.method == "kmeans" || cluster.method ==
+              "Mclust") {
                 if (all(cluster.data != 1, cluster.data != "sig.profiles")) {
-                  clusterdata[is.na(clusterdata)] <- 0
+                    clusterdata[is.na(clusterdata)] <- 0
                 }
                 else {
-                  mean.replic <- function(x) {
-                    tapply(as.numeric(x), repvect, mean, na.rm = TRUE)
-                  }
-                  MR <- t(apply(clusterdata, 1, mean.replic))
-                  if (any(is.na(MR))) {
-                    row.mean <- t(apply(MR, 1, mean, na.rm = TRUE))
-                    MRR <- matrix(row.mean, nrow(MR), ncol(MR))
-                    MR[is.na(MR)] <- MRR[is.na(MR)]
-                  }
-                  data.noNA <- matrix(NA, nrow(clusterdata), 
-                    ncol(clusterdata))
-                  u.repvect <- unique(repvect)
-                  for (i in 1:nrow(clusterdata)) {
-                    for (j in 1:length(u.repvect)) {
-                      data.noNA[i, repvect == u.repvect[j]] = MR[i, 
-                        u.repvect[j]]
+                    mean.replic <- function(x) {
+                        tapply(as.numeric(x), repvect, mean, na.rm = TRUE)
                     }
-                  }
-                  clusterdata <- data.noNA
+                    MR <- t(apply(clusterdata, 1, mean.replic))
+                    if (any(is.na(MR))) {
+                        row.mean <- t(apply(MR, 1, mean, na.rm = TRUE))
+                        MRR <- matrix(row.mean, nrow(MR), ncol(MR))
+                        MR[is.na(MR)] <- MRR[is.na(MR)]
+                    }
+                    data.noNA <- matrix(NA, nrow(clusterdata),
+                                        ncol(clusterdata))
+                    u.repvect <- unique(repvect)
+                    for (i in 1:nrow(clusterdata)) {
+                        for (j in 1:length(u.repvect)) {
+                            data.noNA[i, repvect == u.repvect[j]] = MR[i,
+                              u.repvect[j]]
+                        }
+                    }
+                    clusterdata <- data.noNA
                 }
             }
         }
@@ -117,18 +122,18 @@ my.see.genes <- function (data, edesign = data$edesign, time.col = 1, repl.col =
             k <- min(k, nrow(dat), na.rm = TRUE)
             if (cluster.method == "hclust") {
                 if (distance == "cor") {
-                  dcorrel <- matrix(rep(1, nrow(clusterdata)^2), 
-                    nrow(clusterdata), nrow(clusterdata)) - cor(t(clusterdata), 
-                    use = "pairwise.complete.obs")
-                  clust <- hclust(as.dist(dcorrel), method = agglo.method)
-                  c.algo.used = paste(cluster.method, "cor", 
-                    agglo.method, sep = "_")
+                    dcorrel <- matrix(rep(1, nrow(clusterdata)^2),
+                                      nrow(clusterdata), nrow(clusterdata)) - cor(t(clusterdata),
+                                                                                  use = "pairwise.complete.obs")
+                    clust <- hclust(as.dist(dcorrel), method = agglo.method)
+                    c.algo.used = paste(cluster.method, "cor",
+                                        agglo.method, sep = "_")
                 }
                 else {
-                  clust <- hclust(dist(clusterdata, method = distance), 
-                    method = agglo.method)
-                  c.algo.used = paste(cluster.method, distance, 
-                    agglo.method, sep = "_")
+                    clust <- hclust(dist(clusterdata, method = distance),
+                                    method = agglo.method)
+                    c.algo.used = paste(cluster.method, distance,
+                                        agglo.method, sep = "_")
                 }
                 cut <- cutree(clust, k = k)
             }
@@ -138,34 +143,34 @@ my.see.genes <- function (data, edesign = data$edesign, time.col = 1, repl.col =
             }
             else if (cluster.method == "Mclust") {
                 if (k.mclust) {
-                  print(paste0("calling Mclust with maxG: ", k))
-                  my.mclust <- Mclust(clusterdata, G=k)
-                  k = my.mclust$G
+                    print(paste0("calling Mclust with maxG: ", k))
+                    my.mclust <- Mclust(clusterdata, G=k)
+                    k = my.mclust$G
                 }
                 else {
-                  my.mclust <- Mclust(clusterdata, k)
+                    my.mclust <- Mclust(clusterdata, k)
                 }
                 cut <- my.mclust$class
                 c.algo.used = paste("Mclust", k, sep = "_")
             }
             else stop("Invalid cluster algorithm")
-            if (newX11) 
-                X11()
+            if (newX11)
+              X11()
             groups <- as.matrix(groups)
             colnames(groups) <- names.groups
-            if (k <= 4) 
-                par(mfrow = c(2, 2))
-            else if (k <= 6) 
-                par(mfrow = c(3, 2))
-            else if (k > 6) 
-                par(mfrow = c(3, 3))
+            if (k <= 4)
+              par(mfrow = c(2, 2))
+            else if (k <= 6)
+              par(mfrow = c(3, 2))
+            else if (k > 6)
+              par(mfrow = c(3, 3))
             for (i in 1:(k)) {
-                #PlotProfiles(data = dat[cut == i, ], repvect = repvect, 
-                #  main = i, ylim = ylim, color.mode = color.mode, 
+                #PlotProfiles(data = dat[cut == i, ], repvect = repvect,
+                #  main = i, ylim = ylim, color.mode = color.mode,
                 #  cond = rownames(edesign), ...)
             }
-            if (newX11) 
-                X11()
+            if (newX11)
+              X11()
             if (k <= 4) {
                 par(mfrow = c(2, 2))
                 cexlab = 0.6
@@ -183,14 +188,14 @@ my.see.genes <- function (data, edesign = data$edesign, time.col = 1, repl.col =
                 if (!is.null(filepath))
                   filename = paste0(filepath, ".", j, ".png")
                 print(paste0("a k: ", k, ", ylim: ", ylim))
-                my.PlotGroups(data = dat[cut == j, ], show.fit = show.fit, 
-                  dis = dis, step.method = step.method, min.obs = min.obs, 
-                  alfa = alfa, nvar.correction = nvar.correction, 
-                  show.lines = show.lines, time = time, groups = groups, 
-                  repvect = repvect, summary.mode = summary.mode, 
-                  xlab = "time", main = paste("Cluster", j, sep = " "), 
-                  ylim = ylim, cexlab = 1.5, legend = legend, filepath = filename,
-                  groups.vector = groups.vector, ...)
+                my.PlotGroups(data = dat[cut == j, ], show.fit = show.fit,
+                              dis = dis, step.method = step.method, min.obs = min.obs,
+                              alfa = alfa, nvar.correction = nvar.correction,
+                              show.lines = show.lines, time = time, groups = groups,
+                              repvect = repvect, summary.mode = summary.mode,
+                              xlab = "time", main = paste("Cluster", j, sep = " "),
+                              ylim = ylim, cexlab = 1.5, legend = legend, filepath = filename,
+                              groups.vector = groups.vector, ...)
             }
         }
         else {
@@ -200,24 +205,24 @@ my.see.genes <- function (data, edesign = data$edesign, time.col = 1, repl.col =
         }
     }
     else if (nrow(dat) == 1) {
-        if (newX11) 
-            X11()
-        #PlotProfiles(data = dat, repvect = repvect, main = NULL, 
-        #    ylim = ylim, color.mode = color.mode, cond = rownames(edesign), 
+        if (newX11)
+          X11()
+        #PlotProfiles(data = dat, repvect = repvect, main = NULL,
+        #    ylim = ylim, color.mode = color.mode, cond = rownames(edesign),
         #    ...)
-        if (newX11) 
-            X11()
+        if (newX11)
+          X11()
         filename = NULL
         if (!is.null(filepath))
           filename = paste0(filepath, ".", 1, ".png")
         print(paste0("b k: ", k, ", ylim: ", ylim))
-        my.PlotGroups(data = dat, show.fit = show.fit, dis = dis, 
-            step.method = step.method, min.obs = min.obs, alfa = alfa, 
-            nvar.correction = nvar.correction, show.lines = show.lines, 
-            time = time, groups = groups, repvect = repvect, 
-            summary.mode = summary.mode, xlab = "time", main = main, 
-            ylim = ylim, cexlab = cexlab, legend = legend, filepath = filename, groups.vector = groups.vector, 
-            ...)
+        my.PlotGroups(data = dat, show.fit = show.fit, dis = dis,
+                      step.method = step.method, min.obs = min.obs, alfa = alfa,
+                      nvar.correction = nvar.correction, show.lines = show.lines,
+                      time = time, groups = groups, repvect = repvect,
+                      summary.mode = summary.mode, xlab = "time", main = main,
+                      ylim = ylim, cexlab = cexlab, legend = legend, filepath = filename, groups.vector = groups.vector,
+                      ...)
         c.algo.used <- NULL
         cut <- 1
     }
@@ -230,21 +235,21 @@ my.see.genes <- function (data, edesign = data$edesign, time.col = 1, repl.col =
     names(OUTPUT) <- c("cut", "cluster.algorithm.used", "groups")
     OUTPUT
 }
-my.PlotGroups <- function (data, edesign = NULL, time = edesign[, 1], groups = edesign[, 
-    c(3:ncol(edesign))], repvect = edesign[, 2], show.fit = FALSE, 
-    dis = NULL, step.method = "backward", min.obs = 2, alfa = 0.05, 
-    nvar.correction = FALSE, summary.mode = "median", show.lines = TRUE, 
-    groups.vector = NULL, xlab = "Time", ylab = "Expression value", filepath = "cluster",
-    cex.xaxis = 1.5, ylim = NULL, main = NULL, cexlab = 1.5, legend = TRUE, 
-    sub = NULL) 
-{
+my.PlotGroups <- function (data, edesign = NULL, time = edesign[, 1], groups = edesign[,
+  c(3:ncol(edesign))], repvect = edesign[, 2], show.fit = FALSE,
+                           dis = NULL, step.method = "backward", min.obs = 2, alfa = 0.05,
+                           nvar.correction = FALSE, summary.mode = "median", show.lines = TRUE,
+                           groups.vector = NULL, xlab = "Time", ylab = "Expression value", filepath = "cluster",
+                           cex.xaxis = 1.5, ylim = NULL, main = NULL, cexlab = 1.5, legend = TRUE,
+                           sub = NULL)
+    {
     if (!is.vector(data)) {
         if (summary.mode == "representative") {
-            distances <- apply(as.matrix(dist(data, diag = TRUE, 
-                upper = TRUE)), 1, sum)
+            distances <- apply(as.matrix(dist(data, diag = TRUE,
+                                              upper = TRUE)), 1, sum)
             representative <- names(distances)[distances == min(distances)]
-            yy <- as.numeric(data[rownames(data) == representative, 
-                ])
+            yy <- as.numeric(data[rownames(data) == representative,
+                             ])
             sub <- paste("Representative:", representative)
         }
         else if (summary.mode == "median") {
@@ -288,8 +293,8 @@ my.PlotGroups <- function (data, edesign = NULL, time = edesign[, 1], groups = e
         print(paste0("ylim: ", ylim))
     }
     abcissa <- x
-    xlim = c(min(abcissa, na.rm = TRUE), max(abcissa, na.rm = TRUE) * 
-        1.3)
+    xlim = c(min(abcissa, na.rm = TRUE), max(abcissa, na.rm = TRUE) *
+      1.3)
     color1 <- as.numeric(sort(factor(colnames(groups)))) + 1
     color2 <- groups
     for (j in 1:ncol) {
@@ -297,29 +302,29 @@ my.PlotGroups <- function (data, edesign = NULL, time = edesign[, 1], groups = e
     }
     color2 <- as.vector(apply(color2, 1, sum) + 1)
     png(filename=filepath, width = 1200, height = 400, units = "px")
-    plot(x = time, y = yy, pch = 21, xlab = xlab, ylab = ylab, 
-        xaxt = "n", main = paste0(main, " - ", sub), ylim = ylim, xlim = xlim, 
-        cex = cexlab, cex.main=1.5, cex.axis=1.5, cex.lab=1.5, cex.sub=1.5, col = color2)
+    plot(x = time, y = yy, pch = 21, xlab = xlab, ylab = ylab,
+         xaxt = "n", main = paste0(main, " - ", sub), ylim = ylim, xlim = xlim,
+         cex = cexlab, cex.main=1.5, cex.axis=1.5, cex.lab=1.5, cex.sub=1.5, col = color2)
     axis(1, at = unique(abcissa), labels = unique(abcissa), cex.axis = cex.xaxis)
     if (show.fit) {
         rm <- matrix(yy, nrow = 1, ncol = length(yy))
         rownames(rm) <- c("ratio medio")
         colnames(rm) <- rownames(dis)
-        fit.y <- T.fit(rm, design = dis, step.method = step.method, 
-            min.obs = min.obs, alfa = alfa, nvar.correction = nvar.correction)
+        fit.y <- T.fit(rm, design = dis, step.method = step.method,
+                       min.obs = min.obs, alfa = alfa, nvar.correction = nvar.correction)
         betas <- fit.y$coefficients
     }
     for (i in 1:ncol(groups)) {
         group <- g[, i]
         if ((show.fit) && !is.null(betas)) {
             li <- c(2:6)
-            a <- reg.coeffs(coefficients = betas, groups.vector = groups.vector, 
-                group = colnames(groups)[i])
+            a <- reg.coeffs(coefficients = betas, groups.vector = groups.vector,
+                            group = colnames(groups)[i])
             a <- c(a, rep(0, (7 - length(a))))
-            curve(a[1] + a[2] * x + a[3] * (x^2) + a[4] * (x^3) + 
-                a[5] * (x^4) + a[6] * (x^5) + a[7] * (x^5), from = min(time), 
-                to = max(time), col = color1[i], add = TRUE, 
-                lty = li[i])
+            curve(a[1] + a[2] * x + a[3] * (x^2) + a[4] * (x^3) +
+                    a[5] * (x^4) + a[6] * (x^5) + a[7] * (x^5), from = min(time),
+                  to = max(time), col = color1[i], add = TRUE,
+                  lty = li[i])
         }
         if (show.lines) {
             lx <- abcissa[group != 0]
@@ -331,10 +336,10 @@ my.PlotGroups <- function (data, edesign = NULL, time = edesign[, 1], groups = e
         }
     }
     op <- par(bg = "white")
-    if (legend) 
-        legend(max(abcissa, na.rm = TRUE) * 1.02, ylim[1], legend = codeg, 
-            text.col = color1, col = color1, cex = 1.5, lty = 1, 
-            yjust = 0)
+    if (legend)
+      legend(max(abcissa, na.rm = TRUE) * 1.02, ylim[1], legend = codeg,
+             text.col = color1, col = color1, cex = 1.5, lty = 1,
+             yjust = 0)
     par(op)
     dev.off()
     #ggsave("/home/hdelrisco/Documents/plot.png", plot=ggp, device="png", bg="transparent", width=4, height=3, dpi=300)
@@ -375,12 +380,27 @@ for(i in 1:9) {
     else if(length(grep("^-o", args[i])) > 0)
       outdir = substring(args[i], 3)
     else {
-      cat("Invalid command line argument: '", args[i], "'\n")
-      stop("Invalid command line argument.")
+        cat("Invalid command line argument: '", args[i], "'\n")
+        stop("Invalid command line argument.")
     }
 }
 if(nchar(outdir) == 0 || nchar(indir) == 0 || nchar(dataType) == 0 || nchar(degvalue) == 0 || nchar(sigvalue) == 0 || nchar(r2value) == 0 || nchar(kvalue) == 0 || nchar(mvalue) == 0 || nchar(method) == 0)
   stop("Missing command line argument.")
+
+#### Test input
+verbose = F
+if(verbose){
+    dataType = "gene"
+    method = "MASIGPRO"
+    r2value = "0.7"
+    sigvalue = "0.05"
+    degvalue = "3"
+    kvalue = "9"
+    mvalue = "1"
+    indir = "./"
+    outdir = "./"
+}
+
 
 # determine what type of data to run DEA for
 dtname <- ""
@@ -397,7 +417,7 @@ degree = as.numeric(degvalue)
 knum = as.numeric(kvalue)
 usemclust = TRUE
 if(mvalue == "0")
-    usemclust = FALSE
+  usemclust = FALSE
 
 # read expression factors
 cat("\nReading factors file data...")
@@ -425,9 +445,18 @@ for(i in 1:length(names(sigs$sig.genes))) {
     write.table(df, file.path(outdir, paste0("result_", dataType, "_", gname, ".tsv")), quote=FALSE, row.names=TRUE, sep="\t")
 }
 
-# write completion file
-cat("\nWriting DEAnalysis completed file...")
-filedone <- file(file.path(outdir, paste("done_", dataType, ".txt", sep="")))
-writeLines("end", filedone)
-close(filedone)
-cat("\nAll done.\n")
+#if df is 0
+if(nrow(df)==0){
+    cat(paste0("\nDEAnalysis completed and no significant ", dataType, " were found. The analysis will fail because we do not have any ", dataType," to be loaded."))
+    filedone <- file(file.path(outdir, paste("done_", dataType, ".txt", sep="")))
+    writeLines("end", filedone)
+    close(filedone)
+    cat("\nAll done.\n")
+}else{
+    # write completion file
+    cat("\nWriting DEAnalysis completed file...")
+    filedone <- file(file.path(outdir, paste("done_", dataType, ".txt", sep="")))
+    writeLines("end", filedone)
+    close(filedone)
+    cat("\nAll done.\n")
+}

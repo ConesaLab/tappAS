@@ -6,6 +6,7 @@
 package tappas;
 
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
@@ -28,6 +29,7 @@ public class DlgGSEAnalysis extends DlgBase {
     Button btnRLFile1, btnRLFile2, btnSets;
     RadioButton rbGenes, rbProteins, rbTrans, rbFeatures, rbSets;
     ChoiceBox cbRankedLists1, cbRankedLists2, cbMethods;
+//    Hyperlink lnkClearAll, lnkCheckAll;
     TreeViewFeatures tvFeatures;
     CheckBox chkMulti;
     
@@ -67,6 +69,9 @@ public class DlgGSEAnalysis extends DlgBase {
             txtSets = (TextField) scene.lookup("#txtSets");
             btnSets = (Button) scene.lookup("#btnSets");
             TreeView tvf = (TreeView) scene.lookup("#tvFeatures");
+
+//            lnkClearAll = (Hyperlink) scene.lookup("#lnkClearAll");
+//            lnkCheckAll = (Hyperlink) scene.lookup("#lnkCheckAll");
             
             // set default values
             paramId = dfltParams.paramId;
@@ -157,7 +162,9 @@ public class DlgGSEAnalysis extends DlgBase {
             
             btnSets.setOnAction((event) -> { getSetsFile(); });
 
-            // setup 
+            // setup
+            // setup database categories
+
             chkMulti.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue) -> {
                 if(newValue){
                     lblRank2.setDisable(false);
@@ -222,6 +229,20 @@ public class DlgGSEAnalysis extends DlgBase {
                     params = validate(dialog);
                 return params;
             });
+
+//            lnkClearAll.setOnAction((event) -> {
+//                if(tvf.isDisable())
+//                    clearAllFeatures(tvf);
+//                else
+//                    clearAllFeatures(tvf);
+//            });
+//
+//            lnkCheckAll.setOnAction((event) -> {
+//                if(tvf.isDisable())
+//                    checkAllFeatures(tvf);
+//                else
+//                    checkAllFeatures(tvf);
+//            });
             
             Optional<HashMap> result = dialog.showAndWait();
             if(result.isPresent())
@@ -229,6 +250,36 @@ public class DlgGSEAnalysis extends DlgBase {
         }
         return null;
     }
+
+    //hyperlink funtions
+    private void clearAllFeatures(TreeView aux) {
+        TreeItem<String> rootItem = aux.getRoot();
+        ObservableList<TreeItem<String>> lst = rootItem.getChildren();
+        for(TreeItem ti : lst) {
+            CheckBoxTreeItem<String> item = (CheckBoxTreeItem<String>) ti;
+            ObservableList<TreeItem<String>> sublst = item.getChildren();
+            for(TreeItem subti : sublst) {
+                CheckBoxTreeItem<String> subitem = (CheckBoxTreeItem<String>) subti;
+                subitem.setSelected(false);
+            }
+            item.setSelected(false);
+        }
+    }
+
+    private void checkAllFeatures(TreeView aux) {
+        TreeItem<String> rootItem = aux.getRoot();
+        ObservableList<TreeItem<String>> lst = rootItem.getChildren();
+        for(TreeItem ti : lst) {
+            CheckBoxTreeItem<String> item = (CheckBoxTreeItem<String>) ti;
+            ObservableList<TreeItem<String>> sublst = item.getChildren();
+            for(TreeItem subti : sublst) {
+                CheckBoxTreeItem<String> subitem = (CheckBoxTreeItem<String>) subti;
+                subitem.setSelected(true);
+            }
+            item.setSelected(true);
+        }
+    }
+
     private void onDataTypeChange(ChoiceBox cb, Label lbl, TextField txt, Button btn) {
         ArrayList<String> lst = new ArrayList<>();
         cb.getSelectionModel().clearSelection();

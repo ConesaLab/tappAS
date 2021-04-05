@@ -6,6 +6,7 @@
 package tappas;
 
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
@@ -28,6 +29,7 @@ public class DlgFEAnalysis extends DlgBase {
     Label lblBkgndSelection;
     TextField txtName, txtSigValue, txtSamplingCnt;
     ChoiceBox cbCompare, cbMethod, cbUseWOCat;
+    Hyperlink lnkClearAll, lnkCheckAll;
     TextField txtTestFile, txtBkgndFile;
     Button btnTestFile, btnBkgndFile;
     RadioButton rbGenes, rbProteins, rbTrans;
@@ -65,6 +67,9 @@ public class DlgFEAnalysis extends DlgBase {
             cbMethod = (ChoiceBox) scene.lookup("#cbMethod");
             cbUseWOCat = (ChoiceBox) scene.lookup("#cbUseWOCat");
             TreeView tvf = (TreeView) scene.lookup("#tvFeatures");
+
+            lnkClearAll = (Hyperlink) scene.lookup("#lnkClearAll");
+            lnkCheckAll = (Hyperlink) scene.lookup("#lnkCheckAll");
             Label lblSamplingCnt = (Label) scene.lookup("#lblSamplingCnt");
             
             // setup dialog
@@ -110,7 +115,22 @@ public class DlgFEAnalysis extends DlgBase {
                 txtSamplingCnt.setDisable(samdis1);
             });
             onDataTypeChange();
-            
+
+            // setup database categories
+            lnkClearAll.setOnAction((event) -> {
+                if(tvf.isDisable())
+                    clearAllFeatures(tvf);
+                else
+                    clearAllFeatures(tvf);
+            });
+
+            lnkCheckAll.setOnAction((event) -> {
+                if(tvf.isDisable())
+                    checkAllFeatures(tvf);
+                else
+                    checkAllFeatures(tvf);
+            });
+
             // set test list
             int idx = Params.getTestListIndexFromID(dfltParams.testList.name());
             for(int i = 0; i < cbTestLists.getItems().size(); i++) {
@@ -172,6 +192,34 @@ public class DlgFEAnalysis extends DlgBase {
     //
     // Internal Functions
     //
+    private void clearAllFeatures(TreeView aux) {
+        TreeItem<String> rootItem = aux.getRoot();
+        ObservableList<TreeItem<String>> lst = rootItem.getChildren();
+        for(TreeItem ti : lst) {
+            CheckBoxTreeItem<String> item = (CheckBoxTreeItem<String>) ti;
+            ObservableList<TreeItem<String>> sublst = item.getChildren();
+            for(TreeItem subti : sublst) {
+                CheckBoxTreeItem<String> subitem = (CheckBoxTreeItem<String>) subti;
+                subitem.setSelected(false);
+            }
+            item.setSelected(false);
+        }
+    }
+
+    private void checkAllFeatures(TreeView aux) {
+        TreeItem<String> rootItem = aux.getRoot();
+        ObservableList<TreeItem<String>> lst = rootItem.getChildren();
+        for(TreeItem ti : lst) {
+            CheckBoxTreeItem<String> item = (CheckBoxTreeItem<String>) ti;
+            ObservableList<TreeItem<String>> sublst = item.getChildren();
+            for(TreeItem subti : sublst) {
+                CheckBoxTreeItem<String> subitem = (CheckBoxTreeItem<String>) subti;
+                subitem.setSelected(true);
+            }
+            item.setSelected(true);
+        }
+    }
+
     private void onDataTypeChange() {
         ArrayList<String> lstTest = new ArrayList<>();
         ArrayList<String> lstBkgnd = new ArrayList<>();

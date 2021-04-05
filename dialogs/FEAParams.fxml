@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane id="AnchorPane" maxWidth="800.0" prefHeight="625.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane id="AnchorPane" maxWidth="800.0" prefHeight="601.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lblMsg" alignment="CENTER" layoutX="5.0" layoutY="506.0" prefWidth="461.0" textFill="ORANGERED" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
       <Pane prefHeight="60.0" prefWidth="474.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
@@ -67,9 +70,9 @@
             <Label fx:id="lblProjectName" alignment="CENTER" prefHeight="15.0" prefWidth="510.0" text="..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="9.0" />
          </children>
       </AnchorPane>
-      <Pane layoutY="430.0" maxWidth="350.0" minWidth="350.0" prefHeight="155.0" prefWidth="350.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="430.0">
+      <Pane layoutY="419.0" maxWidth="350.0" minWidth="350.0" prefHeight="170.0" prefWidth="350.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="419.0">
          <children>
-            <Label layoutX="10.0" layoutY="135.0" prefHeight="14.0" prefWidth="350.0" text="You may select one or more features from a single source" textFill="DARKGRAY">
+            <Label layoutX="10.0" layoutY="133.0" prefHeight="34.0" prefWidth="211.0" text="You may select one or more features from&#10;a single source" textFill="DARKGRAY">
                <font>
                   <Font size="11.0" />
                </font>
@@ -85,14 +88,16 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
+            <Hyperlink fx:id="lnkCheckAll" layoutX="283.0" layoutY="145.0" text="Check All" />
+            <Hyperlink fx:id="lnkClearAll" layoutX="221.0" layoutY="145.0" text="Clear All" />
          </children>
       </Pane>
-      <Label layoutX="10.0" layoutY="420.0" styleClass="textDlgSection" stylesheets="@../Style.css" text="Annotation Feature(s)" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="420.0">
+      <Label layoutX="10.0" layoutY="409.0" styleClass="textDlgSection" stylesheets="@../Style.css" text="Annotation Feature(s)" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="409.0">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Pane layoutX="380.0" layoutY="430.0" maxWidth="420.0" minWidth="420.0" prefHeight="155.0" prefWidth="420.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="430.0">
+      <Pane layoutX="380.0" layoutY="419.0" maxWidth="420.0" minWidth="420.0" prefHeight="170.0" prefWidth="420.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="419.0">
          <children>
             <GridPane layoutX="10.0" layoutY="20.0" prefHeight="125.0" prefWidth="400.0">
                <children>
@@ -126,7 +131,7 @@
                </rowConstraints>
             </GridPane>
          </children></Pane>
-      <Label layoutX="389.0" layoutY="420.0" styleClass="textDlgSection" stylesheets="@../Style.css" text="Analysis Parameters" AnchorPane.leftAnchor="389.0" AnchorPane.topAnchor="420.0">
+      <Label layoutX="389.0" layoutY="409.0" styleClass="textDlgSection" stylesheets="@../Style.css" text="Analysis Parameters" AnchorPane.leftAnchor="389.0" AnchorPane.topAnchor="409.0">
          <font>
             <Font size="16.0" />
          </font>
