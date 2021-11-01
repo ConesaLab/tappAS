@@ -45,9 +45,9 @@ If you encounter a bug or error using or installing tappAS,
 please [open an Issue](https://github.com/ConesaLab/tappAS/issues) to report it.
 
 If in need of further support, please contact:
-* **Pedro Salguero:** installation information, errors and software-related support: pedsalga@upv.edu.es
+* **Pedro Salguero:** installation information, errors and software-related support: pedsalga [at] upv.edu.es
 * **Ángeles Arzalluz-Luque:** information related to analysis/results interpretation and questions on 
-how to apply tappAS functionalities to your data: angeles.arzalluz@gmail.com
+how to apply tappAS functionalities to your data: angeles.arzalluz [at] gmail.com
 
 ### Reference
 
