@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Proteins DEA Summary</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">Project Data Visualization: Proteins DEA Summary</span></div>
+    <p>The Proteins DEA Summary subtab contains multiple visual display controls, along with a supporting table, summarizing the proteins DEA results.
+    The display controls are described below by position, left to right.</p>
+    <div style="padding-left:25px;">
+        <p><b>Proteins DEA Results</b> pie chart and data table - the pie chart displays the proportions for differentially and not differentially expressed proteins.
+            The table displays the following table columns for single transcript, multiple transcript, and total proteins:</p>
+        <ul>
+            <li>Protein - protein type</li>
+            <li>DE - number of differentially expressed proteins of given type</li>
+            <li>Not DE - number of NOT differentially expressed proteins of given type</li>
+            <li>Total - total number of proteins of given type</li>
+        </ul>
+        <p><b>Proteins Log2 Fold Change Distribution</b> bar chart - displays the L2FC distribution for all proteins.
+            The bins for the fold changes are shown on the x-axis with the down-regulated proteins on the left part and the up-regulated proteins on the right. 
+            Square brackets, [], are used to denote values that are inclusive and parentheses, (), for values that are exclusive. 
+            For example, a bin with a "[5, 10)" label contains values from 5 to less than 10, i.e. inclusive of 5 but exclusive of 10.
+            Note that up and down regulation is based on the condition comparison you selected for the analysis.
+            The total number of proteins for a given bin is determined by the height of the bars along the y-axis.
+            Negative values are used for down regulated counts, on the y-axis, for visualization purposes only; counts are always positive.
+        </p>
+    </div>
+    <span class="notes" style="padding-left:25px;">The expression level for a protein is the sum of the normalized levels for all transcripts encoding the protein.</span>
+    <!-- DVReminders -->
+    <!-- SubtabMenuBar:export -->
+    <!-- AddHelp:dea,visual,menus,gui,tips -->
+</body>
+</html>
+

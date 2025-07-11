@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane fx:id="paneContents" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fx:id="spDiversity" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <GridPane fx:id="grdMain" alignment="CENTER" maxHeight="1.7976931348623157E308" style="-fx-background-color: white;" vgap="3.0">
+               <children>
+                  <StackedBarChart fx:id="barDiversityPW" animated="false" minHeight="650.0" minWidth="550.0" title="Pairwise Isoform Level Functional Diversity" GridPane.columnIndex="1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <xAxis>
+                        <NumberAxis animated="false" autoRanging="false" side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <CategoryAxis animated="false" side="LEFT">
+                           <tickLabelFont>
+                              <Font size="10.0" />
+                           </tickLabelFont>
+                        </CategoryAxis>
+                     </yAxis>
+                  </StackedBarChart>
+                  <StackedBarChart fx:id="barDiversity" animated="false" minHeight="650.0" minWidth="550.0" title="Gene Level Functional Diversity">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <xAxis>
+                        <NumberAxis animated="false" autoRanging="false" side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <CategoryAxis animated="false" side="LEFT">
+                           <tickLabelFont>
+                              <Font size="10.0" />
+                           </tickLabelFont>
+                        </CategoryAxis>
+                     </yAxis>
+                  </StackedBarChart>
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="SOMETIMES" />
+               </rowConstraints>
+               <padding>
+                  <Insets left="3.0" />
+               </padding>
+            </GridPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

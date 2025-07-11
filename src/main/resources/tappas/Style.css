@@ -1,0 +1,967 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 6, 2015, 3:05:38 PM
+    Author     : hdelrisco
+*/
+
+/* keep floating subtabs from getting extra padding in dialog pane */
+.float-dialog-pane > .content {
+    -fx-padding: 2 0 0 0;
+}
+
+/* attempt to make overlaps more easy to see in PCA plot
+   change if it conflicts with looks for large number of symbols */
+.default-color0.chart-symbol {
+    -fx-background-color: #860061, #f3622d;
+    -fx-background-insets: 0, 0.5;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+.default-color1.chart-symbol {
+    -fx-background-color: #860061, #fba71b;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0, 0.5;
+    -fx-padding: 7px 5px 7px 5px;
+    -fx-shape: "M5,0 L10,9 L5,18 L0,9 Z";
+}
+.table-view > .column-header-background > .show-hide-columns-button,
+.tree-table-view > .column-header-background > .show-hide-columns-button {
+    -fx-background-insets: 0, 0 0 1 1, 1 1 2 2;
+    -fx-background-color: #E0FCE0; /*rgba(152,251,152,0.35);*/
+}
+/*
+.button,
+.toggle-button,
+.radio-button > .radio,
+.check-box > .box,
+.menu-button,
+.choice-box,
+.color-picker.split-button > .color-picker-label,
+.combo-box-base,
+.combo-box-base:editable > .arrow-button {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-border-color: purple;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}*/
+
+
+/* these are used for the selected check box column to provide visual feedback
+   to users that they have some row(s) selected */
+.column-selected {
+    -fx-background-color: -fx-inner-border, #ebffd3;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+.table-view .column-header.column-selected {
+    -fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+}
+
+.search-active {
+    -fx-background-color: #FFFFF0;
+}
+.search-active .table-row-cell {
+    -fx-control-inner-background: #FFFFF0;
+    -fx-background: -fx-control-inner-background;
+    -fx-background-color: -fx-table-cell-border-color, -fx-background;
+}
+.search-active .table-row-cell:odd {
+    -fx-background: -fx-control-inner-background-alt;
+}
+.search-active .table-row-cell:filled:selected {
+    /* when the table is not focused, the row remains blue when it should go gray - try to figure out later, low priority */
+    -fx-background-color: -fx-table-cell-border-color, #a2ca72; /* skyblue! -fx-background;*/
+    -fx-text-fill: -fx-text-background-color;
+}
+.textDlgSection {
+    -fx-background-color: rgba(242,242,242,1);
+    -fx-text-fill: steelblue;
+    -fx-font-size: 16px;
+    -fx-font-family: "System";
+    -fx-padding: 0 7 0 7;
+}
+.textProjectSection {
+    -fx-background-color: transparent;
+    -fx-text-fill: gray;
+    -fx-font-size: 16px;
+    -fx-font-family: "System";
+    -fx-padding: 0 7 0 7;
+}
+.textAreaLog {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+.textAreaLog .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+.labelName {
+    -fx-background-color: gainsboro;
+    -fx-text-fill: steelblue;
+}
+.tabPaneAbout .tab-header-background {
+    -fx-background-color: transparent ;
+}
+
+.dlgProjectTitle {
+    -fx-border-width: 0.25;
+    -fx-border-color: gray;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+.buttonSplitMenu {
+    -fx-background-color: -fx-inner-border, lightgray; /* just for outside perimeter */
+    -fx-text-fill: steelblue;
+}
+.split-menu-button > .label {
+    -fx-text-fill: -fx-text-base-color;
+    -fx-background-color: -fx-inner-border, #E0E0E0; /*-fx-inner-border, -fx-body-color; */
+    -fx-background-insets: 1 0 1 1, 2 1 2 2;
+    -fx-background-radius: 2 0 0 2, 1 0 0 1;
+    -fx-padding: 0.333333em 0.667em 0.333333em 0.667em; /* 4 8 4 8 */
+    -fx-font-size: 9;    
+}
+.split-menu-button:hover > .label {
+    -fx-background-color: -fx-inner-border, #F0F0F0; /*-fx-inner-border, -fx-body-color; */
+}
+.buttonSplitMenu > .arrow-button {
+    -fx-background-color: -fx-inner-border, -fx-body-color;
+    -fx-border-color: lightgray;
+    -fx-background-insets: 1, 2;
+    -fx-background-radius: 0 2 2 0, 0 1 1 0;
+    -fx-padding: 0.5em 0.25em 0.5em 0.25em; /* 6 8 6 8 */
+    -fx-max-width: 10;
+}
+
+/*ComboBox Menu items*/
+.combo-box-menu:focused {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color; 
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+.combo-box-menu > .label {
+    -fx-text-fill: -fx-text-base-color;
+    -fx-background-insets: 1 0 1 1, 2 1 2 2;
+    -fx-background-radius: 2 0 0 2, 1 0 0 1;
+    -fx-padding: 0.333333em 0.667em 0.333333em 0.667em; /* 4 8 4 8 */
+    -fx-font-size: 10;    
+}
+/*.combo-box-menu .arrow-button  {
+    -fx-opacity: 0.0;
+    -fx-padding: 1;
+}
+.combo-box-menu .arrow-button .arrow {
+    -fx-padding: 3;
+}
+
+.buttonMenu {
+    -fx-background-color: transparent;
+    -fx-text-fill: steelblue;
+}*/
+.buttonMenu:hover {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}
+.buttonDlgSave {
+    -fx-background-color: seagreen;
+    -fx-text-fill: white;
+}
+.buttonDlgSave:hover {
+    -fx-background-color: mediumseagreen;
+    -fx-text-fill: white;
+}
+.buttonDlgCancel {
+    -fx-background-color: lightsteelblue;
+}
+.buttonDlgCancel:hover {
+    -fx-background-color: lightblue;
+}
+
+/* Horizontal Menu Controls */
+.buttonHelpHMenu {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-border-style: none;
+    -fx-border-color: transparent;
+    -fx-text-fill: black; /*darkorange; /*#606060;*/
+    -fx-border-radius: 17;
+    -fx-background-radius: 17;
+    -fx-font-size: 14px;
+    -fx-font-weight: 900;
+}
+.buttonHelpHMenu:hover {
+    -fx-background-color: rgba(250, 250, 250, 0.25);
+    -fx-cursor: hand;
+}
+.buttonOptionsHMenu > .label {
+    -fx-padding: 0;
+}
+/* to get rid of arrow
+.buttonOptionsHMenu > .arrow-button {
+    -fx-padding: 0;
+}
+.buttonOptionsHMenu > .arrow-button > .arrow {
+    -fx-padding: 0;
+}*/
+.buttonOptionsHMenu {
+    -fx-background-color: -fx-background;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+}
+.buttonOptionsHMenu:hover {
+    -fx-background-color: #E8E8E8; /*orange; khaki; #F8F8F8;*/
+    -fx-border-color: darkgray;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+}
+.buttonSubTabHMenu {
+    -fx-background-color: #F4F4F4;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: darkorange;
+    -fx-text-fill: darkslategray;
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+}
+.buttonSubTabHMenu:hover {
+    -fx-background-color: orange;
+    -fx-text-fill: white;
+    -fx-border-width: 0;
+}
+.buttonSubTabHMenu:selected {
+    -fx-background-color: darkorange;
+    -fx-text-fill: white;
+    -fx-border-width: 0;
+}
+.buttonSubSubTabHMenu {
+    -fx-background-color: #F4F4F4;
+    -fx-border-width: 0;
+    -fx-border-radius: 7 7 0 0;
+    -fx-background-radius: 7 7 0 0;
+    -fx-border-color: darkorange;
+    -fx-text-fill: brown;
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+}
+.buttonSubSubTabHMenu:hover {
+    -fx-background-color: orange;
+    -fx-text-fill: white;
+}
+.buttonSubSubTabHMenu:selected {
+    -fx-background-color: darkorange;
+    -fx-text-fill: white;
+}
+
+.buttonSubTabVMenuSample {
+    -fx-background-color: steelblue;
+    -fx-border-width: 0 0 0 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: lightgray;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+}
+.buttonSubTabVMenu {
+    -fx-base: whitesmoke;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-background-insets: 1,0,0,0;
+    -fx-text-fill: darkslategray;
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+}
+.buttonSubTabVMenu:hover {
+    -fx-base: lightsteelblue;
+    -fx-text-fill: white;
+    -fx-background-insets: 0;
+}
+.buttonSubTabVMenu:selected {
+    -fx-base: steelblue;
+    -fx-text-fill: white;
+    -fx-background-insets: 0;
+}
+.buttonSubSubTabVMenu {
+    -fx-background-color: white;
+    -fx-border-width: 0 0 0 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: lightgray;
+    -fx-text-fill: darkslategray;
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+}
+.buttonSubSubTabVMenu:hover {
+    -fx-background-color: orange;
+    -fx-text-fill: white;
+}
+.buttonSubSubTabVMenu:selected {
+    -fx-background-color: darkorange;
+    -fx-text-fill: white;
+}
+
+/* Search Controls */
+.buttonSearch {
+    -fx-background-color: white;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: lightgray;
+}
+.search-box.text-field {
+    -fx-background-color: white;
+    -fx-focus-color: transparent;
+    -fx-border-width: 1;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: lightgray;
+}
+.search-box.text-field:focused {
+    -fx-background-color: white;
+    -fx-focus-color: transparent;
+}
+
+
+
+.buttonHelp {
+    -fx-background-color: #E8E8E8;
+    /*-fx-border-color: lightgray;*/
+    -fx-text-fill: darkorange;
+    /*-fx-border-radius: 20;
+    -fx-background-radius: 20;*/
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+}
+.buttonHelp:hover {
+    /*-fx-text-fill: darkorange;*/
+    -fx-background-color: #F8F8F8;
+    -fx-border-color: darkgray;
+}
+.buttonOptions {
+    -fx-background-color: #E8E8E8;
+    /*-fx-border-color: lightgray;*/
+    -fx-border-width: 0.5;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}
+.buttonOptions:hover {
+    -fx-background-color: #F8F8F8;
+    -fx-border-color: darkgray;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}
+.buttonSubTab {
+    -fx-background-color: #F4F4F4;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: white;
+    -fx-text-fill: darkslategray;
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+}
+.buttonSubTab:hover {
+    -fx-background-color: orange;
+    -fx-text-fill: white;
+    -fx-border-width: 0;
+}
+.buttonSubTab:selected {
+    -fx-background-color: darkorange;
+    -fx-text-fill: white;
+    -fx-border-width: 0;
+}
+.buttonSelectGroup {
+    -fx-background-color: lightgray;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: white;
+    -fx-text-fill: darkslategray;
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+}
+.buttonSelectGroup:hover {
+    -fx-background-color: lightsteelblue;
+    -fx-text-fill: white;
+}
+.buttonSelectGroup:selected {
+    -fx-background-color: steelblue;
+    -fx-text-fill: white;
+}
+.menuBarTab {
+    -fx-background-color: #F4F4F4;
+    -fx-border-width: 0 0 0 0;
+    -fx-border-color: silver;
+}
+.menuBarTabLow {
+    -fx-background-color: #F4F4F4;
+    -fx-border-width: 0;
+}
+
+/*Table selection*/
+/*
+tappAS logo color
+#a2ca72 green
+#f2635c red
+#7cafd6 blue
+*/
+/*mouse over*/
+.table-row-cell:hover {
+    -fx-background-color: #ebffd3;
+}
+.table-row-cell:hover .text {
+    -fx-fill: black;
+}
+/*selected*/
+.table-row-cell:selected {
+   -fx-background-color: #80a356;
+   -fx-table-cell-border-color: LightGray;
+}
+.table-row-cell:selected .text {
+       -fx-fill: white ;
+}
+.table-row-cell .text {
+       -fx-fill: black ;
+}
+.table-row-cell .check-box:selected .mark {
+    -fx-background-color: #80a356;
+}
+.table-row-cell:selected .check-box:selected .mark {
+    -fx-background-color: #80a356;
+}
+.table-row-cell:selected .check-box *.box {
+    -fx-border-color: #bcbcbc;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-border-radius: 4px;
+    fx-background-insets: 0, 6;
+    -fx-background-radius: 6px, 0px;
+    -fx-background-color: white;
+}
+.table-row-cell:selected .check-box:selected *.box {
+    -fx-border-color: #bcbcbc;
+    -fx-background-insets: 0, 6;
+    -fx-background-radius: 6px, 0px;
+    -fx-background-color: white;
+}
+
+.tableLabelText {
+    -fx-background-color: midnightblue;
+}
+
+.tableLabel {
+    -fx-background-color: lightblue; /*steelblue;#99AABB*/
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-width: 0 1 1 0;
+    -fx-border-color: lightgray; /*silver;*/
+}
+.tableLabelClear {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-color: silver;
+}
+/* multiple time slot columns */
+.table-view .column-header.timeEven {
+    -fx-background-color: lightblue;
+    -fx-border-color: #808080;
+    -fx-border-width: 0.125;
+}
+.table-view .column-header.timeOdd {
+    -fx-background-color: lightcyan;
+    -fx-border-color: #808080;
+    -fx-border-width: 0.125;
+}
+
+/* set for alternating colors - originally was using 4 different colors */
+.table-view .column-header.groupA {
+    -fx-background-color: lightslategray; /*honeydew;*/
+    -fx-border-color: #808080;
+    -fx-border-width: 0.125;
+}
+.table-view .column-header.groupA .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.table-view .column-header.groupB {
+    -fx-background-color: #93afd2; /*lightcyan;*/
+    -fx-border-color: #808080;
+    -fx-border-width: 0.125;
+}
+.table-view .column-header.groupB .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.table-view .column-header.groupC {
+    -fx-background-color: lightslategray; /*#C8D8E8;*/
+    -fx-border-color: #808080;
+    -fx-border-width: 0.125;
+}
+.table-view .column-header.groupC .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.table-view .column-header.groupD {
+    -fx-background-color: #93afd2; /*papayawhip;*/
+    -fx-border-color: #808080;
+    -fx-border-width: 0.125;
+}
+.table-view .column-header.groupD .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+/*
+.tabMain .tab {
+    -fx-background-color: gray;
+}
+.tabMain .tab:selected {
+    -fx-background-color: -fx-background;
+    -fx-border-width: 1, 1;
+    -fx-border-color: -fx-focus-color, -fx-faint-focus-color;
+    -fx-border-insets: -4 -4 -6 -5, -2 -2 -5 -3;
+    -fx-border-radius: 2, 1; // looks sharper if outer border has a tighter radius (2 instead of 3)
+}
+*/
+/*
+.tabMain:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-base: orange;
+    -fx-border-width: 1, 1;
+    -fx-border-color: -fx-focus-color, -fx-faint-focus-color;
+    -fx-border-insets: -4 -4 -6 -5, -2 -2 -5 -3;
+    -fx-border-radius: 2, 1; / looks sharper if outer border has a tighter radius (2 instead of 3) /
+}
+.tabMain:focused > .tab-header-area > .headers-region > .tab:bottom:selected .focus-indicator {
+    -fx-border-insets: -6 -5 -4 -4, -5 -3 -2 -2;
+}*/
+/*.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-base: orange;
+}*/
+
+/*Delete blue shadow with tab is selected*/
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-style: segments(0.166667em, 0.166667em);
+    -fx-border-width: 1;
+    -fx-border-color: transparent;
+}
+
+.tabPlus .tab-header-area .tab {
+    -fx-background-color: #a2ca72/*palegreen*/;
+    -fx-opacity: 0.5;
+}
+.tabPlus .tab:hover {
+    -fx-opacity: 1.0;
+}
+
+.tabSub .tab:selected {
+    -fx-background-color: #a2ca72; /*skyblue;*/
+}
+.drillDownMenuBar {
+    -fx-border-color: lightgray;
+    -fx-border-width: 1 0 1 1;
+    -fx-background-color: #a2ca72;
+}
+/*.tabSub .tab:selected > .tab-container > .tab-label {
+    -fx-text-fill: black;
+}*/
+/*.tabSub .tab-header-area .tab-header-background {
+    -fx-background-color: lightblue;
+}*/
+/*
+.tabSub { it only works up to around 1.15 which is pretty tight, if you make it any bigger it takes a big jump in height
+    -fx-tab-max-height: 1.15em;
+}
+.notFocusedTabSub .tabSub .tab-header-area .tab-header-background {
+    /-*-fx-background-color: 
+        -fx-outer-border,
+        -fx-inner-border, #F0F8FF;*-/
+    -fx-border-color: -fx-selection-bar-non-focused;
+    /-*-fx-border-width: 0 0 1 0;
+    -fx-background-insets: 1, 1 1 0 1, 0;*-/
+}*/
+.tabSub .tab-header-area .tab-header-background {
+    -fx-background-color: 
+        -fx-outer-border,
+        -fx-inner-border,
+        -fx-background;
+    -fx-border-color: #a2ca72;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-insets: 1, 1 1 0 1, 0;
+}
+.tabSub .tab-header-area .tab {
+    -fx-padding: 1 7 2 7; /*4 10 5 10;*/
+    -fx-background-radius: 5 5 0 0;
+    -fx-border-radius: 5 5 0 0;
+}
+.tabSub .tab:selected .focus-indicator {
+    -fx-border-width: 1 1 0 1, 1 1 0 1;
+    -fx-border-color: transparent;
+    /*-fx-border-color: -fx-focus-color, -fx-faint-focus-color;*/
+    -fx-border-insets: -6 -9 -8 -8, -5 -8 -7 -7;
+    -fx-border-radius: 10 10 0 0, 10 10 0 0;
+/*    
+    -fx-border-radius: 10 10 0 0, 10 10 0 0;
+    -fx-border-insets: -6 -9 -8 -8, -5 -8 -7 -7;*/
+}
+.tabSub > .tab-header-area {
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.416667em 0.166667em 0.0em .833em; /*416667em; * 5 2 0 5 */
+}
+.tabSub > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button {
+    -fx-background-color: -fx-mark-color;
+    -fx-shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z"; /*M 4,4 m -5,0 a 5,5 0 1,0 10,0 a 5,5 0 1,0 -10,0 Z";*/
+    -fx-scale-shape: false;
+    -fx-effect: dropshadow(two-pass-box , rgba(255, 255, 255, 0.4), 1, 0.0 , 0, 1);
+}
+.tabSub > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button:hover {
+    -fx-background-color: red;
+}
+/* project number, 1 - 3, specific colors for dialog project name pane (dlgBase) */
+.project1 {
+    -fx-background-color: #eaffd1;
+}
+.project2 {
+    -fx-background-color: #d1ebff;
+}
+.project3 {
+    -fx-background-color: #f9e5ff;
+}
+/* project number, 1 - 3, specific colors for tabs and sub tab areas (tabBase) */
+.tabHolder1 > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: 
+        -fx-outer-border,
+        -fx-inner-border, #eaffd1; /* text-box what we need to change for project tab color */
+}
+.subTabHolder1 > .tab-header-area > .tab-header-background {
+    -fx-background-color: 
+        -fx-outer-border,
+        -fx-inner-border, #eaffd1; /* text-box what we need to change for project tab color */
+}
+.tabHolder2 > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: 
+        -fx-outer-border,
+        -fx-inner-border, #d1ebff; /* text-box what we need to change for project tab color */
+}
+.subTabHolder2 > .tab-header-area > .tab-header-background {
+    -fx-background-color: 
+        -fx-outer-border,
+        -fx-inner-border, #d1ebff; /* text-box what we need to change for project tab color */
+}
+.tabHolder3 > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: 
+        -fx-outer-border,
+        -fx-inner-border, #f9e5ff; /* text-box what we need to change for project tab color */
+}
+.subTabHolder3 > .tab-header-area > .tab-header-background {
+    -fx-background-color: 
+        -fx-outer-border,
+        -fx-inner-border, #f9e5ff; /* text-box what we need to change for project tab color */
+}
+
+/*
+.tabHolder > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: 
+        -fx-outer-border,
+        -fx-inner-border, aliceblue;
+}*/
+/*.tabHolder1 > .tab-header-area > .headers-region > .tab:selected { , -fx-color*/
+/*.tab1 {
+    -fx-background-color: #F0F8FF;
+    -fx-base: #F0F8FF;
+    -fx-color: #F0F8FF;
+/*        -fx-outer-border,
+        -fx-inner-border, #F0F8FF;  text-box 
+}*/
+.tabHolder > .tab-header-area {
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.416667em 0.166667em 0.0em 0.0em;
+}
+.tabHolder > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button {
+    /*-fx-background-color: green;*/
+    -fx-shape: "M 1,4 L 6,10 11,4 1,4 Z";
+    /*-fx-shape: "M 1,1 L 5,7 9,1 1,1 Z";*/
+    -fx-scale-shape: false;
+    /*-fx-effect: dropshadow(two-pass-box , rgba(255, 255, 255, 0.4), 1, 0.0 , 0, 1);*/
+}
+.tabHolder > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button:hover {
+    -fx-background-color: green;
+}
+.tabHolder .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-background-color: transparent;    
+    -fx-alignment: CENTER-RIGHT;
+    -fx-text-fill: -fx-text-base-color;
+}
+.tabHolder > .tab-header-area > .headers-region > .tab:hover {
+    -fx-color: -fx-hover-base;
+}
+.table-view {
+    -fx-focus-color: transparent;
+    -fx-border-width: 0;
+}
+
+.fastair-table-col-left .label {
+    -fx-alignment: CENTER_LEFT;
+}
+.fastair-table-col-right .label {
+    -fx-alignment: CENTER_RIGHT;
+}
+.fastair-table-col-bottomleft .label {
+    -fx-alignment: BOTTOM_LEFT;
+    -fx-padding: 5 5 5 5 ;
+}
+.fastair-table-col-bottomcenter .label {
+    -fx-alignment: BOTTOM_CENTER;
+    -fx-padding: 5 5 5 5 ;
+}
+
+/* this allows setting the scrollpane background color */
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Note: white text works as control id #t2goInnerTabPane1... but not as class id .t2goInnerTabPane */
+/*       change to class ID if you can figure it out - requires changing all IDs in forms and codes */
+#t2goInnerTabPane1.tab-pane .tab-header-area .tab-header-background,
+#t2goInnerTabPane2.tab-pane .tab-header-area .tab-header-background,
+#t2goInnerTabPane3.tab-pane .tab-header-area .tab-header-background,
+#t2goInnerTabPane4.tab-pane .tab-header-area .tab-header-background,
+#t2goInnerTabPane5.tab-pane .tab-header-area .tab-header-background,
+#t2goInnerTabPane6.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+#t2goInnerTabPane1.tab-pane,
+#t2goInnerTabPane2.tab-pane,
+#t2goInnerTabPane3.tab-pane,
+#t2goInnerTabPane4.tab-pane,
+#t2goInnerTabPane5.tab-pane,
+#t2goInnerTabPane6.tab-pane {
+    -fx-tab-min-width:120px;
+}
+#t2goInnerTabPane1.tab-pane .tab,
+#t2goInnerTabPane2.tab-pane .tab,
+#t2goInnerTabPane3.tab-pane .tab,
+#t2goInnerTabPane4.tab-pane .tab,
+#t2goInnerTabPane5.tab-pane .tab,
+#t2goInnerTabPane6.tab-pane .tab {
+    -fx-border-width: 1;
+    -fx-border-color: lightgray;
+    -fx-background-color: white; /*lightblue;*/
+    -fx-border-radius: 7 7 0 0;
+    -fx-background-radius: 7 7 0 0;
+}
+#t2goInnerTabPane1.tab-pane .tab:selected,
+#t2goInnerTabPane2.tab-pane .tab:selected,
+#t2goInnerTabPane3.tab-pane .tab:selected,
+#t2goInnerTabPane4.tab-pane .tab:selected,
+#t2goInnerTabPane5.tab-pane .tab:selected,
+#t2goInnerTabPane6.tab-pane .tab:selected
+{
+    -fx-focus-color: transparent;
+    -fx-font-weight: bold;
+    -fx-inner-border: 0;
+    -fx-background-color: darkorange; /*steelblue;*/
+    -fx-border-radius: 7 7 0 0;
+    -fx-background-radius: 7 7 0 0;
+}
+#t2goInnerTabPane1.tab-pane .tab:selected .tab-label,
+#t2goInnerTabPane2.tab-pane .tab:selected .tab-label,
+#t2goInnerTabPane3.tab-pane .tab:selected .tab-label,
+#t2goInnerTabPane4.tab-pane .tab:selected .tab-label,
+#t2goInnerTabPane5.tab-pane .tab:selected .tab-label,
+#t2goInnerTabPane6.tab-pane .tab:selected .tab-label
+{
+    -fx-text-fill: white;
+}
+#t2goInnerTabPane1.tab-pane:top .tab-header-area,
+#t2goInnerTabPane2.tab-pane:top .tab-header-area,
+#t2goInnerTabPane3.tab-pane:top .tab-header-area,
+#t2goInnerTabPane4.tab-pane:top .tab-header-area,
+#t2goInnerTabPane5.tab-pane:top .tab-header-area,
+#t2goInnerTabPane6.tab-pane:top .tab-header-area {
+    -fx-padding: 0.0em 0.0em 0.0em 0.0em;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: lightgray;
+}
+#t2goInnerTabPane1.tab-pane .tab:hover,
+#t2goInnerTabPane2.tab-pane .tab:hover,
+#t2goInnerTabPane3.tab-pane .tab:hover,
+#t2goInnerTabPane4.tab-pane .tab:hover,
+#t2goInnerTabPane5.tab-pane .tab:hover,
+#t2goInnerTabPane6.tab-pane .tab:hover
+{
+    -fx-background-color: orange; /*#66A2D4;*/
+}
+#t2goInnerTabPane1.tab-pane .tab:hover .tab-label,
+#t2goInnerTabPane2.tab-pane .tab:hover .tab-label,
+#t2goInnerTabPane3.tab-pane .tab:hover .tab-label,
+#t2goInnerTabPane4.tab-pane .tab:hover .tab-label,
+#t2goInnerTabPane5.tab-pane .tab:hover .tab-label,
+#t2goInnerTabPane6.tab-pane .tab:hover .tab-label
+{
+    -fx-text-fill: white;
+}
+.smallchoice-box {
+    -fx-font-size : 9pt;
+}
+
+/*.smallchoice-box .label .context-menu {
+    -fx-font-size : 9pt;
+}*/
+/*.root{
+    -fx-font-size: 11pt;
+    -fx-font-family: "System";
+    -fx-base: rgb(132, 145, 47);
+    -fx-background: rgb(225, 228, 203);
+}*/
+/*.table-view .column-header {
+    -fx-border-color: lightgray;
+}
+.table-view .column-header.dividerRight {
+    -fx-border-color: transparent gray transparent transparent;
+}
+.table-view .column-header.dividerLeft {
+    -fx-border-color: transparent transparent transparent gray;
+}*/
+
+/*Max 8 colors*/
+
+/*Old colors
+#8EBC46
+#3A5B0A
+#4483ba
+#0a3f5b
+#bc6b46
+#5b250a
+#bc45b4
+#5b0a55
+*/
+
+/*
+tappAS logo color
+#a2ca72 green
+#f2635c red
+#7cafd6 blue
+*/
+
+/*CHARTS*/
+
+/*axis*/
+
+.axis:left {
+    -fx-border-color: transparent black transparent transparent;
+}
+.axis:bottom{
+    -fx-border-color: black transparent transparent;
+}
+
+.axis{
+    -fx-tick-label-fill: black;
+    -fx-font-size: 16; /*axis title*/
+    -fx-tick-label-font-size: 14; /*axis number*/
+    -fx-stroke: black;
+    -fx-fill: black;
+}
+.axis-label {
+    -fx-text-fill: black; 
+    -fx-font-size: 16;
+}
+
+.axis-tick-mark {
+    -fx-stroke: black;
+}
+
+.chart-legend {
+    -fx-font-size: 14;
+}
+
+/*charts*/
+
+.chart { -fx-background-color: white;}
+.chart-plot-background { -fx-background-color: white; }
+
+.default-color0.chart-bar { -fx-bar-fill: #f2635c; }
+.default-color1.chart-bar { -fx-bar-fill: #7cafd6; }
+.default-color2.chart-bar { -fx-bar-fill: #a2ca72; }
+.default-color3.chart-bar { -fx-bar-fill: #f7c967; }
+.default-color4.chart-bar { -fx-bar-fill: #f9f784; }
+.default-color5.chart-bar { -fx-bar-fill: #a16cc1; }
+.default-color6.chart-bar { -fx-bar-fill: #a796ff; }
+.default-color7.chart-bar { -fx-bar-fill: #ff96eb; }
+
+.default-color0.chart-pie { -fx-pie-color: #f2635c; }
+.default-color1.chart-pie { -fx-pie-color: #7cafd6; }
+.default-color2.chart-pie { -fx-pie-color: #a2ca72; }
+.default-color3.chart-pie { -fx-pie-color: #f7c967; }
+.default-color4.chart-pie { -fx-pie-color: #f9f784; }
+.default-color5.chart-pie { -fx-pie-color: #a16cc1; }
+.default-color6.chart-pie { -fx-pie-color: #a796ff; }
+.default-color7.chart-pie { -fx-pie-color: #ff96eb; }
+
+.default-color0.chart-series-line { -fx-stroke: #f2635c; }
+.default-color1.chart-series-line { -fx-stroke: #7cafd6; }
+.default-color2.chart-series-line { -fx-stroke: #a2ca72; }
+.default-color3.chart-series-line { -fx-stroke: #f7c967; }
+.default-color4.chart-series-line { -fx-stroke: #f9f784; }
+.default-color5.chart-series-line { -fx-stroke: #a16cc1; }
+.default-color6.chart-series-line { -fx-stroke: #a796ff; }
+.default-color7.chart-series-line { -fx-stroke: #ff96eb; }
+
+.default-color0.chart-line-symbol { -fx-background-color: #f2635c, white; }
+.default-color1.chart-line-symbol { -fx-background-color: #7cafd6, white; }
+.default-color2.chart-line-symbol { -fx-background-color: #a2ca72, white; }
+.default-color3.chart-line-symbol { -fx-background-color: #f7c967, white; }
+.default-color4.chart-line-symbol { -fx-background-color: #f9f784, white; }
+.default-color5.chart-line-symbol { -fx-background-color: #a16cc1, white; }
+.default-color6.chart-line-symbol { -fx-background-color: #a796ff, white; }
+.default-color7.chart-line-symbol { -fx-background-color: #ff96eb, white; }
+
+.default-color0.chart-area-symbol { -fx-background-color: #f2635c, white; }
+.default-color1.chart-area-symbol { -fx-background-color: #7cafd6, white; }
+.default-color2.chart-area-symbol { -fx-background-color: #a2ca72, white; }
+.default-color3.chart-area-symbol { -fx-background-color: #f7c967, white; }
+.default-color4.chart-area-symbol { -fx-background-color: #f9f784, white; }
+.default-color5.chart-area-symbol { -fx-background-color: #a16cc1, white; }
+.default-color6.chart-area-symbol { -fx-background-color: #a796ff, white; }
+.default-color7.chart-area-symbol { -fx-background-color: #ff96eb, white; }
+
+.default-color0.chart-series-area-line { -fx-stroke: #f2635c; }
+.default-color1.chart-series-area-line { -fx-stroke: #7cafd6; }
+.default-color2.chart-series-area-line { -fx-stroke: #a2ca72; }
+.default-color3.chart-series-area-line { -fx-stroke: #f7c967; }
+.default-color4.chart-series-area-line { -fx-stroke: #f9f784; }
+.default-color5.chart-series-area-line { -fx-stroke: #a16cc1; }
+.default-color6.chart-series-area-line { -fx-stroke: #a796ff; }
+.default-color7.chart-series-area-line { -fx-stroke: #ff96eb; }
+
+.default-color0.chart-series-area-fill { -fx-fill: #f2635c; }
+.default-color1.chart-series-area-fill { -fx-fill: #7cafd6; }
+.default-color2.chart-series-area-fill { -fx-fill: #a2ca72; }
+.default-color3.chart-series-area-fill { -fx-fill: #f7c967; }
+.default-color4.chart-series-area-fill { -fx-fill: #f9f784; }
+.default-color5.chart-series-area-fill { -fx-fill: #a16cc1; }
+.default-color6.chart-series-area-fill { -fx-fill: #a796ff; }
+.default-color7.chart-series-area-fill { -fx-fill: #ff96eb; }
+
+.default-color0.chart-bubble { -fx-bubble-fill: #f2635c; }
+.default-color1.chart-bubble { -fx-bubble-fill: #7cafd6; }
+.default-color2.chart-bubble { -fx-bubble-fill: #a2ca72; }
+.default-color3.chart-bubble { -fx-bubble-fill: #f7c967; }
+.default-color4.chart-bubble { -fx-bubble-fill: #f9f784; }
+.default-color5.chart-bubble { -fx-bubble-fill: #a16cc1; }
+.default-color6.chart-bubble { -fx-bubble-fill: #a796ff; }
+.default-color7.chart-bubble { -fx-bubble-fill: #ff96eb; }

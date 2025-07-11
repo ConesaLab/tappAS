@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Search</title>
+	<meta charset="UTF-8">
+	<meta name="author" content="H. del Risco">
+	<link rel="stylesheet" type="text/css" href="css/web.css">
+	<script src="scripts/scripts.js"></script>
+	<script src="scripts/slides.js"></script>
+	<script src="scripts/maps.js"></script>
+	<script src="scripts/ebook.js"></script>
+	<script src="scripts/overview.js"></script>
+</head>
+
+<body style="padding-top:0px; margin-left:0px; margin-right:0px; margin-top:0px; height:100%; min-width:620px; width:100%; overflow:auto;" onresize="onResize()" onload="init(false, 'pageQuery', 'Ad Hoc Query')" onhashchange="onHashChanged()">
+
+
+  <section id="mainSection" style="position:fixed; left:0px; top:0px; right:0; bottom:0px; display:block; overflow:auto;">
+	<section id="contentSection" style="float:left; margin:auto; width:400px; min-width:725px; display:inline-block;">
+<div id="Top" style="height:12px;"></div>
+<table style="width:100%; vertical-align:middle;">
+  <tr>
+    <td style="text-align:left;"><span id="contentTitle" class="contentTitle">Introduction</span></td>
+    <td style="width:25px;">
+        <div id="pagePrev" class="contentButtonOff" onclick="ebook.pagePrev()">&lt;</div>
+    </td>
+    <td style="width:25px;">
+        <div id="pageNext" class="contentControl contentButton" onclick="ebook.pageNext()">&gt;</div>
+    </td>
+    <td id="tdContentControl" style="width:140px; text-align:right;">
+        <div id="contentControl" class="contentControl" style="padding-left:5px; padding-right:5px;" onclick="toggleContents()">Hide Contents &gt;&gt;</div>
+    </td>
+  </tr>
+</table>
+
+		<section id="pageQuery" class="contentPage">
+<p>All project data and analysis results in the application are displayed in table format. 
+The ability to interactively search and filter the information is an essential part of the application and two complementary functions are provided:
+a simple search text box and a more powerful row selection query by column filter.</p>
+<br/><br/>
+<div id="Search"><span class="contentTitle">Simple Search</span></div>
+<p>Searching for a specific item in a table is a commonly used function when viewing a data table.
+The search text box located in the top toolbar of the application provides basic search functionality.
+As you type, only the table rows containing the entry will be displayed. The search is case insensitive and applies only to id, name, and description fields.
+Numeric, Yes/No, etc. fields are not searched. It provides a quick and simple way to find specific rows, i.e genes, transcripts, etc.
+There are some search functionality and behavior you should be aware of:</p>
+	<ul>
+		<li>The search is only applicable to data tables for subtabs contained in the Project Data Tab</li>
+		<li>To search a specific table, first select the table by clicking on any row and then select the search text box and type</li>
+		<li>Rows that contain the typed search text will be displayed, all other rows will be hidden</li>
+		<li>Even though there is a single application search text box, the typed search text for each individual subtab table will be displayed when the subtab table is selected</li>
+		<li>Notice how the table background changes to yellow when the data display is being filtered - it is intended to make you aware that the data has been filtered</li>
+		<li>To undo the search filter, just clear the contents of the search text box for the selected subtab table</li>
+	</ul>
+<br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/Search.png" style="max-width:100%; max-height:100%;" alt="Search Table Data"/><br/><br/>
+    <div>Search Table Data</div>
+</div>
+<br/><br/>
+
+<br/><br/>
+<div id="Query"><span class="contentTitle">Row Selection Query</span></div>
+<p>The row selection query feature, provides a more powerful way to filter table data rows. 
+There are multiple ways to select table data rows:
+	<ul>
+		<li>Manually by clicking on the corresponding row selection checkbox column, left most table column</li>
+		<li>By clicking on the row selection button on the subtab menu bar and then choosing one of the row selection menu items</li>
+		<li>By right-clicking on a table column and specifying the filtering criteria for that column</li>
+	</ul>
+<br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/RowSelMenu.png" style="max-width:100%; max-height:100%;" alt="Row Selection Menu"/><br/><br/>
+    <div>Row Selection Menu</div>
+</div>
+<br/><br/>
+If you choose the "Add/Remove row selections..." menu item or right-click on the table column, you will be provided with a criteria editor so that you may specify the filtering criteria. The filtering options available on the editor will change based on the content type of the column being filtered.
+<br/><br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/RowSelDialog.png" style="max-width:100%; max-height:100%;" alt="Row Selection Criteria Editor"/><br/><br/>
+    <div>Row Selection Criteria Editor</div>
+</div>
+<br/><br/>
+There are some row selection functionality and behavior you should be aware of:
+	<ul>
+		<li>To only show the selected rows, check the "Hide unselected rows" checkbox located on the top tool bar</li>
+		<li>Notice how the table background changes to yellow when the data display is being filtered - it is intended to make you aware that the data has been filtered</li>
+		<li>To clear the row selection query filtering, use the "Deselect all rows" menu item selection in the subtab menu bar row selection button</li>
+		<li>You may also clear the row selection query filtering by using the table row selection column header checkbox</li>
+		<li>You may also display all rows without clearing the selected rows by unchecking the "Hide unselected rows" checkbox</li>
+	</ul>
+<br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/RowSelTable.png" style="max-width:100%; max-height:100%;" alt="Row Selection Table Data"/><br/><br/>
+    <div>Table Data - Showing Selected Rows Only</div>
+</div>
+<br/><br/>
+
+		</section>
+	</section>
+<aside id="contentItems" class="contentMenuApp">
+    <div style="height:19px;"></div>
+    <span style="color:slategray; font-size:medium; font-weight:bold;">Contents<br/></span>
+    <div style="height:3px;"></div>
+    <div id="pageIntro_Top" class="contentItem"><a href="pageIntro.html#Top" class="notSelected">Introduction</a></div>
+    <div id="pageIntro_subitems" class="contentSubItems">
+            <div id="pageIntro_Reqs" class="contentItem" style="padding-left:10px;"><a href="pageIntro.html#Reqs" class="notSelected">Application Requirements</a></div>
+    </div>
+    <div id="pageProjects_Top" class="contentItem"><a href="pageProjects.html#Top" class="notSelected">Projects</a></div>
+    <div id="pageProjects_subitems" class="contentSubItems">
+            <div id="pageProjects_InputData" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#InputData" class="notSelected">Input Data and Filtering</a></div>
+            <div id="pageProjects_Normalization" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#Normalization" class="notSelected">Expression Data Normalization</a></div>
+            <div id="pageProjects_DesignFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#DesignFileFormat" class="notSelected">Experiment Design File Format</a></div>
+            <div id="pageProjects_ExpMatrixFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#ExpMatrixFileFormat" class="notSelected">Expression Matrix File Format</a></div>
+            <div id="pageProjects_AnnotationFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#AnnotationFileFormat" class="notSelected">Annotation File Format</a></div>
+    </div>
+    <div id="pageAppXface_Top" class="contentItem"><a href="pageAppXface.html#Top" class="notSelected">Application Interface</a></div>
+    <div id="pageAppXface_subitems" class="contentSubItems">
+            <div id="pageAppXface_Layout" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Layout" class="notSelected">GUI Layout</a></div>
+            <div id="pageAppXface_Menus" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Menus" class="notSelected">Context-Sensitive Menus</a></div>
+            <div id="pageAppXface_Tabs" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tabs" class="notSelected">Tab Panels, Tabs, and Subtabs</a></div>
+            <div id="pageAppXface_SubtabMenuBar" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#SubtabMenuBar" class="notSelected">Subtabs Menu Bar</a></div>
+            <div id="pageAppXface_Tables" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tables" class="notSelected">Tables</a></div>
+            <div id="pageAppXface_Visual" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Visual" class="notSelected">Visual Display Controls</a></div>
+    </div>
+    <div id="pageAppTips_Top" class="contentItem"><a href="pageAppTips.html#Top" class="notSelected">Application Tips</a></div>
+    <div id="pageDataViz_Top" class="contentItem"><a href="pageDataViz.html#Top" class="notSelected">Data Visualization</a></div>
+    <div id="pageDataViz_subitems" class="contentSubItems">
+            <div id="pageDataViz_DVAccess" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#DVAccess" class="notSelected">Accessing Data Visualizations</a></div>
+            <div id="pageDataViz_GeneDV" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#GeneDV" class="notSelected">Gene Data Visualization</a></div>
+    </div>
+    <div id="pageDrillDown_Top" class="contentItem"><a href="pageDrillDown.html#Top" class="notSelected">Data Drill Down</a></div>
+    <div id="pageExport_Top" class="contentItem"><a href="pageExport.html#Top" class="notSelected">Export Data and Images</a></div>
+    <div id="pageQuery_Top" class="contentItem"><a href="pageQuery.html#Top" class="notSelected">Ad Hoc Query</a></div>
+    <div id="pageQuery_subitems" class="contentSubItems">
+            <div id="pageQuery_Search" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Search" class="notSelected">Simple Search</a></div>
+            <div id="pageQuery_Query" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Query" class="notSelected">Row Selection Query</a></div>
+    </div>
+    <div id="pageAFA_Top" class="contentItem"><a href="pageAFA.html#Top" class="notSelected">Functional Diversity Analysis</a></div>
+    <div id="pageAFA_subitems" class="contentSubItems">
+            <div id="pageAFA_Gene" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Gene" class="notSelected">Gene-Level FDA</a></div>
+            <div id="pageAFA_ID" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#ID" class="notSelected">ID-Level FDA</a></div>
+            <div id="pageAFA_Combined" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Combined" class="notSelected">ID-Level FDA Combined Results</a></div>
+    </div>
+    <div id="pageDEA_Top" class="contentItem"><a href="pageDEA.html#Top" class="notSelected">Differential Expression Analysis</a></div>
+    <div id="pageDIU_Top" class="contentItem"><a href="pageDIU.html#Top" class="notSelected">Differential Isoform Usage Analysis</a></div>
+    
+    <div id="pageEA_Top" class="contentItem"><a href="pageEA.html#Top" class="notSelected">Enrichment Analysis</a></div>
+    <div id="pageEA_subitems" class="contentSubItems">
+            <div id="pageEA_FEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEA" class="notSelected">Functional Enrichment Analysis</a></div>
+            <div id="pageEA_FEAClusters" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEAClusters" class="notSelected">Enriched Features Clusters</a></div>
+            <div id="pageEA_GSEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#GSEA" class="notSelected">Gene Set Enrichment Analysis</a></div>
+    </div>
+</aside>
+<div style="clear:both;"></div>
+
+  </section>
+
+</body>
+</html>

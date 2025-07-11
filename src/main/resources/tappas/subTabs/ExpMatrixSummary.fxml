@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="paneContents" prefHeight="300.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane hgap="3.0" style="-fx-background-color: -fx-background;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <PieChart fx:id="pieTranscripts" animated="false" labelLineLength="10.0" labelsVisible="false" prefWidth="250.0" style="-fx-font-size: 10;" title="Expressed Transcripts Filtering" GridPane.columnIndex="1" GridPane.rowSpan="3" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowSpan="3">
+               <children>
+                  <TableView fx:id="tblTranscripts" prefHeight="116.0" prefWidth="154.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <columns>
+                        <TableColumn editable="false" prefWidth="200.0" sortable="false" text="Filtering" />
+                        <TableColumn editable="false" maxWidth="3000.0" prefWidth="60.0" sortable="false" style="-fx-alignment: CENTER-RIGHT;" text="Count" />
+                        <TableColumn editable="false" maxWidth="3000.0" prefWidth="60.0" sortable="false" style="-fx-alignment: CENTER-RIGHT;" text="\%" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowSpan="3">
+               <children>
+                  <TableView fx:id="tblConditions" prefHeight="116.0" prefWidth="154.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <columns>
+                        <TableColumn editable="false" prefWidth="150.0" sortable="false" text="Group" />
+                        <TableColumn editable="false" prefWidth="200.0" sortable="false" style="-fx-alignment: CENTER-RIGHT;" text="Samples" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>

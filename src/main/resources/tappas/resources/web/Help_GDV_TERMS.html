@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Annotation Features Diversity</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">Gene Data Visualization: Annotation Features Diversity</span></div>
+    <p>The Annotation Features diversity table displays a cross-reference of functional annotation features and isoforms for the given gene. 
+        The rows display the annotation features and the columns the gene isoforms.
+        The cell values contain the number of features for the intersecting row and column.
+        The following table columns are displayed:</p>
+    <ul>
+        <li>Feature ID - annotation feature ID</li>
+        <li>Name/Description - feature ID name/description</li>
+        <li>[Transcript/Protein] - transcript name, and protein if available. Multiple columns, one for each transcript</li>
+    </ul>
+    <p>The cross-reference display provides a quick and simple way to visually observe the features presence and variability among the gene isoforms.
+    You may also select to only show varying feature, see below.</p>
+    <!-- SubtabMenuBarHeader -->
+    <table>
+        <tr><td  style="vertical-align:top;">
+            <div class="subtabButton"><img src="images/optionsButton.png" width="28" height="28" alt="Menu selections..."/></div>
+        </td><td>
+            &nbsp;- menu with the following selections:
+            <ul>
+                <li>Annotation Features Filter... - filter annotation features included in the table</li>
+                <li>Show ONLY varying features - check to display only the features that vary across isoforms</li>
+            </ul>
+        </td></tr>
+        <tr><td  style="vertical-align:top;">
+            <div class="subtabButton"><img src="images/exportButton.png" width="28" height="28" alt="Export data or images..."/></div>
+        </td><td>
+            &nbsp;- export data or images to file. See <span class="fakeAnchor" onclick="setCmdRequest('pageExport.html#Top')">Export Data and Images</span> section in Overview
+        </td></tr>
+    </table>
+    <!-- AddHelp:tables,gui,tips,inpdata -->
+</body>
+</html>
+

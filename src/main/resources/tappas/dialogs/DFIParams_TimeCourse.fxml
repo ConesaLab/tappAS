@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblMsg" alignment="CENTER" layoutX="14.0" layoutY="164.0" textFill="ORANGERED" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <Pane layoutX="1.0" layoutY="102.0" prefHeight="65.0" prefWidth="550.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="290.0" />
+      <Label layoutX="10.0" layoutY="92.0" styleClass="textDlgSection" stylesheets="@../Style.css" text="Analysis Method" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="280.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Pane prefHeight="200.0" prefWidth="550.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <Label layoutX="10.0" layoutY="165.0" text="Check Using:" />
+            <ChoiceBox fx:id="cbUsing" layoutX="125.0" layoutY="160.0" prefHeight="25.0" prefWidth="329.0" />
+            <Label disable="true" layoutX="12.0" layoutY="135.0" text="You may select annotation features from multiple sources.">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
+            <Hyperlink fx:id="lnkClearAll" layoutX="395.0" layoutY="130.0" text="Clear All" />
+            <Hyperlink fx:id="lnkCheckAll" layoutX="465.0" layoutY="130.0" text="Check All" />
+         </children></Pane>
+      <Label styleClass="textDlgSection" stylesheets="@../Style.css" text="Annotation Feature(s)" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TreeView fx:id="tvFeaturesPos" editable="true" prefHeight="110.0" prefWidth="562.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0" />
+      <TreeView fx:id="tvFeaturesPresence" editable="true" prefHeight="110.0" prefWidth="562.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0" />
+      <GridPane maxHeight="150.0" maxWidth="450.0" prefHeight="30.0" prefWidth="400.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="315.0">
+         <children>
+            <Label fx:id="lblReplicates11" text="Method:" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="286.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <ChoiceBox fx:id="cbMethods" prefHeight="25.0" prefWidth="350.0" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="315.0" />
+      <Pane prefHeight="235.0" prefWidth="550.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="385.0" />
+      <Label styleClass="textDlgSection" stylesheets="@../Style.css" text="Analysis Parameters" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="375.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <GridPane maxHeight="200.0" maxWidth="530.0" prefHeight="205.0" prefWidth="530.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="405.0">
+         <children>
+            <TextField fx:id="txtThreshold" maxWidth="84.0" prefHeight="26.0" prefWidth="84.0" promptText="0.0 to 1.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Significance Level:" GridPane.rowIndex="1" />
+            <Label fx:id="lblDegree" text="Polynomial Degree:" GridPane.rowIndex="2" />
+            <Label fx:id="lblType" text="Type:" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="cbType" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="cbDegree" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lblFilter" text="Filtering:" GridPane.rowIndex="3" />
+            <CheckBox fx:id="chkFilt" mnemonicParsing="false" text="Filter minor isoforms" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="lblFilterBy" text="Fold expression difference:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ChoiceBox fx:id="cbFiltering" prefHeight="25.0" prefWidth="172.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+            <TextField fx:id="txtFiltValue" maxWidth="90.0" prefHeight="26.0" prefWidth="84.0" promptText="1.0 to 99.0" text="2" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label fx:id="lblFilterDefault" disable="true" text="(default: 2)" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="110.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="txtName" prefHeight="25.0" prefWidth="350.0" promptText="Enter Differential Feature Inclusion Analysis name" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+            <Label fx:id="lblName" text="Name:" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="180.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="150.0" prefWidth="215.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <AnchorPane fx:id="paneProject" prefHeight="34.0" prefWidth="200.0" styleClass="dlgProjectTitle" stylesheets="@../Style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="lblProjectName" alignment="CENTER" prefHeight="15.0" prefWidth="510.0" text="..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="9.0" />
+         </children>
+      </AnchorPane>
+   </children>    
+</AnchorPane>

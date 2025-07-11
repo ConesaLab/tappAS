@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="1500.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fx:id="spAll" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <AnchorPane fx:id="paneContents" minHeight="-Infinity" prefHeight="1500.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <GridPane fx:id="grdMain" alignment="CENTER" hgap="10.0" layoutY="-35.0" style="-fx-background-color: white;" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Pane fx:id="paneImgChart2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <children>
+                              <ImageView fx:id="imgChart2" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                              </ImageView>
+                              <ProgressIndicator fx:id="piDFIBarPlot2" progress="0.0" />
+                           </children>
+                        </Pane>
+                        <AnchorPane GridPane.rowIndex="2">
+                           <children>
+                              <TableView fx:id="tblTestFeatures" minHeight="200.0" prefHeight="400.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="2.5" AnchorPane.topAnchor="15.0">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn fx:id="feature" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="Feature" />
+                                    <TableColumn fx:id="pvalue" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="P-Value" />
+                                    <TableColumn fx:id="all_ndfi" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="Feature DFI" />
+                                    <TableColumn fx:id="feat_ndfi" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="Total DFI" />
+                                    <TableColumn fx:id="all_dfi" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="Feature Annotated" />
+                                    <TableColumn fx:id="feat_dfi" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="Total Annotated" />
+                                    <TableColumn fx:id="adjpvalue" maxWidth="120.0" minWidth="50.0" prefWidth="120.0" text="Adj. P-Value" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                              <TableView fx:id="tblTestGenes" minHeight="200.0" prefHeight="400.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="2.5" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn fx:id="feature" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="Feature" />
+                                    <TableColumn fx:id="pvalue" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="P-Value" />
+                                    <TableColumn fx:id="all_ndfi" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="Feature DFI" />
+                                    <TableColumn fx:id="feat_ndfi" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="Total DFI" />
+                                    <TableColumn fx:id="all_dfi" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="Feature Annotated" />
+                                    <TableColumn fx:id="feat_dfi" maxWidth="75.0" minWidth="50.0" prefWidth="75.0" text="Total Annotated" />
+                                    <TableColumn fx:id="adjpvalue" maxWidth="120.0" minWidth="50.0" prefWidth="120.0" text="Adj. P-Value" />
+                                 </columns>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </TableView>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </AnchorPane>
+                        <Pane fx:id="paneImgChart3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                           <children>
+                              <ImageView fx:id="imgChart3" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                              </ImageView>
+                              <ProgressIndicator fx:id="piDFIBarPlot3" progress="0.0" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="paneImgChart4" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                           <children>
+                              <ImageView fx:id="imgChart4" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                              </ImageView>
+                              <ProgressIndicator fx:id="piDFIBarPlot4" progress="0.0" /></children>
+                        </Pane>
+                        <Pane fx:id="paneImgChart1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <children>
+                              <ImageView fx:id="imgChart1" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                              </ImageView>
+                              <ProgressIndicator fx:id="piDFIBarPlot1" progress="0.0" />
+                           </children>
+                        </Pane>
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="500.0" percentHeight="37.5" valignment="CENTER" />
+                        <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                        <RowConstraints maxHeight="46.0" minHeight="46.0" percentHeight="25.0" prefHeight="46.0" valignment="CENTER" />
+                        <RowConstraints minHeight="10.0" percentHeight="37.5" prefHeight="30.0" valignment="CENTER" />
+                     </rowConstraints>
+                  </GridPane>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

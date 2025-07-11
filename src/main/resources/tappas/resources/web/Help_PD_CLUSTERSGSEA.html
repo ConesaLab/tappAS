@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GSEA Multidimensional Enrichment Summary table</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">GSEA Multidimensional Enrichment Summary table</span></div>
+    <p>The summary table contains the following columns:</p>
+    <ul>
+        <li><b>Node (feature ID)</b> - GO term IDs as shown in the annotation file.</li>
+        <li><b>Name</b> - GO term description as shown in the annotation file.</li>
+        <li><b>Feature</b> - biological aspect described by the GO term, i.e. C = Component, P = Process or F = Function..</li>
+        <li><b>Over-Pvalue</b> (one column for each of the two input ranked lists) - over representation p-value obtained by the
+        MDGSA method, for each of the input ranked lists.</li>
+    </ul>
+    <p>To generate the multidimensional GSEA clusters graph, use the visualization button on the left hand-side menu beside the table.</p>
+    <!-- HiddenColumns -->
+    <ul>
+        <li>Non-Test Items - number of genes NOT in Test group that are annotated for that GO term.</li>
+    </ul>
+    <span class="notes" style="padding-left:25px; padding-bottom:10px;">Row selection (<input type="checkbox" style="vertical-align:middle; font-size:x-small;" disabled>) is not supported for these tables but sequential row id (#) columns are displayed</span><br/>
+    <!-- SubtabMenuBar:optlog,export,dataViz,rerun -->
+    <!-- AddHelp:fea,feaclusters,tables,query,gui,tips,goseq -->
+</body>
+</html>
+

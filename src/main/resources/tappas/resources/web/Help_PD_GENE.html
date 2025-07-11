@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Data: Genes</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">Project Data: Genes</span></div>
+    <p>The Genes data table combines the transcript-level expression data with the functional annotation for the project. 
+        The following table columns are displayed by default:</p>
+    <ul>
+        <li>Gene - gene identifier as provided in the annotation file</li>
+        <li>Gene Description - gene description, if any, as provided in the annotation file</li>
+        <li>Condition1 MeanExpLevel - the mean of the normalized transcript expression levels for all samples in condition 1</li>
+        <li>Condition2 MeanExpLevel - the mean of the normalized transcript expression levels for all samples in condition 2</li>
+    </ul>
+    <!-- RowColumns -->
+    <span class="notes" style="padding-left:25px;">The expression level for a gene is the sum of the normalized levels for all its transcripts</span>
+    <!-- HiddenColumns -->
+    <ul>
+        <li>Chr - chromosome</li>
+        <li>Strand - chromosome strand</li>
+        <li>Isoforms - number of isoforms for this gene</li>
+        <li>Coding - protein coding status: YES, if there are any coding transcripts, or NO</li>
+        <li>Annotation Feature Columns - use the 'Add annotation feature column...' menu selection</li>
+    </ul>
+    <!-- SubtabMenuBar:select,export,dataViz -->
+    <!-- AddHelp:tables,query,gui,tips -->
+</body>
+</html>
+

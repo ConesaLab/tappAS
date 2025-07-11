@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>General Summary</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">Project Data Visualization: General Summary</span></div>
+    <p>The General Summary subtab contains a table and multiple visual display controls summarizing the expression data and functional annotation for the project.
+    The display controls are arranged in two rows and are described below by row, top to bottom, and position, left to right.</p>
+    <div style="padding-left:25px;">
+        <p><b>Data Summary</b> table - displays the total counts of all expressed items. The following table columns are displayed:</p>
+        <ul>
+            <li>Transcripts - total number of expressed transcripts after filtering</li>
+            <li>Proteins - total number of expressed proteins after filtering</li>
+            <li>Genes - total number of expressed genes after filtering</li>
+        </ul>
+        <p><b>Transcripts and Proteins per Gene</b> bar chart - displays the distribution, per gene, of transcripts and proteins. 
+            Note that it is possible for a gene to have no proteins but it must have some transcripts.</p>
+        <p><b>Transcript Structural Categories</b> pie chart - displays the proportion of each structural category based on the number of transcripts assigned in the annotation file.
+        </p>
+        <p><b>Annotation Sources</b> bar chart - displays the number of entries contained in the annotation file for each annotation source. 
+        </p>
+        <p><b>Expression Levels PCA</b> plot - displays a PCA plot of the expression levels for all samples in both conditions.
+        </p>
+    </div>
+    <p>Be aware that there are two rows of visualization controls in this subtab - in case you don't notice the scroll bar.
+    <!-- DVRemindersAdd -->
+    </p>
+    <!-- SubtabMenuBar:export -->
+    <!-- AddHelp:visual,menus,gui,tips -->
+</body>
+</html>
+

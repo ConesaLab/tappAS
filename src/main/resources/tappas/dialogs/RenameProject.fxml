@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="AnchorPane" maxWidth="650.0" minWidth="650.0" prefHeight="200.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblMsg" alignment="CENTER" layoutX="24.0" layoutY="265.0" prefHeight="15.0" prefWidth="630.0" textFill="ORANGERED" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <AnchorPane fx:id="paneProject" maxWidth="650.0" prefHeight="34.0" prefWidth="650.0" styleClass="dlgProjectTitle" stylesheets="@../Style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="lblProjectName" alignment="CENTER" prefHeight="15.0" prefWidth="510.0" text="..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+         </children>
+      </AnchorPane>
+      <Pane minWidth="650.0" prefHeight="65.0" prefWidth="650.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <Label layoutX="10.0" layoutY="30.0" text="Name:" />
+            <TextField fx:id="txtName" layoutX="90.0" layoutY="25.0" maxWidth="546.0" prefHeight="26.0" prefWidth="546.0" promptText="Enter project's new name" />
+         </children>
+      </Pane>
+      <Label fx:id="lblProject" styleClass="textDlgSection" stylesheets="@../Style.css" text="Project's New Name" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>    
+</AnchorPane>

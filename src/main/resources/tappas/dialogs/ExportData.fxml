@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="AnchorPane" prefHeight="150.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblMsg" alignment="CENTER" layoutX="24.0" layoutY="265.0" textFill="ORANGERED" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <Pane prefHeight="105.0" prefWidth="550.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <RadioButton fx:id="rbAll" layoutX="142.0" layoutY="55.0" mnemonicParsing="false" selected="true" text="Include all data">
+               <toggleGroup>
+                  <ToggleGroup fx:id="data" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="rbSelected" layoutX="327.0" layoutY="55.0" mnemonicParsing="false" text="Include only selected rows" toggleGroup="$data" />
+            <Label fx:id="lblNote" alignment="CENTER" disable="true" layoutX="10.0" layoutY="80.0" prefHeight="15.0" prefWidth="671.0" text="Note: Only visible table columns are exported. Use the table's + menu, top right, to change" />
+         </children></Pane>
+      <Label styleClass="textDlgSection" stylesheets="@../Style.css" text="Export Data" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbData" layoutX="140.0" layoutY="22.0" prefHeight="25.0" prefWidth="540.0" promptText="Select data to export" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0" />
+      <Label layoutX="14.0" layoutY="26.0" text="Data:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="40.0" />
+   </children>    
+</AnchorPane>
