@@ -95,6 +95,11 @@ jobs:
         with:
           name: tappAS-macos
           path: dist/macos
+
+      - name: Checkout master tras el merge
+        uses: actions/checkout@v4
+        with:
+          ref: master
           
       - name: Read version
         id: version
