@@ -27,7 +27,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libfreetype6-dev libasound2 libx11-dev libxext-dev libxrender-dev
+          sudo apt-get install -y libfreetype6-dev libx11-dev libxext-dev libxrender-dev
 
       - name: Install WiX Toolset (Windows only)
         if: runner.os == 'Windows'
@@ -39,15 +39,15 @@ jobs:
 
       - name: Run Linux packaging script
         if: runner.os == 'Linux'
-        run: bash scripts/package-linux.sh
+        run: bash scripts/build-tappas-linux.sh
 
       - name: Run Windows packaging script
         if: runner.os == 'Windows'
-        run: scripts\\package-windows.bat
+        run: scripts\\build-tappas-win.bat
 
       - name: Run macOS packaging script
         if: runner.os == 'macOS'
-        run: bash scripts/package-macos.sh
+        run: bash scripts/build-tappas-macos.sh
 
       - name: Upload Linux artifact
         if: runner.os == 'Linux'
