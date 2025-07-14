@@ -1,4 +1,4 @@
-name: Package TappAS
+name: Generate App Images (Windows, Linux, macOS)
 
 on:
   push:
