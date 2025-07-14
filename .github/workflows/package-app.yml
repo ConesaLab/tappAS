@@ -4,11 +4,13 @@ on:
   pull_request:
     types: [closed]
     branches: [ "master" ]
+  push:
+    branches: [ "master" ]
   workflow_dispatch:
 
 jobs:
   build:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -49,52 +51,72 @@ jobs:
       - name: Run macOS packaging script
         if: runner.os == 'macOS'
         run: bash scripts/build-tappas-macos.sh
+        
+      - name: Zip app folder (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          mkdir -p release
+          zip -r release/tappAS-linux.zip dist/
 
       - name: Upload Linux artifact
         if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
-          name: tappAS-linux
-          path: dist/linux
+          name: tappAS-linux-zip
+          path: release/tappAS-linux.zip
+          
+      - name: Zip app folder (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          New-Item -ItemType Directory -Force -Path release
+          Compress-Archive -Path dist\* -DestinationPath release\tappAS-windows.zip
 
       - name: Upload Windows artifact
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4
         with:
-          name: tappAS-windows
-          path: dist/win
+          name: tappAS-windows-zip
+          path: release/tappAS-windows.zip
+          
+      - name: Zip app folder (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          mkdir -p release
+          zip -r release/tappAS-macos.zip dist/
 
       - name: Upload macOS artifact
         if: runner.os == 'macOS'
         uses: actions/upload-artifact@v4
         with:
-          name: tappAS-macos
-          path: dist/macos
+          name: tappAS-macos-zip
+          path: release/tappAS-macos.zip
           
           
   release:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download Linux artifact
+    
+      - name: Checkout master after merge
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          
+      - name: Download ZIPs
         uses: actions/download-artifact@v4
         with:
-          name: tappAS-linux
-          path: dist/linux
+          path: release-zips
 
-      - name: Download Windows artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: tappAS-windows
-          path: dist/win
+      - name: Check ZIP integrity
+        run: |
+          ls -lh release-zips || { echo "release-zips folder not found"; exit 1; }
+          test -f release-zips/tappAS-linux-zip/tappAS-linux.zip || { echo "tappAS-linux.zip not found"; exit 1; }
+          test -f release-zips/tappAS-windows-zip/tappAS-windows.zip || { echo "tappAS-windows.zip not found"; exit 1; }
+          test -f release-zips/tappAS-macos-zip/tappAS-macos.zip || { echo " tappAS-macos.zip not found"; exit 1; }
 
-      - name: Download macOS artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: tappAS-macos
-          path: dist/macos
+          echo " All ZIP files are generated correctly."
           
       - name: Read version
         id: version
@@ -113,15 +135,8 @@ jobs:
           tag_name: ${{ steps.version.outputs.VERSION }}
           name: tappAS ${{ steps.version.outputs.VERSION }}
           body: ${{ steps.body.outputs.BODY }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Subir binarios a la release
-        uses: softprops/action-gh-release@v2
-        with:
           files: |
-            dist/linux/**
-            dist/win/**
-            dist/macos/**
+            release-zips/**/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          

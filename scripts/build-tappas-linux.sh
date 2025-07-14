@@ -47,4 +47,4 @@ jpackage \
     --add-opens=javafx.controls/javafx.scene.control.skin=ALL-UNNAMED
     -Xms8g -XX:MaxRAMPercentage=75"
 
-echo "Package created in ./dist/$APP_NAME"
+echo "Package created in ./dist/linux/$APP_NAME"

@@ -48,7 +48,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo === ✅ Package created correctly in .\dist\%APP_NAME%
+echo === ✅ Package created correctly in .\dist\win\%APP_NAME%
 
 endlocal
 pause
