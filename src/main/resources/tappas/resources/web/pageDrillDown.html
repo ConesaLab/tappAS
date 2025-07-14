@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Context-Sensitive Menus</title>
+	<meta charset="UTF-8">
+	<meta name="author" content="H. del Risco">
+	<link rel="stylesheet" type="text/css" href="css/web.css">
+	<script src="scripts/scripts.js"></script>
+	<script src="scripts/slides.js"></script>
+	<script src="scripts/maps.js"></script>
+	<script src="scripts/ebook.js"></script>
+	<script src="scripts/overview.js"></script>
+</head>
+
+<body style="padding-top:0px; margin-left:0px; margin-right:0px; margin-top:0px; height:100%; min-width:620px; width:100%; overflow:auto;" onresize="onResize()" onload="init(false, 'pageDrillDown', 'Data Drill Down')" onhashchange="onHashChanged()">
+
+
+  <section id="mainSection" style="position:fixed; left:0px; top:0px; right:0; bottom:0px; display:block; overflow:auto;">
+	<section id="contentSection" style="float:left; margin:auto; width:400px; min-width:725px; display:inline-block;">
+<div id="Top" style="height:12px;"></div>
+<table style="width:100%; vertical-align:middle;">
+  <tr>
+    <td style="text-align:left;"><span id="contentTitle" class="contentTitle">Introduction</span></td>
+    <td style="width:25px;">
+        <div id="pagePrev" class="contentButtonOff" onclick="ebook.pagePrev()">&lt;</div>
+    </td>
+    <td style="width:25px;">
+        <div id="pageNext" class="contentControl contentButton" onclick="ebook.pageNext()">&gt;</div>
+    </td>
+    <td id="tdContentControl" style="width:140px; text-align:right;">
+        <div id="contentControl" class="contentControl" style="padding-left:5px; padding-right:5px;" onclick="toggleContents()">Hide Contents &gt;&gt;</div>
+    </td>
+  </tr>
+</table>
+
+		<section id="pageDrillDown" class="contentPage">
+<p>The ability to see the underlying data details can be extremely helpful and is provided, where relevant, via context-sensitive menus. 
+As previously discussed in the 
+<a href="pageAppXface.html#Menus">Context-Sensitive Menus</a> 
+section, the data table row that you right-click on will determine the contents of the drill down data.
+For example, in the FEA results for Gene Ontology features window, shown below, the context menu provides a selection to drill down data.
+</p>
+<br/>
+<div style="text-align:center;">
+	<img src="images/DrillDownDataMenu.png" alt="Drill Down Data Data Menu Selection"/>
+	<br/><br/>Drill Down Data Menu Selection
+</div>
+<br/><br/>
+Once selected, the drill down data window will be displayed, see image below. Note the drill down data is for "GO:0005694" which is the selected table row. You may export the drill down table data and, for this specific example, view gene data visualization for specific genes via context menu.
+<br/><br/><br/>
+<div style="width:100%; text-align:center;">
+	<img src="images/DrillDownData.png" style="max-width:100%; max-height:100%;" alt="Drill Down Data"/>
+	<br/><br/>Drill Down Data Window
+</div>
+<br/><br/>
+<br/>
+
+		</section>
+	</section>
+<aside id="contentItems" class="contentMenuApp">
+    <div style="height:19px;"></div>
+    <span style="color:slategray; font-size:medium; font-weight:bold;">Contents<br/></span>
+    <div style="height:3px;"></div>
+    <div id="pageIntro_Top" class="contentItem"><a href="pageIntro.html#Top" class="notSelected">Introduction</a></div>
+    <div id="pageIntro_subitems" class="contentSubItems">
+            <div id="pageIntro_Reqs" class="contentItem" style="padding-left:10px;"><a href="pageIntro.html#Reqs" class="notSelected">Application Requirements</a></div>
+    </div>
+    <div id="pageProjects_Top" class="contentItem"><a href="pageProjects.html#Top" class="notSelected">Projects</a></div>
+    <div id="pageProjects_subitems" class="contentSubItems">
+            <div id="pageProjects_InputData" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#InputData" class="notSelected">Input Data and Filtering</a></div>
+            <div id="pageProjects_Normalization" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#Normalization" class="notSelected">Expression Data Normalization</a></div>
+            <div id="pageProjects_DesignFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#DesignFileFormat" class="notSelected">Experiment Design File Format</a></div>
+            <div id="pageProjects_ExpMatrixFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#ExpMatrixFileFormat" class="notSelected">Expression Matrix File Format</a></div>
+            <div id="pageProjects_AnnotationFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#AnnotationFileFormat" class="notSelected">Annotation File Format</a></div>
+    </div>
+    <div id="pageAppXface_Top" class="contentItem"><a href="pageAppXface.html#Top" class="notSelected">Application Interface</a></div>
+    <div id="pageAppXface_subitems" class="contentSubItems">
+            <div id="pageAppXface_Layout" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Layout" class="notSelected">GUI Layout</a></div>
+            <div id="pageAppXface_Menus" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Menus" class="notSelected">Context-Sensitive Menus</a></div>
+            <div id="pageAppXface_Tabs" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tabs" class="notSelected">Tab Panels, Tabs, and Subtabs</a></div>
+            <div id="pageAppXface_SubtabMenuBar" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#SubtabMenuBar" class="notSelected">Subtabs Menu Bar</a></div>
+            <div id="pageAppXface_Tables" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tables" class="notSelected">Tables</a></div>
+            <div id="pageAppXface_Visual" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Visual" class="notSelected">Visual Display Controls</a></div>
+    </div>
+    <div id="pageAppTips_Top" class="contentItem"><a href="pageAppTips.html#Top" class="notSelected">Application Tips</a></div>
+    <div id="pageDataViz_Top" class="contentItem"><a href="pageDataViz.html#Top" class="notSelected">Data Visualization</a></div>
+    <div id="pageDataViz_subitems" class="contentSubItems">
+            <div id="pageDataViz_DVAccess" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#DVAccess" class="notSelected">Accessing Data Visualizations</a></div>
+            <div id="pageDataViz_GeneDV" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#GeneDV" class="notSelected">Gene Data Visualization</a></div>
+    </div>
+    <div id="pageDrillDown_Top" class="contentItem"><a href="pageDrillDown.html#Top" class="notSelected">Data Drill Down</a></div>
+    <div id="pageExport_Top" class="contentItem"><a href="pageExport.html#Top" class="notSelected">Export Data and Images</a></div>
+    <div id="pageQuery_Top" class="contentItem"><a href="pageQuery.html#Top" class="notSelected">Ad Hoc Query</a></div>
+    <div id="pageQuery_subitems" class="contentSubItems">
+            <div id="pageQuery_Search" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Search" class="notSelected">Simple Search</a></div>
+            <div id="pageQuery_Query" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Query" class="notSelected">Row Selection Query</a></div>
+    </div>
+    <div id="pageAFA_Top" class="contentItem"><a href="pageAFA.html#Top" class="notSelected">Functional Diversity Analysis</a></div>
+    <div id="pageAFA_subitems" class="contentSubItems">
+            <div id="pageAFA_Gene" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Gene" class="notSelected">Gene-Level FDA</a></div>
+            <div id="pageAFA_ID" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#ID" class="notSelected">ID-Level FDA</a></div>
+            <div id="pageAFA_Combined" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Combined" class="notSelected">ID-Level FDA Combined Results</a></div>
+    </div>
+    <div id="pageDEA_Top" class="contentItem"><a href="pageDEA.html#Top" class="notSelected">Differential Expression Analysis</a></div>
+    <div id="pageDIU_Top" class="contentItem"><a href="pageDIU.html#Top" class="notSelected">Differential Isoform Usage Analysis</a></div>
+    
+    <div id="pageEA_Top" class="contentItem"><a href="pageEA.html#Top" class="notSelected">Enrichment Analysis</a></div>
+    <div id="pageEA_subitems" class="contentSubItems">
+            <div id="pageEA_FEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEA" class="notSelected">Functional Enrichment Analysis</a></div>
+            <div id="pageEA_FEAClusters" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEAClusters" class="notSelected">Enriched Features Clusters</a></div>
+            <div id="pageEA_GSEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#GSEA" class="notSelected">Gene Set Enrichment Analysis</a></div>
+    </div>
+</aside>
+<div style="clear:both;"></div>
+
+  </section>
+
+</body>
+</html>

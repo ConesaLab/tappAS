@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="paneContents" prefHeight="300.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane fx:id="grdMain" hgap="3.0" style="-fx-background-color: -fx-background;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="2">
+               <children>
+                  <TableView fx:id="tblDE_ProtSummary" prefHeight="307.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <columns>
+                        <TableColumn editable="false" prefWidth="200.0" sortable="false" text="Proteins" />
+                        <TableColumn editable="false" maxWidth="3000.0" prefWidth="60.0" sortable="false" style="-fx-alignment: CENTER-RIGHT;" text="DE" />
+                        <TableColumn editable="false" maxWidth="3000.0" prefWidth="60.0" sortable="false" style="-fx-alignment: CENTER-RIGHT;" text="Not DE" />
+                        <TableColumn editable="false" maxWidth="3000.0" prefWidth="60.0" sortable="false" style="-fx-alignment: CENTER-RIGHT;" text="Total" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <PieChart fx:id="pieDA_protDEAResults" animated="false" legendVisible="false" minHeight="120.0" style="-fx-font-size: 11;" title="Proteins DEA Results" GridPane.rowSpan="2" />
+            <BarChart fx:id="barDE_SummaryProtFold" animated="false" barGap="1.0" categoryGap="1.0" minWidth="250.0" style="-fx-font-size: 11;" title="Proteins Log2 Fold Change Distribution" GridPane.columnIndex="2" GridPane.rowSpan="2">
+               <xAxis>
+                  <CategoryAxis side="BOTTOM" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis side="LEFT" />
+               </yAxis>
+            </BarChart>
+            <TableView fx:id="tblClusters" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="2" GridPane.rowSpan="2">
+               <columns>
+                  <TableColumn prefWidth="150.0" text="Cluster" />
+                  <TableColumn editable="false" text="Count" />
+               </columns>
+            </TableView>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="160.0" prefWidth="300.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="160.0" prefWidth="300.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="160.0" prefWidth="400.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" percentHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>

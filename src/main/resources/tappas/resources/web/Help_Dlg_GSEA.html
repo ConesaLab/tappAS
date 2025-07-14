@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gene Set Enrichment Analysis parameters</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco & Ángeles Arzalluz Luque">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>Gene Set Enrichment Analysis parameters</b></span></div>
+    <p>To run Gene Set Enrichment Analysis (GSEA), you must provide the following information:
+    </p>
+    <ol class="dlgSection">
+        <li>Analysis Information Section
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Name - </b>specify unique name for analysis
+            </div><br/>
+        </li>
+        <li>Data Type Section
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Data Type - </b>select which data type to use for GSEA:
+                <ul  class="dlgFields">
+                    <li>Genes - <span style="font-weight: normal;">use gene expression data (obtained after collapsing expression of isoforms from the same gene)</span><br/></li>
+                    <li>Transcripts - <span style="font-weight: normal;">use transcript expression data (obtained after collapsing expression of isoforms with the same CDS)</span><br/></li>
+		    <li>CDS - <span style="font-weight: normal;">use CDS expression data</span><br/><br/></li>
+                </ul>
+            </div>
+        </li>
+        <li>Analysis Method Section
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>GOglm - </b>applies GSEA analysis with prior correction of length bias, i.e. the tendency to detect
+									differential expression more frequently in longer genes, which causes categories containing longer genes to be more frequently detected as enriched.
+	    </div>
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>MDGSA - </b>Multidimensional Gene Set Enrichment Analysis. Can accomodate one or more ranking indices.
+	    </div>
+                <ul  class="dlgFields">
+                    <li>Umivariate - <span style="font-weight: normal;"></span>performs GSEA based on a single ranked statistic.<br/></li>
+                    <li>Multidimensional - <span style="font-weight: normal;"></span>performs GSEA based on two ranked statistics, for instance, p-value lists for DE and DIU genes.
+										This allows for finding gene set enrichments due to the combined effect of two transcriptomic phenomena.
+										In this case, the Annotation Feature menu is inactive, since the analysis is only available for Gene Ontologies.<br/><br/></li>
+                </ul>
+            </div>
+        </li>
+        <li>Items Ranked List Section
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Ranked List - </b>select from one of the options provided (will vary based on data type).
+                <div style="padding-top:7px; padding-left:10px;">
+                    For genes:
+                    <ul class="dlgFields">
+                        <li>Differential Isoform Usage (Transcripts) - DIU genes based on transcripts</li>
+                        <li>Differential Isoform Usage (Proteins) - DIU genes based on proteins</li>
+                        <li>DIU Results (Transcripts - including single isoform genes) - DIU results based on transcripts</li>
+                        <li>DIU Results (Proteins - including single isoform genes) - DIU results based on proteins</li>
+                        <li>Differential Expression Analysis Results - differentially expressed genes</li>
+                        <li>Use list from file - specify a list to use in file selection control below</li> 
+                    </ul>
+                    
+                    For transcripts:
+                    <ul class="dlgFields">
+                        <li>Differential Expression Analysis Results - differentially expressed transcripts</li>
+                        <li>Use list from file - specify a list to use in file selection control below</li> 
+                    </ul>
+
+		    For CDS:
+                    <ul class="dlgFields">
+                        <li>Differential Expression Analysis Results - differentially expressed CDS</li>
+                        <li>Use list from file - specify a list to use in file selection control below</li> 
+                    </ul>
+                    <div style="padding-top:5px;"><span class="notes">You must have previously generated the data for some of the options, e.g. DIU and DEA results.
+								      In addition, note that, for multidimensional MDGSA, two ranked lists need to be provided.</span></div>
+                </div>
+            </div><br/>
+        </li>
+        <li>Annotation Feature(s) Section
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Use annotation file feature(s) - </b>select the annotation feature(s) to include in the GSEA.
+                Note that the tree contains one branch per annotation source and each branch can be expanded to show all the features it contains.
+                You may select all features for a given annotation source or expand and select specific features only.
+                You may ONLY include features from a SINGLE annotation source. 
+            </div>
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Use custom annotation sets, matching data type, in GMT file format (*.gmt) - </b>
+                specify file path in file selection control provided below.
+            </div><br/>
+        </li>
+        <li>Analysis Parameters Section
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Significance Level - </b>specify the significance level required to consider significant enrichment (default: 0.05)
+            </div>
+        </li>
+    </ol>
+    <!-- AddHelp:gsea,goglm,gui,tips -->
+    <br/><br/>
+</body>
+</html>
+

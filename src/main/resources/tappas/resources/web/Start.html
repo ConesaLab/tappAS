@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!--
+    @author Hector del Risco - hdelrisco@ufl.edu
+-->
+
+<html>
+    <head>
+        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat"> -->
+        <title>Start Page</title>
+        <meta charset="UTF-8">
+	<meta name="author" content="H. del Risco">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            html, body {
+                height: 100%;
+                width:100%;
+                max-width: 100%;
+                border-spacing:0px;
+                padding:0px;
+                margin:0px;
+                font-size: medium;
+                font-family: 'Verdana', sans-serif;
+                background-color:white;
+            }
+            .projectText {
+                font-size:medium;
+                font-weight:normal;
+                color: slategray;
+            }
+            .projectText:hover {
+                cursor:pointer;
+                color:#a2ca72;
+            }
+            .cmdText {
+                font-weight:bold;
+                font-size:large;
+                color:slategray;
+            }
+            .cmdTextNA {
+                font-weight:bold;
+                font-size:large;
+                color:slategray;
+            }
+            .cmdText:hover {
+                cursor:pointer;
+                color:#a2ca72;
+        	/*background-color: floralwhite;*/
+            }
+        </style>
+        <script>
+            var cmdRequest = "";
+            function setCmdRequest(cmd) {
+                    cmdRequest = cmd;
+            }
+            function getCmdRequest() {
+                var cmd = cmdRequest;
+                cmdRequest = "";
+                return cmd;
+            }
+        </script>
+    </head>
+    <body>
+	<table style="width:100%; height:100%; padding:0px; margin:0px; border-collapse:separate; border-spacing:0px;">
+            <tr>
+                <td style="width:25%; min-width:350px; max-width:500px; background-color:white; vertical-align:top; padding:0px; border-right: 1px solid #a2ca72;">
+                    <div style="padding-top:15px; padding-bottom:7px; font-size:x-large; font-weight:bold; background-color:#a2ca72; color:white; width:100%; text-align:center;">Start</div>
+                    <div style="background-color:white; padding:10px;">
+                        <div style="padding-bottom:5px;"><span class="cmdText" onclick="setCmdRequest('new')">New Project...</span></div>
+                        <div style="padding-bottom:5px;"><span class="cmdText" onclick="setCmdRequest('open')">Open Project...</span></div>
+                        <div><span class="cmdTextNA">Recent Projects</span></div>
+                        <div style="padding-top:7px; padding-left:5px;"><!--replaceHTML--></div>
+                    </div>
+                </td>
+                
+                <td style="width:3px; background-color:white;"></td>
+                <td style="background-color:white; vertical-align:top; padding:0px; border:0px;">
+                    
+                    <div style="padding-top:7px; padding-bottom:7px; font-size: x-large; font-weight:bold; color:#a2ca72; width:100%; text-align:center;"><img src="images/logo_ori_220.png" alt="tappAS Logo"> <span style="font-size:medium;"><!--replaceVersion--></span></div>
+                    
+                    <div style="background-color:white; padding:10px;">
+                        <br/>
+                        <br/>
+                        <span style="font-size:medium; color:black;">tappAS: Your application to understand the functional implications of alternative splicing.</span>
+                        <br/>
+                        <br/>
+                        <span style="font-size:medium; color:black;">The distinct characteristic of tappAS is to facilitate the analysis of alternative splicing and alternative UTR processing from a FUNCTIONAL perspective.</span>
+                        <br/>
+                        <br/>
+                        <span style="font-size:medium; color:black;">It includes a comprehensive set of data analysis, visualization, filtering, and ad hoc query tools.</span>
+                    </div>
+                </td>
+            </tr>
+	</table>
+    </body>
+</html>
+

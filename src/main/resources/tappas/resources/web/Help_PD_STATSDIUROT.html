@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DIU Results for CDS</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco & Ángeles Arzalluz-Luque">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>DIU Results for CDS</b></span></div>
+    <p>The DIU Results data table for CDS displays the statistical analysis results combined with expression and annotation data. 
+        The following table columns are displayed by default:</p>
+    <ul>
+        <li>Gene - gene identifier as provided in the annotation file.</li>
+        <li>Gene Description - gene description, if any, as provided in the annotation file.</li>
+        <li>DIU Result - DIU for genes that are positive for differential isoform usage, NOT DIU otherwise.</li>
+        <li>Q-Value - adjusted significance value obtained via the combination of exon-level p-values from DEXSeq.</li>
+        <li>Major isoform switching - YES or NO, used to indicate if the most expressed isoform changed between conditions.</li>
+        <li>Total Change - magnitude of the redistribution of isoform expression across groups or time-points.</li>
+        <li>Condition1 MeanExpLevel - the mean of the normalized CDS expression levels for all samples in condition 1.</li>
+        <li>Condition2 MeanExpLevel - the mean of the normalized CDS expression levels for all samples in condition 2.</li><br>
+	Note that "condition" is shown only in the case of two-group comparisons, while group name and time-point indicator are shown for single and multiple time-course designs.
+        <li>Switching Times (single time course only) - a list of time points (by nubmer, as specified in the design matrix) where major isoform switching events occur.</li><br>
+    </ul>
+    <!-- RowColumns -->
+    <span class="notes" style="padding-left:25px;">The expression level for a CDS, in DIU, is the sum of the normalized levels for all transcripts with the same CDS.</span>
+    <!-- HiddenColumns -->
+    <ul>
+        <li>Chr - chromosome where the gene is found.</li>
+        <li>Strand - chromosome strand.</li>
+        <li>Isoforms - number of isoforms for this gene.</li>
+        <li>Coding - protein coding status: YES, if there are any coding transcripts, NO otherwise.</li>
+        <li>Annotation Feature Columns - use the 'Add annotation feature column...' menu selection</li>
+    </ul>
+    <!-- SubtabMenuBar:optlog,select,export,dataViz,sigLevel,rerun -->
+    <!-- AddHelp:dsa,tables,query,gui,tips,edger,dexseq, -->
+</body>
+</html>
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cluster Analysis Parameters</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">Cluster Analysis Parameters</span></div>
+    <p>The Cluster Analysis is a Java implementation of the <span class="fakeAnchor" onclick="setCmdRequest('https://david.ncifcrf.gov/helps/functional_classification.html')">DAVID Bioinformatics fuzzy heuristic gene clustering algorithm</span>.
+        To run Cluster Analysis, you must provide the following information:
+    </p>
+    <div style="padding-top:7px; padding-left:20px;">
+        <b>Similarity Term Overlap - </b>minimum number of overlapped annotation feature IDs between two items
+        in order to be qualified for kappa calculation (default: 4)<br/>
+        <b>Kappa Threshold - </b>minimum kappa value to be considered biologically significant (default: 3.5). 
+        Higher values will result in higher quality of functional classification, that is, fewer nodes with fewer members.<br/>
+        <b>Initial Seed Node Members - </b>minimum initial number of items in a seeding node (default: 4). 
+        Lower values will generate a greater number of small size nodes.<br/>
+        <b>Final Seed Node Members - </b>minimum number of items in a final node (default: 4). 
+        This value works in conjunction with the previous parameter to control the minimum node size.<br/>
+        <b>Node Linkage Threshold - </b>controls how nodes are merged (default: 0.5). 
+        Two nodes sharing a higher percentage of items than the specified threshold, will be merged into a single node.
+        High values typically give sharper separation of nodes with items within the node having a tighter association.<br/>
+        <br/><span class="notes">"Items" refer to genes, transcripts, or proteins depending on the selected data type for the analysis.</span><br/>
+    </div>
+    <!-- AddHelp:david,gui,tips -->
+    <br/><br/>
+</body>
+</html>
+

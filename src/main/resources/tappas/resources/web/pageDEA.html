@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Differential Expression Analysis</title>
+	<meta charset="UTF-8">
+	<meta name="author" content="H. del Risco">
+	<link rel="stylesheet" type="text/css" href="css/web.css">
+	<script src="scripts/scripts.js"></script>
+	<script src="scripts/slides.js"></script>
+	<script src="scripts/maps.js"></script>
+	<script src="scripts/ebook.js"></script>
+	<script src="scripts/overview.js"></script>
+</head>
+
+<body style="padding-top:0px; margin-left:0px; margin-right:0px; margin-top:0px; height:100%; min-width:620px; width:100%; overflow:auto;" onresize="onResize()" onload="init(false, 'pageDEA', 'Differential Expression Analysis')" onhashchange="onHashChanged()">
+
+
+  <section id="mainSection" style="position:fixed; left:0px; top:0px; right:0; bottom:0px; display:block; overflow:auto;">
+	<section id="contentSection" style="float:left; margin:auto; width:400px; min-width:725px; display:inline-block;">
+<div id="Top" style="height:12px;"></div>
+<table style="width:100%; vertical-align:middle;">
+  <tr>
+    <td style="text-align:left;"><span id="contentTitle" class="contentTitle">Introduction</span></td>
+    <td style="width:25px;">
+        <div id="pagePrev" class="contentButtonOff" onclick="ebook.pagePrev()">&lt;</div>
+    </td>
+    <td style="width:25px;">
+        <div id="pageNext" class="contentControl contentButton" onclick="ebook.pageNext()">&gt;</div>
+    </td>
+    <td id="tdContentControl" style="width:140px; text-align:right;">
+        <div id="contentControl" class="contentControl" style="padding-left:5px; padding-right:5px;" onclick="toggleContents()">Hide Contents &gt;&gt;</div>
+    </td>
+  </tr>
+</table>
+
+		<section id="pageDEA" class="contentPage">
+<p>Differential Expression Analysis (DEA) performs statistical testing to determine whether a given difference in read counts between conditions/time-points, is significant or just due to random variations. 
+You may run DEA at the gene, transcript and CDS levels (see image below).
+CDS and gene expression levels are calculated using the sum of transcript expression (in the case of CDS, aggregating transcripts that code for the same predicted protein).
+Users may select <a href="https://www.bioconductor.org/packages/release/bioc/html/NOISeq.html" target="_blank">NOISeq</a>
+ or <a href="https://www.bioconductor.org/packages/release/bioc/html/edgeR.html" target="_blank">edgeR</a> as the underlying R package for the analysis.
+</p>
+<br/><br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/DEAdialog.png" style="max-width:100%; max-height:100%;" alt="DEA Parameters"/><br/><br/>
+    <div>Differential Expression Analysis Parameters</div>
+</div>
+<br/><br/>
+When using the application, all DEA parameters are described in the Help page which can be accessed via the Help button located on the bottom left of the dialog window.
+<br/><br/>
+
+<div>
+	<b>NOISeq</b><br/>
+	<p>NOISeq provides "differential expression between two experimental conditions with no parametric assumptions".</p>
+	You may view the documentation and installation instructions at:<br/>
+	<div style="padding-top:7px;">
+	<a href="https://www.bioconductor.org/packages/release/bioc/html/NOISeq.html" target="_blank" style="padding-left:30px;">https://www.bioconductor.org/packages/release/bioc/html/NOISeq.html</a>
+	</div>
+</div>
+<br/>
+<div>
+	<b>edgeR</b><br/>
+	<p>EdgeR provides "differential expression analysis of RNA-seq expression profiles with biological replication. Implements a range of statistical methodology based on the negative binomial distributions, 
+	including empirical Bayes estimation, exact tests, generalized linear models and quasi-likelihood tests".</p>
+	You may view the documentation and installation instructions at:<br/>
+	<div style="padding-top:7px;">
+	<a href="https://www.bioconductor.org/packages/release/bioc/html/edgeR.html" target="_blank" style="padding-left:30px;">https://www.bioconductor.org/packages/release/bioc/html/edgeR.html</a>
+	</div>
+</div>
+<br/><br/>
+<div>
+	<b>DEA Results</b><br/>
+	<p>The DEA results are contained in the project data tab, displayed in the top panel (see image below). 
+	It includes basic information fields about gene, transcripts, or CDS (depending on the DEA data type selected) as well as the DEA test results, DE/NotDE and Up/Down regulation if DE, Probability or P-Value, 
+	(depending on the R package used), and the Log2 of the fold change (Log2FC). However, users may add more columns by clicking on the (+) button on the right hand side of the table.
+	The mean expression levels for each condition per gene, transcript or CDS are also shown.</p>
+	Be aware that you do not need to rerun the analysis to change the significance level value: 
+	a button is provided on the left hand side menu bar to change the significance level value and recalculate the DE/NotDE results.
+	When running the application, a description of all fields in the results table can be viewed using the subtab Help button on the left-hand side menu bar, and a DE Results Summary can be opened by clicking 
+	on the visualization button in this same menu.
+</p>
+</div><br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/DEAresults.png" style="max-width:100%; max-height:100%;" alt="DEA Results"/><br/><br/>
+    <div>Differential Expression Analysis Results</div>
+</div>
+<br/><br/>
+
+		</section>
+	</section>
+<aside id="contentItems" class="contentMenuApp">
+    <div style="height:19px;"></div>
+    <span style="color:slategray; font-size:medium; font-weight:bold;">Contents<br/></span>
+    <div style="height:3px;"></div>
+    <div id="pageIntro_Top" class="contentItem"><a href="pageIntro.html#Top" class="notSelected">Introduction</a></div>
+    <div id="pageIntro_subitems" class="contentSubItems">
+            <div id="pageIntro_Reqs" class="contentItem" style="padding-left:10px;"><a href="pageIntro.html#Reqs" class="notSelected">Application Requirements</a></div>
+    </div>
+    <div id="pageProjects_Top" class="contentItem"><a href="pageProjects.html#Top" class="notSelected">Projects</a></div>
+    <div id="pageProjects_subitems" class="contentSubItems">
+            <div id="pageProjects_InputData" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#InputData" class="notSelected">Input Data and Filtering</a></div>
+            <div id="pageProjects_Normalization" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#Normalization" class="notSelected">Expression Data Normalization</a></div>
+            <div id="pageProjects_DesignFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#DesignFileFormat" class="notSelected">Experiment Design File Format</a></div>
+            <div id="pageProjects_ExpMatrixFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#ExpMatrixFileFormat" class="notSelected">Expression Matrix File Format</a></div>
+            <div id="pageProjects_AnnotationFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#AnnotationFileFormat" class="notSelected">Annotation File Format</a></div>
+    </div>
+    <div id="pageAppXface_Top" class="contentItem"><a href="pageAppXface.html#Top" class="notSelected">Application Interface</a></div>
+    <div id="pageAppXface_subitems" class="contentSubItems">
+            <div id="pageAppXface_Layout" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Layout" class="notSelected">GUI Layout</a></div>
+            <div id="pageAppXface_Menus" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Menus" class="notSelected">Context-Sensitive Menus</a></div>
+            <div id="pageAppXface_Tabs" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tabs" class="notSelected">Tab Panels, Tabs, and Subtabs</a></div>
+            <div id="pageAppXface_SubtabMenuBar" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#SubtabMenuBar" class="notSelected">Subtabs Menu Bar</a></div>
+            <div id="pageAppXface_Tables" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tables" class="notSelected">Tables</a></div>
+            <div id="pageAppXface_Visual" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Visual" class="notSelected">Visual Display Controls</a></div>
+    </div>
+    <div id="pageAppTips_Top" class="contentItem"><a href="pageAppTips.html#Top" class="notSelected">Application Tips</a></div>
+    <div id="pageDataViz_Top" class="contentItem"><a href="pageDataViz.html#Top" class="notSelected">Data Visualization</a></div>
+    <div id="pageDataViz_subitems" class="contentSubItems">
+            <div id="pageDataViz_DVAccess" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#DVAccess" class="notSelected">Accessing Data Visualizations</a></div>
+            <div id="pageDataViz_GeneDV" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#GeneDV" class="notSelected">Gene Data Visualization</a></div>
+    </div>
+    <div id="pageDrillDown_Top" class="contentItem"><a href="pageDrillDown.html#Top" class="notSelected">Data Drill Down</a></div>
+    <div id="pageExport_Top" class="contentItem"><a href="pageExport.html#Top" class="notSelected">Export Data and Images</a></div>
+    <div id="pageQuery_Top" class="contentItem"><a href="pageQuery.html#Top" class="notSelected">Ad Hoc Query</a></div>
+    <div id="pageQuery_subitems" class="contentSubItems">
+            <div id="pageQuery_Search" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Search" class="notSelected">Simple Search</a></div>
+            <div id="pageQuery_Query" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Query" class="notSelected">Row Selection Query</a></div>
+    </div>
+    <div id="pageAFA_Top" class="contentItem"><a href="pageAFA.html#Top" class="notSelected">Functional Diversity Analysis</a></div>
+    <div id="pageAFA_subitems" class="contentSubItems">
+            <div id="pageAFA_Gene" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Gene" class="notSelected">Gene-Level FDA</a></div>
+            <div id="pageAFA_ID" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#ID" class="notSelected">ID-Level FDA</a></div>
+            <div id="pageAFA_Combined" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Combined" class="notSelected">ID-Level FDA Combined Results</a></div>
+    </div>
+    <div id="pageDEA_Top" class="contentItem"><a href="pageDEA.html#Top" class="notSelected">Differential Expression Analysis</a></div>
+    <div id="pageDIU_Top" class="contentItem"><a href="pageDIU.html#Top" class="notSelected">Differential Isoform Usage Analysis</a></div>
+    
+    <div id="pageEA_Top" class="contentItem"><a href="pageEA.html#Top" class="notSelected">Enrichment Analysis</a></div>
+    <div id="pageEA_subitems" class="contentSubItems">
+            <div id="pageEA_FEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEA" class="notSelected">Functional Enrichment Analysis</a></div>
+            <div id="pageEA_FEAClusters" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEAClusters" class="notSelected">Enriched Features Clusters</a></div>
+            <div id="pageEA_GSEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#GSEA" class="notSelected">Gene Set Enrichment Analysis</a></div>
+    </div>
+</aside>
+<div style="clear:both;"></div>
+
+  </section>
+
+</body>
+</html>

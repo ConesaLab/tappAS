@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FEA Clusters</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">FEA Clusters</span></div>
+    <p>The FEA Clusters data table displays the GO term cluster analysis results. 
+        Two tables are displayed: a list of GO term Clusters on the left, and a Cluster Nodes sub-table containing information on the 
+        GOterm members of each cluster node, on the right.
+        When a cluster on the Clusters table (left) is highlighted, i.e. by clicking on the corresponding row, the nodes (GO terms) 
+        contained in that cluster are displayed on the Cluster Nodes table. <span class="standout">Note that you may hold the Shift-key down to select 
+        and view GO terms included in multiple clusters</span>.</p>
+    <p>The Clusters table, situated left side of the upper panel, contains the following columns:</p>
+    <ul>
+        <li>Cluster ID - cluster number, starting at 1.</li>
+        <li>Name - name given to cluster when displayed on the clusters graph. 
+        Note: to visualize the clusters graph, click the visualization button on the left hand-side panel, beside the table.</li>
+        <li>Nodes - number of nodes (GO terms) that form the cluster.</li>
+        <li>% - percentage of total nodes (GO terms) contained in the cluster.</li>
+    </ul>
+    <p>The Cluster Nodes table, situated on the right side of the upper panel, contains the following columns:</p>
+    <ul>
+        <li>Cluster ID - sequential cluster number, starting at 1.</li>
+        <li>Node (Feature ID) - node: GO term ID as specified in the annotation file.</li>
+        <li>Name - GO term ID description, if available, retrieved from the annotation file.</li>
+        <li>Feature - biological aspect described by that GO term, i.e. C = Component, P = Process or F = Function.</li>
+        <li>Adjusted P-Value - FDR adjusted p-value obtained in the Functional Enrichment Analysis for that GO term.</li>
+        <li>Test Items - genes in Test group annotated for that GO term (note that GO terms only exist as a gene-level annotation).</li>
+        <li>Total Items - total number of genes annotated for that GO term, including test and background lists.</li>
+    </ul>
+    <!-- HiddenColumns -->
+    <ul>
+        <li>Non-Test Items - number of genes NOT in Test group that are annotated for that GO term.</li>
+    </ul>
+    <span class="notes" style="padding-left:25px; padding-bottom:10px;">Row selection (<input type="checkbox" style="vertical-align:middle; font-size:x-small;" disabled>) is not supported for these tables but sequential row id (#) columns are displayed</span><br/>
+    <!-- SubtabMenuBar:optlog,export,dataViz,rerun -->
+    <!-- AddHelp:fea,feaclusters,tables,query,gui,tips,goseq -->
+</body>
+</html>
+

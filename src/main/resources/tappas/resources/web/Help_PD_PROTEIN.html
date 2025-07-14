@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Data: Proteins</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">Project Data: Proteins</span></div>
+    <p>The Proteins data table combines the transcript-level expression data with the functional annotation for the project. 
+        The following table columns are displayed by default:</p>
+    <ul>
+        <li>Protein - protein identifier as provided in the annotation file</li>
+        <li>Transcript(s) - transcript(s) encoding this protein, could be more than one, as provided in the annotation file</li>
+        <li>Gene - transcript's gene identifier as provided in the annotation file</li>
+        <li>Gene Description - gene description, if any, as provided in the annotation file</li>
+        <li>Condition1 MeanExpLevel - the mean of the normalized protein expression levels for all samples in condition 1</li>
+        <li>Condition2 MeanExpLevel - the mean of the normalized protein expression levels for all samples in condition 2</li>
+    </ul>
+    <!-- RowColumns -->
+    <span class="notes" style="padding-left:25px;">The expression level for a protein is the sum of the normalized levels for all transcripts encoding the protein.</span>
+    <!-- HiddenColumns -->
+    <ul>
+        <li>Length - protein sequence length in amino acids</li>
+        <li>Annotation Feature Columns - use the 'Add annotation feature column...' menu selection</li>
+    </ul>
+    <!-- SubtabMenuBar:select,export,dataViz -->
+    <!-- AddHelp:tables,query,gui,tips -->
+</body>
+</html>
+

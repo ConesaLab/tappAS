@@ -13,7 +13,7 @@ motifs and domains at the transcript and CDS levels.
 ### Installation
 This source code is available as a compiled, user-ready application.
 To obtain the latest version of the tappAS, please acess the [Releases section](https://github.com/ConesaLab/tappAS/releases) 
-and download the *tappAS.jar* file.
+and download the *tappAS.zip* file. To launh it you only have to click in the tappAS executable inside bin.
 
 For further installation instructions and information on compatibility 
 and dependencies, see [the Install file](https://app.tappas.org/resources/downloads/install.pdf) or visit the 

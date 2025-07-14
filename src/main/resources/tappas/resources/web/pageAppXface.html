@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The application</title>
+	<meta charset="UTF-8">
+	<meta name="author" content="H. del Risco">
+	<link rel="stylesheet" type="text/css" href="css/web.css">
+	<script src="scripts/scripts.js"></script>
+	<script src="scripts/slides.js"></script>
+	<script src="scripts/maps.js"></script>
+	<script src="scripts/ebook.js"></script>
+	<script src="scripts/overview.js"></script>
+</head>
+
+<body style="padding-top:0px; margin-left:0px; margin-right:0px; margin-top:0px; height:100%; min-width:620px; width:100%; overflow:auto;" onresize="onResize()" onload="init(false, 'pageAppXface', 'Application Interface')" onhashchange="onHashChanged()">
+
+
+  <section id="mainSection" style="position:fixed; left:0px; top:0px; right:0; bottom:0px; display:block; overflow:auto;">
+	<section id="contentSection" style="float:left; margin:auto; width:400px; min-width:725px; display:inline-block;">
+<div id="Top" style="height:12px;"></div>
+<table style="width:100%; vertical-align:middle;">
+  <tr>
+    <td style="text-align:left;"><span id="contentTitle" class="contentTitle">Introduction</span></td>
+    <td style="width:25px;">
+        <div id="pagePrev" class="contentButtonOff" onclick="ebook.pagePrev()">&lt;</div>
+    </td>
+    <td style="width:25px;">
+        <div id="pageNext" class="contentControl contentButton" onclick="ebook.pageNext()">&gt;</div>
+    </td>
+    <td id="tdContentControl" style="width:140px; text-align:right;">
+        <div id="contentControl" class="contentControl" style="padding-left:5px; padding-right:5px;" onclick="toggleContents()">Hide Contents &gt;&gt;</div>
+    </td>
+  </tr>
+</table>
+
+		<section id="pageAppXface" class="contentPage">
+<p>TAPPAS is a Java application and its Graphical User Interface (GUI) is based on 
+<a href="http://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm" target="_blank">JavaFX</a>.
+Using JavaFX allows the application to work across multiple Operating Systems (OS) and provide the same look and feel of native applications.
+In addition, JavaFX allows the application to provide the rich set of features expected from a modern GUI application.</p>
+<br/>
+<div><span id="Layout" class="contentTitle">GUI Layout</span></div>
+<p>The application layout consists of 3 main sections: a top tool bar and two tab panels, a data tab panel on top and a data visualization tab panel on the bottom, see image below.</p>
+<div id="GUILayoutImage" style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/appLayout.png" style="max-width:100%; max-height:100%;" alt="Application GUI Layout"/><br/><br/>
+    <div>Application GUI Layout</div>
+</div>
+<br/><br/>
+<div style="padding-right:40px; padding-left:40px;">
+    <span class="marker">A. Top Tool Bar</span>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+		The top tool bar provides access to all the high level functionality in the application. 
+		Starting on the left, it contains multiple menu buttons:
+		<ul>
+			<li>Projects - provides access to all the project management functions: create, open, close, list, and delete</li>
+			<li>Data - provides access to all the project data: transcripts, proteins, genes, and original expression matrix.
+			    In addition, it provides a menu selection to reinput the project data</li>
+			<li>Diversity - provides access to all the annotation features diversity management functions: run analysis, view and clear analysis results</li>
+			<li>Differential - contains  all the differential expression and splicing analysis management functions: run analysis, view and clear analysis results</li>
+			<li>Features - contains  all the enrichment analysis, FEA and GSEA, management functions: run analysis, view and clear analysis results</li>
+		</ul>
+		Located after the menu buttons, are the data table search text field and the filter checkbox controls. These controls apply to the currently selected data table, in one of the subtabs below, and as their name implies, are used for searching and table row filtering purposes.
+		Finally, all the way on the left, there is a menu button to access miscellaneous application functions.<br/>
+	</div>
+    <span class="marker">B. Top (Data) Tab Panel</span>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+		The top tab panel is used to display data tabs for all opened projects.<br/>
+	</div>
+    <span class="marker">C. Bottom (Data Visualization) Tab Panel</span><br/>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+		The bottom tab panel is used to display data visualization tabs for all opened projects. 
+		In addition, gene data visualization tabs and the global application tab are also displayed here.<br/>
+	</div>
+    <span class="marker">D. Data Tab</span><br/>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+		Data tabs, one per project, contain project data subtabs.<br/>
+	</div>
+    <span class="marker">E. Data Visualization Tab</span><br/>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+		Data visualization tabs, one per project, contain project data visualization subtabs.<br/>
+	</div>
+    <span class="marker">F. Gene Data Visualization Tab</span><br/>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+		Gene data visualization tabs, one per gene - project specific, contain gene data visualization subtabs.<br/>
+	</div>
+    <span class="marker">G. Annotation Source Tab</span><br/>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+		Annotation source tab, one per application, contains annotation features details and data visualization subtabs for selected annotation source.<br/>
+	</div>
+    <span class="marker">H. Application Tab</span><br/>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+		Application tab, one per application, contains application information subtabs.<br/>
+	</div>
+    <span class="marker">I. Subtab</span><br/>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+		A subtab is where the actual information display takes place, i.e. tables, charts, etc. 
+		There are lots of different subtabs in the application and they are grouped logically into the tab in which they are contained.
+	<br/></div>
+    <span class="marker">J. Subtab Menu Bar</span><br/>
+    <div style="padding-right:25px; padding-left:25px; padding-top:2px; padding-bottom:7px;">
+		Each subtab has a menu bar containing graphical menu buttons that provide access to subtab specific functionality.<br/>
+	</div>
+	<br/>Tabs and subtabs will be discussed in details in the Tabs section.
+</div>
+<br/><br/>
+<div id="Menus"><span class="contentTitle">Context-Sensitive Menus</span></div>
+<p>In addition to all the visible menu buttons in the application, there are context-sensitive menus all over the application that are not visible.
+   Context-sensitive menus are popup menus that are only shown as a result of a right-click with the mouse on a user interface display element.
+   The menu item selections shown, and/or the actual data displayed when a selection is made, will vary based on what display element, or even what part of it, was right-clicked. For example, gene data visualization is accessed via context menus, what gene the data visualization is shown for depends on what row of the data table the right-click took place on, see image below. The same row specific context display applies to drill down data displays.</p>
+<div style="width:100%; text-align:center;">
+	<img src="images/GeneContextMenu.png" style="max-width:100%; max-height:100%;" alt="Gene Context Menu"/>
+	<br/><br/>Gene Context-Sensitive Menu
+</div>
+<br/>
+<p>Application functionality can sometimes be accessed more efficiently via context menus. For example, if you have multiple display elements on a data visualization subtab, you may right-click on the display element you are interested in and the export menu selection shown in the context menu will be exclusively for that element. The gene data visualization and drill down data, previously mentioned, are examples of functionality that is only accessible via context menus. Make sure to not miss out on application functionality accessible only in context menus: <span class="standout">when in doubt, right-click and see what pops up.</span></p>
+<br/><br/>
+<div id="Tabs"><span class="contentTitle">Tab Panels, Tabs, and Subtabs</span></div>
+<p>All application information display is organized into tab panels, tabs, and subtabs. The tabs, depending on their type, are displayed by default in either the top or bottom tab panels, see 
+<a href="#Layout">Application GUI Layout image</a>. However, before we proceed, let's review the terminology:</p>
+	<ul>
+		<li>Tab panel - refers to a display control that contains tabs</li>
+		<li>Tab - refers to a display control, contained in a tab panel, that contains subtabs</li>
+		<li>Subtab - refers to a display control, contained in a tab, where the actual information display takes place, i.e. tables, charts, etc.</li>
+	</ul>
+	And the display hierarchy is:<br/><br/>
+	<div style="font-size:medium; color: steelblue; padding-left:20px;">Tab Panel <span style="font-weight:bold;">&rarr;</span> Tabs <span style="font-weight:bold;">&rarr;</span> Subtabs</div>
+
+<br/>There are five different types of tabs in the application:
+	<ul>
+		<li>Project Data Tab (one per project) - contains project data and analysis result subtabs and is displayed on the top tab panel by default</li>
+		<li>Project Data Visualization Tab (one per project) - contains project data visualization subtabs and is displayed on the bottom tab panel by default</li>
+		<li>Gene Data Visualization Tab (one per gene, project specific) - contains all gene data visualization subtabs, see 
+		<a href="pageDataViz.html#GeneDV">Gene Data Visualization</a> section 
+		for details, and is displayed on the bottom tab panel by default</li>
+		<li>Annotation Source tab (one per project) - contains annotation features details and data visualization subtabs for selected annotation source and is displayed on the bottom tab panel by default</li>
+		<li>Application Tab (one per application) - contains global application information subtabs such as the log, overview, technical information, etc. It is displayed on the bottom tab panel by default</li>
+	</ul>
+The gene data visualization tab and the application tab display a relatively small number of subtabs. However, the project data and data visualization tabs
+can display a significant number of subtabs for all the data, analysis results, and corresponding data visualization. 
+It will be up to you to explore the application and see all that's available.<br/>
+
+<br/><br/>
+<div id="SubtabMenuBar"><span class="contentTitle">Subtabs Menu Bar</span></div>
+<p>A significant amount of your interaction with the application will take place via the subtabs menu bar, see
+<a href="#Layout">Application GUI Layout image</a>. 
+It contains a set of menu buttons to provide the functionality required based on the subtab contents.
+You can take advantage of the mouseover functionality available for all buttons, to find out what it does, or just click on it to find out. 
+The application will always confirm your request before doing anything destructive so have no fear.
+Once you can associate the button images with their functionality, the application becomes easier to use.
+The subtab menu bar buttons along with their respective functionality are:</p>
+<table>
+  <tr>
+	<td><div class="subtabButton"><img src="images/optionsButton.png" width="28" height="28" alt="Options..."/></div></td>
+	<td>&nbsp;- miscellaneous options menu will change based on subtab content</td>
+  </tr>
+  <tr>
+	<td><div class="subtabButton"><img src="images/selectButton.png" width="28" height="28" alt="Table row selection..."/></div></td>
+	<td>&nbsp;- table row selection management menu</td>
+  </tr>
+  <tr>
+	<td><div class="subtabButton"><img src="images/exportButton.png" width="28" height="28" alt="Export data or images..."/></div></td>
+	<td>&nbsp;- export data or images menu</td>
+  </tr>
+  <tr>
+	<td><div class="subtabButton"><img src="images/dataVizButton.png" width="28" height="28" alt="Data visualization options..."/></div></td>
+	<td>&nbsp;- data visualization menu</td>
+  </tr>
+  <tr>
+	<td><div class="subtabButton"><img src="images/clustersDataButton.png" width="28" height="28" alt="Clustering..."/></div></td>
+	<td>&nbsp;- clustering analysis menu</td>
+  </tr>
+  <tr>
+	<td><div class="subtabButton"><img src="images/rerunButton.png" width="28" height="28" alt="Rerun analysis"/></div></td>
+	<td>&nbsp;- rerun analysis</td>
+  </tr>
+  <tr>
+	<td><div class="subtabButton"><img src="images/sigLevelButton.png" width="28" height="28" alt="Change analysis significance level"/></div></td>
+	<td>&nbsp;- change analysis significance level</td>
+  </tr>
+  <tr>
+	<td><div class="subtabButton"><img src="images/helpButton.png" width="28" height="28" alt="Help"/></div></td>
+	<td>&nbsp;- show subtab help</td>
+  </tr>
+  <tr>
+	<td><div class="subtabButton" style="height:90px;">
+		<div style="width:26px; border:1px solid lightgray;"><img src="images/minusButton.png" width="24" height="24" alt="Minus"/></div>
+		<div style="width:26px; border:1px solid lightgray;"><img src="images/fitButton.png" width="24" height="24" alt="Fit"/></div>
+		<div style="width:26px; border:1px solid lightgray;"><img src="images/plusButton.png" width="24" height="24" alt="Plus"/></div>
+            </div>
+	</td>
+	<td>&nbsp;- zoom control buttons</td>
+  </tr>
+</table>
+<br/><br/>
+
+<div id="Tables"><span class="contentTitle">Tables</span></div>
+<p>All application tables use a standard GUI so you should be familiar with basic functionality like scrolling, resizing columns, etc. There are some features you may not be familiar with:</p>
+	<ul>
+		<li>Column sorting - if you click on a column header (where the column name is displayed) you can sort the table rows based on the contents of that column.
+If you click on the same column header multiple times you go through a cycle: ascending sort, descending sort, and clear sort.
+You may also sort by multiple columns. To do that, you click on the first column you want to sort by and then you hold the shift key and click on the next column you want to sort by. An example would be to sort by the DIU Results column in the DIU results table and then shift-click on the Q-Value column to see them in order.</li>
+		<li>Show/hide columns - if you look at the top right corner of the table, you will see a small plus sign on a green background. If you click on it, a drop down menu will appear, see table image below. Each column will be displayed as a menu selection and the columns currently shown will have a check mark by them while the ones that are not shown will not. You may toggle the show/hide status by clicking on the column menu selection. If applicable, depends on the table, you may also add special annotation feature columns, on a need to basis, using the "Add annotation feature column..." menu selection at the bottom. You should only add annotation feature columns if you intend to use them for filtering. If you add the feature name/description column, be aware that some annotation features have long descriptions, such as GO terms, and can use up a considerable amount of memory.</li>
+	</ul>
+
+<br/><br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/Table.png" style="max-width:100%; max-height:100%;" alt="Application Table"/><br/><br/>
+    <div>Application Table - Show/hide column drop-down menu shown</div>
+</div>
+<br/><br/>
+You may export the table data to file via the export menu button on the subtab bar or via the table's context menu.
+Table search and row selection functionality is covered in the 
+<a href="pageQuery.html">Ad Hoc Query</a> section.<br/>
+
+<br/><br/>
+<div id="Visual"><span class="contentTitle">Visual Display Controls</span></div>
+<p>Most visual display controls - charts, graphs, etc. - in the application provide some interactive functionality:</p>
+	<ul>
+		<li>Mouseover - if you hover the mouse pointer over some areas, additional information will be displayed in the form of a tooltip. 
+			For example, if you hover the pointer over a pie chart section, it will normally display the section name and count/percentage information</li>
+		<li>If you right-click on the control, a context menu will popup and provide an export image menu selection</li>
+	</ul>
+There are some special visual display controls that provide additional functionality for customizing or interacting with the display:<br/><br/>
+<div style="padding-left:20px;"><b>Annotation features visualization controls</b><br/>
+	<p>In the <a href="pageDataViz.html#GeneDV">Gene Data Visualization</a> tab, there are 3 special annotation features visualization controls in the transcript, protein, and genomic subtabs. 
+	In addition to providing the basic functionality previously mentioned, they also support:</p>
+	<div style="padding-left:20px;">
+	  <span style="font-weight:bold; color:steelblue;">Display options</span><br/>
+	  <p>The Options button in the <a href="#SubtabMenuBar">Subtab Menu Bar</a> section 
+	provides multiple options to customize the display and filter the data shown:</p>
+		<ul>
+			<li>Show gene isoforms aligned or unaligned</li>
+			<li>Show/hide splice junctions (only if aligned)</li>
+			<li>Show/hide PROVEAN score (proteins only)</li>
+			<li>Show/hide ruler</li>
+			<li>Show/hide display of structural attributes</li>
+			<li>Sort isoforms by various methods</li>
+			<li>Show only varying annotation features (varying among isoforms)</li>
+			<li>Filter annotation features displayed</li>
+		</ul>
+		<span style="color:gray; font-size:small;">Note: some options are not applicable to all 3 subtabs and will not be available in all menus</span><br/><br/>
+	  <span style="font-weight:bold; color:steelblue;">Horizontal Zoom</span><br/>
+	  <p>If you double-click on the display, it will zoom in. If you hold the shift key down and double-click on the display, it will zoom out.
+	  Given the nature of the display contents, zooming only affects the horizontal axis. 
+	  The same functionality is provided in the subtab bar using the zoom buttons, see 
+	  <a href="#SubtabMenuBar">Subtab Menu Bar</a> section.</p>
+	</div>
+</div>
+<br/>
+<div style="padding-left:20px;"><b>Network clusters and GO terms graph controls</b><br/>
+	<p>The network clusters graph, and the GO term directed acyclic graph, support zooming in/out by clicking and also support panning:</p>
+	<div style="padding-left:20px;">
+	  <span style="font-weight:bold; color:steelblue;">Zoom</span><br/>
+	  <p>If you double-click on the display, it will zoom in. If you hold the shift key down and double-click on the display, it will zoom out.
+		You may also use the mouse scroll wheel to zoom in and out.</p>
+	  <span style="font-weight:bold; color:steelblue;">Pan</span><br/>
+	  <p>Panning refers to 'dragging' the display area around with the mouse. It is typically done by pressing the left mouse button button down, on an empty area of the display, and keeping it down while moving the mouse around to 'drag' the display area.
+	</div>
+</div>
+<br/><br/>
+
+		</section>
+	</section>
+<aside id="contentItems" class="contentMenuApp">
+    <div style="height:19px;"></div>
+    <span style="color:slategray; font-size:medium; font-weight:bold;">Contents<br/></span>
+    <div style="height:3px;"></div>
+    <div id="pageIntro_Top" class="contentItem"><a href="pageIntro.html#Top" class="notSelected">Introduction</a></div>
+    <div id="pageIntro_subitems" class="contentSubItems">
+            <div id="pageIntro_Reqs" class="contentItem" style="padding-left:10px;"><a href="pageIntro.html#Reqs" class="notSelected">Application Requirements</a></div>
+    </div>
+    <div id="pageProjects_Top" class="contentItem"><a href="pageProjects.html#Top" class="notSelected">Projects</a></div>
+    <div id="pageProjects_subitems" class="contentSubItems">
+            <div id="pageProjects_InputData" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#InputData" class="notSelected">Input Data and Filtering</a></div>
+            <div id="pageProjects_Normalization" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#Normalization" class="notSelected">Expression Data Normalization</a></div>
+            <div id="pageProjects_DesignFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#DesignFileFormat" class="notSelected">Experiment Design File Format</a></div>
+            <div id="pageProjects_ExpMatrixFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#ExpMatrixFileFormat" class="notSelected">Expression Matrix File Format</a></div>
+            <div id="pageProjects_AnnotationFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#AnnotationFileFormat" class="notSelected">Annotation File Format</a></div>
+    </div>
+    <div id="pageAppXface_Top" class="contentItem"><a href="pageAppXface.html#Top" class="notSelected">Application Interface</a></div>
+    <div id="pageAppXface_subitems" class="contentSubItems">
+            <div id="pageAppXface_Layout" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Layout" class="notSelected">GUI Layout</a></div>
+            <div id="pageAppXface_Menus" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Menus" class="notSelected">Context-Sensitive Menus</a></div>
+            <div id="pageAppXface_Tabs" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tabs" class="notSelected">Tab Panels, Tabs, and Subtabs</a></div>
+            <div id="pageAppXface_SubtabMenuBar" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#SubtabMenuBar" class="notSelected">Subtabs Menu Bar</a></div>
+            <div id="pageAppXface_Tables" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tables" class="notSelected">Tables</a></div>
+            <div id="pageAppXface_Visual" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Visual" class="notSelected">Visual Display Controls</a></div>
+    </div>
+    <div id="pageAppTips_Top" class="contentItem"><a href="pageAppTips.html#Top" class="notSelected">Application Tips</a></div>
+    <div id="pageDataViz_Top" class="contentItem"><a href="pageDataViz.html#Top" class="notSelected">Data Visualization</a></div>
+    <div id="pageDataViz_subitems" class="contentSubItems">
+            <div id="pageDataViz_DVAccess" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#DVAccess" class="notSelected">Accessing Data Visualizations</a></div>
+            <div id="pageDataViz_GeneDV" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#GeneDV" class="notSelected">Gene Data Visualization</a></div>
+    </div>
+    <div id="pageDrillDown_Top" class="contentItem"><a href="pageDrillDown.html#Top" class="notSelected">Data Drill Down</a></div>
+    <div id="pageExport_Top" class="contentItem"><a href="pageExport.html#Top" class="notSelected">Export Data and Images</a></div>
+    <div id="pageQuery_Top" class="contentItem"><a href="pageQuery.html#Top" class="notSelected">Ad Hoc Query</a></div>
+    <div id="pageQuery_subitems" class="contentSubItems">
+            <div id="pageQuery_Search" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Search" class="notSelected">Simple Search</a></div>
+            <div id="pageQuery_Query" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Query" class="notSelected">Row Selection Query</a></div>
+    </div>
+    <div id="pageAFA_Top" class="contentItem"><a href="pageAFA.html#Top" class="notSelected">Functional Diversity Analysis</a></div>
+    <div id="pageAFA_subitems" class="contentSubItems">
+            <div id="pageAFA_Gene" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Gene" class="notSelected">Gene-Level FDA</a></div>
+            <div id="pageAFA_ID" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#ID" class="notSelected">ID-Level FDA</a></div>
+            <div id="pageAFA_Combined" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Combined" class="notSelected">ID-Level FDA Combined Results</a></div>
+    </div>
+    <div id="pageDEA_Top" class="contentItem"><a href="pageDEA.html#Top" class="notSelected">Differential Expression Analysis</a></div>
+    <div id="pageDIU_Top" class="contentItem"><a href="pageDIU.html#Top" class="notSelected">Differential Isoform Usage Analysis</a></div>
+    
+    <div id="pageEA_Top" class="contentItem"><a href="pageEA.html#Top" class="notSelected">Enrichment Analysis</a></div>
+    <div id="pageEA_subitems" class="contentSubItems">
+            <div id="pageEA_FEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEA" class="notSelected">Functional Enrichment Analysis</a></div>
+            <div id="pageEA_FEAClusters" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEAClusters" class="notSelected">Enriched Features Clusters</a></div>
+            <div id="pageEA_GSEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#GSEA" class="notSelected">Gene Set Enrichment Analysis</a></div>
+    </div>
+</aside>
+<div style="clear:both;"></div>
+
+  </section>
+
+</body>
+</html>
