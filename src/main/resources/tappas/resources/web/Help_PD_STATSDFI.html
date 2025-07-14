@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Differential Feature Inclusion results</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco & Ángeles Arzalluz-Luque">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>Differential Feature Inclusion results</b></span></div>
+    <p>The DFI Results data table displays the statistical analysis results combined with expression and annotation data. 
+        The following table columns are displayed by default:</p>
+    <ul>
+        <li>Gene - gene identifier as provided in the annotation file.</li>
+        <li>Feature - feature category name as specified in the annotation file.</li>
+        <li>Feature ID - feature ID as specified in the annotation file.</li>
+        <li>Position - genomic position (start and end) for the analyzed feature.</li>
+        <li>DFI Result - DFI for differential included, NOT DFI otherwise.</li>
+        <li>Q-Value - adjusted significance value obtained via the combination of p-values from DEXSeq.</li>
+        <li>Major isoform switching - YES or NO, used to indicate if the most expressed variant (feature-including or feature-excluding) changed between conditions.</li>
+        <li>Favored Conditions/Time points - condition or time-point number (as named in the design file), where Feature ID is favored by expression levels.</li>
+        <li>ΔFeature Inclusion (ΔFI) - magnitude of the redistribution of feature inclusion levels across conditions or time-points.</li>
+    </ul>
+    <!-- RowColumns -->
+    <!-- HiddenColumns -->
+    <ul>
+        <li>Gene Description - gene description, if any, as provided in the annotation file.</li>
+        <li>Feature Description - feature ID description, if any, as provided in the annotation file.</li>
+        <li>Source - annotation source for the feature ID as specified in the annotation file.</li>
+        <li>Chr - chromosome.</li>
+        <li>Strand - chromosome strand.</li>
+        <li>Isoforms - number of isoforms for this gene.</li>
+        <li>Coding - protein coding status: YES, if there are any coding transcripts, NO otherwise.</li>
+        <li>Annotation Feature Columns - use the 'Add annotation feature column...' menu selection</li>
+    </ul>
+    <!-- SubtabMenuBar:optlog,select,export,dataViz,sigLevel,rerun -->
+    <!-- AddHelp:fdsa,tables,query,gui,tips,edger,dexseq, -->
+</body>
+</html>
+

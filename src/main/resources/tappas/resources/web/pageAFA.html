@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Functional Diversity Analysis</title>
+	<meta charset="UTF-8">
+	<meta name="author" content="H. del Risco">
+	<link rel="stylesheet" type="text/css" href="css/web.css">
+	<script src="scripts/scripts.js"></script>
+	<script src="scripts/slides.js"></script>
+	<script src="scripts/maps.js"></script>
+	<script src="scripts/ebook.js"></script>
+	<script src="scripts/overview.js"></script>
+</head>
+
+<body style="padding-top:0px; margin-left:0px; margin-right:0px; margin-top:0px; height:100%; min-width:620px; width:100%; overflow:auto;" onresize="onResize()" onload="init(false, 'pageAFA', 'Functional Diversity Analysis')" onhashchange="onHashChanged()">
+
+
+  <section id="mainSection" style="position:fixed; left:0px; top:0px; right:0; bottom:0px; display:block; overflow:auto;">
+	<section id="contentSection" style="float:left; margin:auto; width:400px; min-width:725px; display:inline-block;">
+<div id="Top" style="height:12px;"></div>
+<table style="width:100%; vertical-align:middle;">
+  <tr>
+    <td style="text-align:left;"><span id="contentTitle" class="contentTitle">Introduction</span></td>
+    <td style="width:25px;">
+        <div id="pagePrev" class="contentButtonOff" onclick="ebook.pagePrev()">&lt;</div>
+    </td>
+    <td style="width:25px;">
+        <div id="pageNext" class="contentControl contentButton" onclick="ebook.pageNext()">&gt;</div>
+    </td>
+    <td id="tdContentControl" style="width:140px; text-align:right;">
+        <div id="contentControl" class="contentControl" style="padding-left:5px; padding-right:5px;" onclick="toggleContents()">Hide Contents &gt;&gt;</div>
+    </td>
+  </tr>
+</table>
+
+		<section id="pageAFA" class="contentPage">
+<p>The FDA analysis explores the diversity of annotation features in the transcriptome, and their potential to be differently regulated via AltTP mechanisms. 
+Isoforms vary in structural and functional features among isoforms of the same gene. FDA identifies and measures the nature of the variability in a qualitative manner. 
+For every annotation category, all pairwise comparisons between transcript isoforms from the same gene are performed to evaluate whether at least one isoform pair has variability in a feature, 
+either in its annotated genomic position(s) (Positional Varying) or in the presence/absence of the annotated feature (Presence Varying). 
+Note that, given its qualitative nature, FDA evaluates the annotated diversity only, and that expression values are not considered in this analysis.
+
+The Positional Varying approach compares features by genomic position, i.e. by mapping features to genomic coordinates and classifying them as varying if coordinates are not equivalent between gene isoforms. 
+Position disagreement is annotated when >9bp, that is, 3 amino acids, allowing for variability in prediction. In contrast, Presence Varying includes only presence/absence of annotation. 
+For instance, NMD transcript status is based on differences in the transcript-level NMD label. In contrast, transcript attributes such as UTR length, CDS and polyA site positions, 
+are examples of features where only positional evaluation is meaningful. However, a third group of features (such as Pfam domains or transmembrane regions) can be affected by AltTP via both complete skipping 
+and partial disruption of the feature. In these and similar cases, both strategies can be used, and provide complementary insight on AltTP in the potential regulation of the functional or regulatory feature.
+Functional Diversity can be assessed by gene or by feature ID. </p>
+<br/><br/>
+
+<div><span id="Gene" class="contentTitle">Gene-Level FDA</span></div>
+<p>The Gene-Level Diversity analysis evaluates genes as a function of the structural, functional and regulatory features that are modulated by AltTP and reports 
+the diversity rate for each category. As described above, depending on the category and its relationship to the functional properties of a transcript or protein, Functional Diversity 
+is evaluated using a Positional Varying strategy or a Presence Varying strategy. </p>
+
+<br/><br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/FDAdialog.png" style="max-width:100%; max-height:100%;" alt="FDA Parameters"/><br/><br/>
+    <div>Gene-Level FDA Analysis Parameters</div>
+</div>
+<br/><br/>
+When using the application, all FDA parameters are described in the Help page which can be accessed via the Help button located on the bottom left of the dialog window.
+<br/><br/>
+
+<div>
+	<b>Gene-Level Results</b><br/>
+	<p>After running the analysis, the FDA results table will appear in the project data tab, located in the top panel (see image below). 
+	Each table row displays the diversity results for a given gene, for all its annotated categories. The result columns are grouped into transcript and protein categories,
+	depending on whether the feature refers to transcript or protein functions.
+	Each functional category column displays the VARYING or NOT VARYING label for the corresponding gene, indicating whether at least one of its isoforms lacks a functional
+	feature from this category. Blank row cells indicate no features from that particular category were present in any of the gene's isoforms.</p>
+</div><br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/FDAresults.png" style="max-width:100%; max-height:100%;" alt="FDA Results"/><br/><br/>
+    <div>FDA Gene-Level Results</div>
+</div>
+<br/><br/>
+<div>
+	<b>FDA Results Summary</b><br/>
+	<p>The FDA Summary subtab is contained in the project data visualization tab, located in the bottom panel (see image below). 
+	The chart on the left provides varying percentages for each annotation category at the gene level. 
+	The chart on the right provides varying percentages for each annotation feature using pairwise gene isoform comparisons.
+	Click the help button in the FDA SUmmary subtab for a more detailed explanation of these plots.</p>
+</div><br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/FDAsummary.png" style="max-width:100%; max-height:100%;" alt="FDA Results Summary"/><br/><br/>
+    <div>FDA Results Summary</div>
+</div>
+<br/><br/><br/>
+
+<div><span id="ID" class="contentTitle">ID-Level FDA</span></div>
+<p>The ID-Level Feature Diversity Analysis analysis identifies specific functional and regulatory elements (i.e. by feature ID instead of source/functional category) 
+varying across isoforms from the same gene. The diversity status of each ID can also be evaluated via Positional, Presence Varying or both. Feature-Level Diversity Analysis 
+evaluates global variation rates for the feature IDs contained in a given category  and tests their enrichment in varying status using a Fisher's Exact Test. 
+Significance values are then corrected using the Benjamini-Hochberg method for multiple testing correction.
+</p>
+<br/><br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/DFIdialog.png" style="max-width:100%; max-height:100%;" alt="DFI Parameters"/><br/><br/>
+    <div>ID-Level FDA Analysis Parameters</div>
+</div>
+<br/><br/>
+When using the application, all FDA parameters are described in the Help page, which can be accessed via the Help button located at the bottom of the dialog window.
+<br/><br/>
+
+<br/><br/><br/>
+<div>
+	<b>ID-Level FDA Results</b><br/>
+	<p>The ID-Level FDA Results Table is contained in the project data tab located in the top tab panel (see image below). 
+	Each table row displays the ID of a functional feature from the analyzed category (Description and Source columns can be added by clicking the (+) button on the
+	right hand-side of the top panel). Columns indicate the number of genes where each feature was detected as VARYING or NOT VARYING, as well as the p-value and
+	adjusted p-value (FDR) obtained from the significance test.
+	</p>
+</div><br/>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/DFIresults.png" style="max-width:100%; max-height:100%;" alt="DFI Results"/><br/><br/>
+    <div>ID-Level FDA Results</div>
+</div>
+
+<br/><br/>
+
+
+<div><span id="Combined" class="contentTitle">ID-Level FDA Combined Results</span></div>
+<p>When an ID-Level FDA has been run twice for the same category using the genomic position and feature presence approaches, a combined results option will be unlocked
+in the Diversity menu (main menu bar). This is available for all categories that can be analyzed considering total skipping of the feature and partial disruption (for instance,
+PFAM Domains). The frequencies of both types of variation can be compared by generating this Combined Results plot.
+</p>
+<div style="text-align:center; margin:auto; padding-left:20px; padding-right:20px;">
+    <img src="images/DFIassoc.png" style="max-width:100%; max-height:100%;" alt="DFI Results Summary"/><br/><br/>
+    <div>ID-Level FDA Combined Results</div>
+</div>
+<br/><br/>
+
+		</section>
+	</section>
+<aside id="contentItems" class="contentMenuApp">
+    <div style="height:19px;"></div>
+    <span style="color:slategray; font-size:medium; font-weight:bold;">Contents<br/></span>
+    <div style="height:3px;"></div>
+    <div id="pageIntro_Top" class="contentItem"><a href="pageIntro.html#Top" class="notSelected">Introduction</a></div>
+    <div id="pageIntro_subitems" class="contentSubItems">
+            <div id="pageIntro_Reqs" class="contentItem" style="padding-left:10px;"><a href="pageIntro.html#Reqs" class="notSelected">Application Requirements</a></div>
+    </div>
+    <div id="pageProjects_Top" class="contentItem"><a href="pageProjects.html#Top" class="notSelected">Projects</a></div>
+    <div id="pageProjects_subitems" class="contentSubItems">
+            <div id="pageProjects_InputData" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#InputData" class="notSelected">Input Data and Filtering</a></div>
+            <div id="pageProjects_Normalization" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#Normalization" class="notSelected">Expression Data Normalization</a></div>
+            <div id="pageProjects_DesignFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#DesignFileFormat" class="notSelected">Experiment Design File Format</a></div>
+            <div id="pageProjects_ExpMatrixFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#ExpMatrixFileFormat" class="notSelected">Expression Matrix File Format</a></div>
+            <div id="pageProjects_AnnotationFileFormat" class="contentItem" style="padding-left:10px;"><a href="pageProjects.html#AnnotationFileFormat" class="notSelected">Annotation File Format</a></div>
+    </div>
+    <div id="pageAppXface_Top" class="contentItem"><a href="pageAppXface.html#Top" class="notSelected">Application Interface</a></div>
+    <div id="pageAppXface_subitems" class="contentSubItems">
+            <div id="pageAppXface_Layout" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Layout" class="notSelected">GUI Layout</a></div>
+            <div id="pageAppXface_Menus" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Menus" class="notSelected">Context-Sensitive Menus</a></div>
+            <div id="pageAppXface_Tabs" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tabs" class="notSelected">Tab Panels, Tabs, and Subtabs</a></div>
+            <div id="pageAppXface_SubtabMenuBar" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#SubtabMenuBar" class="notSelected">Subtabs Menu Bar</a></div>
+            <div id="pageAppXface_Tables" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Tables" class="notSelected">Tables</a></div>
+            <div id="pageAppXface_Visual" class="contentItem" style="padding-left:10px;"><a href="pageAppXface.html#Visual" class="notSelected">Visual Display Controls</a></div>
+    </div>
+    <div id="pageAppTips_Top" class="contentItem"><a href="pageAppTips.html#Top" class="notSelected">Application Tips</a></div>
+    <div id="pageDataViz_Top" class="contentItem"><a href="pageDataViz.html#Top" class="notSelected">Data Visualization</a></div>
+    <div id="pageDataViz_subitems" class="contentSubItems">
+            <div id="pageDataViz_DVAccess" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#DVAccess" class="notSelected">Accessing Data Visualizations</a></div>
+            <div id="pageDataViz_GeneDV" class="contentItem" style="padding-left:10px;"><a href="pageDataViz.html#GeneDV" class="notSelected">Gene Data Visualization</a></div>
+    </div>
+    <div id="pageDrillDown_Top" class="contentItem"><a href="pageDrillDown.html#Top" class="notSelected">Data Drill Down</a></div>
+    <div id="pageExport_Top" class="contentItem"><a href="pageExport.html#Top" class="notSelected">Export Data and Images</a></div>
+    <div id="pageQuery_Top" class="contentItem"><a href="pageQuery.html#Top" class="notSelected">Ad Hoc Query</a></div>
+    <div id="pageQuery_subitems" class="contentSubItems">
+            <div id="pageQuery_Search" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Search" class="notSelected">Simple Search</a></div>
+            <div id="pageQuery_Query" class="contentItem" style="padding-left:10px;"><a href="pageQuery.html#Query" class="notSelected">Row Selection Query</a></div>
+    </div>
+    <div id="pageAFA_Top" class="contentItem"><a href="pageAFA.html#Top" class="notSelected">Functional Diversity Analysis</a></div>
+    <div id="pageAFA_subitems" class="contentSubItems">
+            <div id="pageAFA_Gene" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Gene" class="notSelected">Gene-Level FDA</a></div>
+            <div id="pageAFA_ID" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#ID" class="notSelected">ID-Level FDA</a></div>
+            <div id="pageAFA_Combined" class="contentItem" style="padding-left:10px;"><a href="pageAFA.html#Combined" class="notSelected">ID-Level FDA Combined Results</a></div>
+    </div>
+    <div id="pageDEA_Top" class="contentItem"><a href="pageDEA.html#Top" class="notSelected">Differential Expression Analysis</a></div>
+    <div id="pageDIU_Top" class="contentItem"><a href="pageDIU.html#Top" class="notSelected">Differential Isoform Usage Analysis</a></div>
+    
+    <div id="pageEA_Top" class="contentItem"><a href="pageEA.html#Top" class="notSelected">Enrichment Analysis</a></div>
+    <div id="pageEA_subitems" class="contentSubItems">
+            <div id="pageEA_FEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEA" class="notSelected">Functional Enrichment Analysis</a></div>
+            <div id="pageEA_FEAClusters" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#FEAClusters" class="notSelected">Enriched Features Clusters</a></div>
+            <div id="pageEA_GSEA" class="contentItem" style="padding-left:10px;"><a href="pageEA.html#GSEA" class="notSelected">Gene Set Enrichment Analysis</a></div>
+    </div>
+</aside>
+<div style="clear:both;"></div>
+
+  </section>
+
+</body>
+</html>

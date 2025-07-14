@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GSEA Multidimensional Enrichment Dialog</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">GSEA Multidimensional Enrichment Dialog</span></div>
+    <p>
+    The GSEA Multidimensional Enrichment Summary table shows a shortlisted version of the Multidimensional GSEA
+    Results table, using user-defined criteria to select GO terms for further analysis. 
+    Features may be selected using two options, available through the parameter emerging window:
+    </p>
+    <ul>
+        <li><b>By p-value</b> - significance columns for both ranked lists will be filtered using the user-defined
+        threshold value, and the top 25 GO terms in each ranked list will be shown (i.e. total displayed: 50 GO terms).
+        GO term no. limitations are designed to keep MDGSA cluster visualizations interpretable, due to the high number of
+        GO terms typically returned as significant by the multidimensional MDGSA analysis method.</li>
+        <li><b>By list</b> - as an alternative to the p-value based filter implemented in tappAS, users may wish to manually
+        select GO terms returned by the multidimensional GSEA method for joint visualization. In this case, 
+        a custom list of GO term IDs can be provided to generate the Multidimensional Enrichment Summary table.</li>
+    </ul>
+</body>
+</html>
+

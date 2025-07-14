@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="paneContents" prefHeight="300.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane fx:id="grdMain" style="-fx-background-color: -fx-background;" vgap="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <padding>
+            <Insets left="3.0" />
+         </padding>
+         <children>
+            <ScrollPane fx:id="spGenes" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+               <content>
+                  <BarChart fx:id="barGenes" animated="false" barGap="1.0" categoryGap="5.0" legendVisible="false" title="Genes with DS Condition(s)">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <xAxis>
+                        <NumberAxis animated="false" autoRanging="false" label="Genes with DS Feature(s) %" side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <CategoryAxis animated="false" label="Features" side="LEFT" />
+                     </yAxis>
+                  </BarChart>
+               </content>
+            </ScrollPane>
+            <ScrollPane fx:id="spCondition" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;">
+               <content>
+                  <StackedBarChart fx:id="barCondition" animated="false" categoryGap="5.0" title="DS Condition Favored Condition">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                    <xAxis>
+                      <NumberAxis animated="false" autoRanging="false" label="DS Features %" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <CategoryAxis animated="false" label="Features" side="LEFT" />
+                    </yAxis>
+                  </StackedBarChart>
+               </content>
+            </ScrollPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

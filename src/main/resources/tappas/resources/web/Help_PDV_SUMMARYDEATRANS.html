@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transcripts DEA Summary</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle">Project Data Visualization: Transcripts DEA Summary</span></div>
+    <p>The Transcripts DEA Summary subtab contains multiple visual display controls, along with a supporting table, summarizing the transcripts DEA results.
+    The display controls are described below by position, left to right.</p>
+    <div style="padding-left:25px;">
+        <p><b>Transcripts DEA Results</b> pie chart and data table - the pie chart displays the proportions for differentially and not differentially expressed transcripts.
+            The table displays the following table columns for coding, non-coding, and total transcripts:</p>
+        <ul>
+            <li>Transcript - transcript type</li>
+            <li>DE - number of differentially expressed transcripts of given type</li>
+            <li>Not DE - number of NOT differentially expressed transcripts of given type</li>
+            <li>Total - total number of transcripts of given type</li>
+        </ul>
+        <p><b>Transcripts Log2 Fold Change Distribution</b> bar chart - displays the L2FC distribution for all transcripts.
+            The bins for the fold changes are shown on the x-axis with the down-regulated transcripts on the left part and the up-regulated transcripts on the right. 
+            Square brackets, [], are used to denote values that are inclusive and parentheses, (), for values that are exclusive. 
+            For example, a bin with a "[5, 10)" label contains values from 5 to less than 10, i.e. inclusive of 5 but exclusive of 10.
+            Note that up and down regulation is based on the condition comparison you selected for the analysis.
+            The total number of transcripts for a given bin is determined by the height of the bars along the y-axis.
+            Negative values are used for down regulated counts, on the y-axis, for visualization purposes only; counts are always positive.
+        </p>
+    </div>
+    <!-- DVReminders -->
+    <!-- SubtabMenuBar:export -->
+    <!-- AddHelp:dea,visual,menus,gui,tips -->
+</body>
+</html>
+

@@ -1,0 +1,54 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 6, 2015, 3:05:38 PM
+    Author     : hdelrisco
+*/
+
+p {
+   font: normal medium sans-serif;
+}
+span.dlgTitle {
+    font: bold x-large sans-serif;
+    color: #a2ca72;
+}
+span.sectionTitle {
+    font-size:large;
+    font-weight:bold;
+    color: #a2ca72;
+}
+span.marker {
+    font-size:medium;
+    font-weight:bold;
+    color: #a2ca72;
+}
+span.attentionColor {
+    color:orangered;
+}
+table.matrix {
+    border: 0px;
+    padding-left:0px;    
+}
+table.matrix td {
+    padding-left: 30px;
+}
+table.matrix th {
+    padding-left: 30px;
+    text-align: left;
+}
+ol.dlgSection {
+    font-weight: bold;
+    color: #a2ca72;    
+}
+ul.dlgFields {
+    font-weight: normal;
+    color: black;
+    padding-top:2px;
+}
+.notes {
+   font: normal small sans-serif;
+   color: gray;
+}

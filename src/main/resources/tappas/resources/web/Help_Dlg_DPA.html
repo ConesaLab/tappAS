@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Differential PolyAdenylation (DPA) Analysis parameters</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Ángeles Arzalluz-Luque">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>Differential PolyAdenylation (DPA) Analysis parameters</b></span></div>
+    <p>To evaluate Differential PolyAdenylation (DPA), you must provide the following information:
+    </p>
+    <ol class="dlgSection">
+        <li>PolyAdenylation range
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Minimum value for differentiation - </b>number of base pairs to call a different polyA site between isoforms.
+		All alternative polyA sites in a gene's isoforms that are less than x base pairs apart (where x is the provided threshold) are collapsed and considered to be a result of stochastic polyA site variation.
+            </div>
+        </li>
+        <li>Analysis Method section
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Method - </b>select which analysis method to use for DPA:
+                <ul class="dlgFields">
+                    <li>DEXSeq - The package is focused on finding differential exon usage using RNA-seq exon counts between samples with different experimental designs. 
+                        It provides functions that allows the user to make the necessary statistical tests based on a model that uses the negative binomial distribution to estimate the variance 
+                        between biological replicates and generalized linear models for testing.</li>
+		    <li>maSigPro - Differential isoform expression usage for RNA-seq data in single and multiple time-course experiments. 
+			After summing the expression of the distal-expressing and proximal-expressing isoforms 
+			for the two defined polyA sites in each gene, tappAS uses the Iso-maSigPro functionality in the maSigPro R package. 
+			maSigPro applies linear regression to model gene expression and selects significant genes via a two-step algorithm. 
+			maSigPro returns lists of genes with statistically significant changes along time and across the different series.<br/><br/></li>
+                </ul>
+            </div>
+        </li>
+        <li>Analysis Parameters section
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Significance Level - </b>specify the significance level required to call a gene as DPA (default: 0.05)
+            </div>
+	    <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Polynomial Degree - </b>(time-course only) degree for the maSigPro regression model. The maximum allowed degree is time_points-1.
+            </div>
+	    <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Filtering - </b>specify whether or not to filter minor isoforms prior to testing for Differential PolyAdenylation. 
+												Recommended to prevent spurious detection of DPA genes due to small usage changes in minor isoforms (i.e. very lowly expressed). 
+												Two methods are available:
+                <ul class="dlgFields">
+                    <li>Filtering by proportion - <span style="font-weight: normal;">does not consider isoforms that represent a proportion of gene expression that is below the specified threshold (default: 0.2)</span><br/></li>
+                    <li>Filtering by fold expression difference - <span style="font-weight: normal;">compares all isoforms to the major (i.e. the one with highest mean expression across conditions) and filters 
+													those with a fold difference above the specified threshold (default: 2)</span><br/><br/></li>
+                </ul>
+	    </div>
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Max K Clusters - </b>(time-course only) to show the trajectories in plots, maSigPro visualization applies clustering methods to group 
+											genes with similar distal polyA site usage trends, and summarizes this in the graphical display. 
+											This parameter determines the maximum number of clusters to classify genes into.
+											Enable the "Use mclust for optimal number" option to use a method to dynamically determine the number of clusters.
+            </div>
+        </li>
+    </ol>
+    <!-- AddHelp:dfi,edger,dexseq,gui,tips -->
+    <br/><br/>
+</body>
+</html>
+

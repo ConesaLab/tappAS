@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feature Diversity Analysis parameters</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Ángeles Arzalluz-Luque & H. del Risco">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>Feature Diversity Analysis parameters</b></span></div>
+    <p>To run Feature Diversity Analysis (FDA), you must provide the following information:
+    </p>
+    <ol class="dlgSection">
+        <li>List of genes section:
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Test list - </b>select the list of genes on which FDA will be performed.
+                Users can select all genes in the project, or provide a list of gene IDs.
+            </div>
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>List file - </b>browse directories and select the gene list file. Must be formatted as a single-column .tsv file.<br/><br/>
+            </div>
+        </li>
+
+        <li>Analysis parameters:
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Name - </b>choose a name for the analysis.
+            </div>
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Analyze by: </b>
+		<ul class="dlgFields">
+                    <li>Category - <span style="font-weight: normal;">for the selected annotation feature categories (for example, PFAM), FDA analyses all annotated genes and confers varying status if 
+								      at least one of the isoforms does not contain it. This may account for one or more of the IDs contained in the gene (one gene may contain several PFAM domains,
+								      but variation in one is enough to label PFAM as VARYING for it). Varying status is hence flagged by category, independent of the specific feature ID or IDs 
+								      that vary in each of the genes.</span><br/></li>
+                    <li>ID - <span style="font-weight: normal;">for the selected annotation feature category, each feature ID is evaluated for varying status for all annotated genes. 
+								An ID-sensitive count matrix is produced for each feature, indicating the no. of varying and not varying genes. 
+								Data drill down is available for this analysis results.</span><br/><br/></li>
+                </ul>
+            </div>
+	    <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Check using - criteria used to confer varying status:</b>
+		<ul class="dlgFields">
+                    <li>Fetaure genomic position - <span style="font-weight: normal;">varying status is confered when the start and/or end positions of an annotation feature are different across isoforms of a gene.
+										      Accounts for partial feature disruption.</span><br/></li>
+                    <li>Feature presence - <span style="font-weight: normal;">varying status is confered only if the feature is completely missing for at least one of the isoforms of that gene. Accounts for 
+									      feature losses.</span></li>
+                </ul>
+	    Note that, in cases where a feature category can only be evaluated using one criteria (for example, NMD status can only be assessed by presence), these will disappear from the "Select Annotation Feature" menu.<br/><br/>
+            </div>
+        </li>
+
+        <li>Select Annotation Feature(s) Section
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Annotation Feature(s) - </b>select the annotation feature(s) to include in the FDA.
+                Note that the tree contains one branch per annotation source and each branch can be expanded to show all the features it contains.
+                You may select all features for a given annotation source or expand and select specific features only.
+                You may include any number of features from multiple annotation sources. 
+		Note that, for ID-level analysis, only one feature category at a time can be selected.
+            </div>
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Clear All - </b>click to clear all selected features
+            </div>
+            <div style="padding-top:7px; padding-left:10px; font-weight: normal; color:black;"><b>Check All - </b>click to check, select, all features
+            </div>
+        </li>
+    </ol>
+
+
+    <!-- AddHelp:fda,gui,tips -->
+    <br/><br/>
+</body>
+</html>
+

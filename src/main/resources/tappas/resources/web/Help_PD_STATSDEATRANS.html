@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DEA Results for Transcripts</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="H. del Risco & Ángeles Arzalluz-Luque">
+    <link href="css/web.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+</head>
+
+<body style="padding:5px; margin:0px; border:0px; border-spacing:0px;">
+    <div><span class="contentTitle"><b>DEA Results for Transcripts</b></span></div>
+    <p>The DEA Results data table for transcripts displays the statistical analysis results combined with expression and annotation data. 
+        The following table columns are displayed by default:</p>
+    <ul>
+        <li>Transcript - transcript identifier as provided in the expression matrix.</li>
+        <li>Gene - gene identifier as provided in the annotation file.</li>
+        <li>Gene Description - gene description, if any, as provided in the annotation file.</li>
+        <li>DEA Result - DEA result: DE, differentially expressed, or NOT DE.</li>
+        <li>Regulated (two-group comparisons only) - regulation if DE: UP/DOWN, or blank if Not DE.</li>
+        <li>Log2FC - log2 fold change value, log2(FC).</li>
+        <li>Condition1 MeanExpLevel - the mean of the normalized transcript expression levels for all samples in condition 1.</li>
+        <li>Condition2 MeanExpLevel - the mean of the normalized transcript expression levels for all samples in condition 2.</li>
+	</ul>
+Note that "condition" is shown only in the case of two-group comparisons, while group name and time-point indicator are shown for single and multiple time-course designs.
+    <ul>
+	<li>Cluster (only for single and multiple time series) - cluster number that the transcript was assigned to if DE.</li>
+    </ul>
+   <span style="padding-left:25px; font-weight:bold;">NOISeq columns:</span>
+    <ul>
+        <li>Probability - probability value for the given DE result (values between 0 and 1).</li>
+        <li>(1 - Probability) - 1 minus the probability value for given result. Provides the value used for the significance test.</li>
+    </ul>
+
+    <span style="padding-left:25px; font-weight:bold;">edgeR columns:</span>
+    <ul>
+        <li>p-Value - significance value obtained for DE testing.</li>
+        <li>FDR - False Discovery Rate. Provides the multiple-testing corrected significance value.</li>
+        <li>LogCPM - average log2 of Counts Per Million value for all groups/time-points.</li>
+    </ul>
+    <!-- RowColumns -->
+    <!-- HiddenColumns -->
+    <ul>
+        <li>Chr - chromosome</li>
+        <li>Strand - chromosome strand</li>
+        <li>Coding - protein coding status: YES or NO</li>
+        <li>Structural Category - structural category classification as provided in the annotation file</li>
+        <li>Structural Attributes - structural attributes as provided in the annotation file</li>
+        <li>Annotation Feature Columns - use the 'Add annotation feature column...' menu selection</li>
+    </ul>
+    <!-- SubtabMenuBar:optlog,select,export,dataViz,sigLevel,rerun -->
+    <!-- AddHelp:dea,tables,query,gui,tips,noiseq,edger -->
+</body>
+</html>
+

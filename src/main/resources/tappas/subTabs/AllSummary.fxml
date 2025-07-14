@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="300.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fx:id="spAll" fitToHeight="true" fitToWidth="true" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <content>
+          <AnchorPane fx:id="paneContents" minHeight="600.0">
+               <children>
+                  <GridPane hgap="3.0" style="-fx-background-color: -fx-background;" vgap="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <PieChart fx:id="pieSummaryTransStructCats" animated="false" labelsVisible="false" legendSide="RIGHT" minWidth="200.0" style="-fx-font-size: 11; -fx-border-width: 0 1 0 0; -fx-border-color: lightgray;" title="Transcript Structural Categories" GridPane.columnIndex="2" GridPane.rowSpan="2" />
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 1 0 0; -fx-border-color: lightgray;" GridPane.rowSpan="2">
+                           <children>
+                              <TableView fx:id="tblSummary" maxHeight="229.0" prefHeight="229.0" prefWidth="194.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="35.0">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn editable="false" prefWidth="200.0" sortable="false" text="Data Type" />
+                                    <TableColumn editable="false" prefWidth="100.0" sortable="false" style="-fx-alignment: CENTER-RIGHT;" text="Isoforms" />
+                                 </columns>
+                              </TableView>
+                              <Label alignment="CENTER" layoutX="36.0" layoutY="14.0" text="Data Summary" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <BarChart fx:id="barChartDistribution" animated="false" barGap="0.0" categoryGap="1.0" style="-fx-border-width: 0 1 0 0; -fx-border-color: lightgray;" title="Chart Title" GridPane.columnIndex="1" GridPane.rowSpan="2">
+                           <xAxis>
+                              <CategoryAxis label="X Axis Label" side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="Y Axis Label" side="LEFT" />
+                           </yAxis>
+                        </BarChart>
+                        <BarChart fx:id="barSummaryTransExp" animated="false" barGap="1.0" categoryGap="1.0" minWidth="250.0" style="-fx-font-size: 11; -fx-border-width: 0 1 0 0; -fx-border-color: lightgray;" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </BarChart>
+                        <BarChart fx:id="barAnnotation" animated="false" barGap="0.0" categoryGap="5.0" style="-fx-border-width: 0 1 0 0; -fx-border-color: lightgray;" title="Annotation Sources" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                           <xAxis>
+                              <CategoryAxis label="Annotation Sources" side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="Isoforms" side="LEFT" />
+                           </yAxis>
+                        </BarChart>
+                        <Pane fx:id="panePCAChart" style="-fx-background-color: -fx-background;" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                           <children>
+                              <ProgressIndicator fx:id="piDensityPlot" progress="0.01" />
+                           </children>
+                        </Pane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: gray;" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" top="4.0" />
+                           </GridPane.margin>
+                        </AnchorPane>
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="160.0" prefWidth="180.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="250.0" prefWidth="300.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="225.0" prefWidth="250.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="120.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints />
+                     </rowConstraints>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane id="AnchorPane" maxHeight="420.0" minWidth="680.0" prefHeight="420.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblMsg" alignment="CENTER" layoutX="14.0" layoutY="164.0" textFill="ORANGERED" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <GridPane layoutX="94.0" layoutY="143.0" prefHeight="407.0" prefWidth="700.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="15.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="540.0" minWidth="540.0" prefWidth="540.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Annotation Features:" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></Label>
+            <Label fx:id="lblValue" text="Value(s):" visible="false" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></Label>
+            <TreeView fx:id="tvFeatures" editable="true" maxWidth="515.0" prefHeight="213.0" prefWidth="515.0" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.rowSpan="2">
+               <GridPane.margin>
+                  <Insets top="5.0" />
+               </GridPane.margin>
+            </TreeView>
+            <Label text="Columns:" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="cbColType" prefHeight="25.0" prefWidth="294.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <CheckBox fx:id="chkPrefix" mnemonicParsing="false" text="Prefix ID/Name with feature name, e.g. &quot;DOMAIN:PF04389&quot; vs &quot;PF04389&quot;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="1.0" top="3.0" />
+               </GridPane.margin>
+            </CheckBox>
+            <Label text="Column Title:" GridPane.rowIndex="1" />
+            <TextField fx:id="txtColName" maxWidth="200.0" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label disable="true" text="You may select one or more features from a single annotation source" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets left="1.0" top="3.0" />
+               </GridPane.margin>
+            </Label>
+            <TreeView fx:id="tvColumns" maxWidth="515.0" prefHeight="85.0" prefWidth="515.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
+               <GridPane.margin>
+                  <Insets top="5.0" />
+               </GridPane.margin>
+            </TreeView>
+            <CheckBox fx:id="chkAutoName" mnemonicParsing="false" text="Use selected annotation source name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="220.0" />
+               </GridPane.margin>
+            </CheckBox>
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </GridPane>
+   </children>    
+</AnchorPane>
