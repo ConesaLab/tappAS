@@ -4,11 +4,13 @@ on:
   pull_request:
     types: [closed]
     branches: [ "master" ]
+  push:
+    branches: [ "master" ]
   workflow_dispatch:
 
 jobs:
   build:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -73,7 +75,7 @@ jobs:
           
           
   release:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     needs: build
     runs-on: ubuntu-latest
 
@@ -121,7 +123,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Subir binarios a la release
+      - name: Upload binary files to release
         uses: softprops/action-gh-release@v2
         with:
           files: |
