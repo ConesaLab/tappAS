@@ -32,7 +32,7 @@ jobs:
       - name: Install WiX Toolset (Windows only)
         if: runner.os == 'Windows'
         run: choco install wixtoolset
-        
+
       - name: Make scripts executable (Linux/macOS)
         if: runner.os != 'Windows'
         run: chmod +x scripts/*.sh
@@ -51,9 +51,9 @@ jobs:
 
       - name: Upload Linux artifact
         if: runner.os == 'Linux'
-  	uses: actions/upload-artifact@v4
-  	with:
-    	  name: packaged-linux
+        uses: actions/upload-artifact@v4
+        with:
+          name: packaged-linux
           path: dist/linux
 
       - name: Upload Windows artifact
@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: packaged-windows
-          path: dist/windows
+          path: dist/win
 
       - name: Upload macOS artifact
         if: runner.os == 'macOS'
@@ -69,4 +69,3 @@ jobs:
         with:
           name: packaged-macos
           path: dist/macos
-
