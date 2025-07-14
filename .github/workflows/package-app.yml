@@ -1,13 +1,14 @@
 name: Generate App Images (Windows, Linux, macOS)
 
 on:
-  push:
-    branches:
-      - v.1.1.0
+  pull_request:
+    types: [closed]
+    branches: [ "master" ]
   workflow_dispatch:
 
 jobs:
   build:
+    if: github.event.pull_request.merged == true
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -53,19 +54,74 @@ jobs:
         if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
-          name: packaged-linux
+          name: tappAS-linux
           path: dist/linux
 
       - name: Upload Windows artifact
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4
         with:
-          name: packaged-windows
+          name: tappAS-windows
           path: dist/win
 
       - name: Upload macOS artifact
         if: runner.os == 'macOS'
         uses: actions/upload-artifact@v4
         with:
-          name: packaged-macos
+          name: tappAS-macos
           path: dist/macos
+          
+          
+  release:
+    if: github.event.pull_request.merged == true
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Linux artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tappAS-linux
+          path: dist/linux
+
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tappAS-windows
+          path: dist/win
+
+      - name: Download macOS artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tappAS-macos
+          path: dist/macos
+          
+      - name: Read version
+        id: version
+        run: echo "VERSION=$(cat version.txt)" >> $GITHUB_OUTPUT
+        
+      - name: Read release body from file
+        id: body
+        run: |
+          echo "BODY<<EOF" >> $GITHUB_OUTPUT
+          cat RELEASE_BODY.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.VERSION }}
+          name: tappAS ${{ steps.version.outputs.VERSION }}
+          body: ${{ steps.body.outputs.BODY }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Subir binarios a la release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/linux/**
+            dist/win/**
+            dist/macos/**
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
