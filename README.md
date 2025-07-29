@@ -19,6 +19,9 @@ For further installation instructions and information on compatibility
 and dependencies, see [the Install file](https://app.tappas.org/resources/downloads/install.pdf) or visit the 
 [tappAS website](https://app.tappas.org/).
 
+**NOTE:** The macOS version of the application may be blocked by the system when you try to open it for the first time. 
+To allow it to run, go to System Preferences > Security & Privacy, and under the General tab, click "Open Anyway". This only needs to be done once.
+
 **WARNING: any release of tappAS < 1.0.0 constitutes a beta version. Use at your own risk.** 
 If you were using version 0.99.15 or below, we recommend replacing it with tappAS 1.0.0 or above. 
 In this case, due to major changes in the application functioning, you'll need to delete the 
