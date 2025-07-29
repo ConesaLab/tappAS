@@ -30,7 +30,7 @@ cp "target/$JAR_NAME" "$APP_DIR/"
 
 echo "Packaging app with jpackage..."
 jpackage \
-  --type dmg \
+  --type app-image \
   --name "$APP_NAME" \
   --input "$APP_DIR" \
   --main-jar "$JAR_NAME" \

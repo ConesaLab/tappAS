@@ -52,7 +52,7 @@ public class Tappas extends Application {
     public static final String APP_NAME = "tappas";
     public static final int APP_MAJOR_VER = 1;
     public static final int APP_MINOR_VER = 1;
-    public static final int APP_STRREV = 0;
+    public static final int APP_STRREV = 1;
     public static final String RES_VER_FILE = "resource_v" + APP_MAJOR_VER + "." + APP_MINOR_VER + "." + APP_STRREV + ".txt";
     public static final String APP_LOCK_FILE = ".tappas.lock.prm";
     public static final String APP_PORT_PARAM = "port";
