@@ -60,7 +60,8 @@ public class App {
     
     private String rscriptVer = "Rscript version: N/A\nWARNING: You must have Rscript installed and in your environment path.";
     private TaskHandler taskHandler = null;
-    private final String appRunPath = System.getProperty("user.dir");
+    private final String appRunPath;
+    //private final String appRunPath = System.getProperty("user.dir");
     private final AnnotationFiles annotationFiles;
     // annotation annotation files available in the server
     private ArrayList<AnnotationFiles.AnnotationFileInfo> lstServer = new ArrayList<>();
@@ -69,7 +70,8 @@ public class App {
     
     // application objects - must pass 'this' App object if instantiating before App constructor done (value has not been saved yet)
     // WARN: create application logger before creating any other AppObjects
-    public final Logger logger = new Logger(this, Paths.get(appRunPath, DataApp.APPLOG_NAME).toString(), Logger.Level.Debug);
+    public final Logger logger;
+    // public final Logger logger = new Logger(this, Paths.get(appRunPath, DataApp.APPLOG_NAME).toString(), Logger.Level.Debug);
     public final Controls ctls = new Controls(this);
     public final UserPrefs userPrefs = new UserPrefs(this);
     public final Resources resources = new Resources(this);
@@ -87,6 +89,28 @@ public class App {
     public static boolean isNoGOExpansionLimits() { return noGOExpansionLimits; }
     
     public App() {
+        // 1. Determine a safe path in the user's HOME directory
+        // Mac/Linux: /Users/user/.tappas
+        // Windows: C:\Users\User\.tappas
+        String userHome = System.getProperty("user.home");
+        Path safePath = Paths.get(userHome, ".tappas");
+        File safeDir = safePath.toFile();
+
+        // 2. Create the directory if it does not exist
+        if (!safeDir.exists()) {
+            try {
+                safeDir.mkdirs();
+            } catch (Exception e) {
+                // If it fails (rare), log error (could fallback to temp/local)
+                System.err.println("Error creating .tappas directory: " + e.getMessage());
+            }
+        }
+
+        // 3. Assign values to final variables
+        this.appRunPath = safeDir.getAbsolutePath();
+        
+        // 4. Initialize the Logger now that we know the path exists
+        this.logger = new Logger(this, Paths.get(this.appRunPath, DataApp.APPLOG_NAME).toString(), Logger.Level.Debug);
         // set locale to US/UK, if neither, otherwise can run into issues with number formats in R packages
         // need to validate this with computer set to a foreign locale to make sure there are no issues
         // will log message if changed later on at initialization
