@@ -202,7 +202,8 @@ public class DataApp extends AppObject {
     public static final String RESULTS_GENE_PROT = "result_gene_prot.tsv";
 
     // class data
-    private final String appRunPath = System.getProperty("user.dir");
+    //private final String appRunPath = System.getProperty("user.dir");
+    private final String appRunPath = Paths.get(System.getProperty("user.home"), ".tappas").toString();
     private String appBaseFolder;
     private String appProjectsBaseFolder;
     private String appFolder = "";
@@ -216,7 +217,7 @@ public class DataApp extends AppObject {
         try {
             if(Files.exists(Paths.get(getRScriptOverwriteFilepath()))) {
                 List<String> lines = Files.readAllLines(Paths.get(getRScriptOverwriteFilepath()), StandardCharsets.UTF_8);
-                String rscriptPath = "";
+                //String rscriptPath = "";
                 if(lines != null && lines.size() == 1) {
                     // get full path from user defined entry
                     // deal with windows and spaces in name, e.g. "Program Files"
